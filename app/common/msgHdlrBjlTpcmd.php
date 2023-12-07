@@ -19,7 +19,8 @@ use think\view\driver\Php;
 //bot_sendMsgTxtMode($text, BOT_TOKEN, chat_id);
 //die();
 
-class msgHdlrLhc extends Command
+//class msgHdlrLhc extends Command
+class msgHdlrBjlTpcmd extends Command
 {
     protected function configure()
     {
@@ -54,7 +55,7 @@ class msgHdlrLhc extends Command
 
       //   die();
     
-            $hdr =   new  \app\controller\HandleLhc();
+            $hdr =   new  \app\controller\HandleMsgHdlBjlWebreq();
             $hdr->Bot_Token= $GLOBALS['BOT_TOKEN'];
 
           //  var_dump($json);
@@ -77,7 +78,7 @@ class msgHdlrLhc extends Command
 
           $GLOBALS['reqchain']="wbhk_js";
             //--------process msgt
-            $ret =   $hdr->processMessage($json);
+            $ret = $hdr->processMessage($json);
             $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
             var_dump($lineNumStr);
         //    var_dump($ret);
@@ -107,7 +108,7 @@ class msgHdlrLhc extends Command
                 $set = Setting::find(1);
 
                 $GLOBALS['BOT_TOKEN']= $set->s_value ;
-                $r = bot_sendmsg_reply_byQrystr(  $GLOBALS['BOT_TOKEN'], $urlprm);
+                $r = bot_sendmsg_reply_byQrystrV2(  $GLOBALS['BOT_TOKEN'], $urlprm);
                 \think\facade\Log::info("  " . $r);
                 \think\facade\Log::info("-------------finish------");
                 //     \think\facade\Log::info(  $ret );

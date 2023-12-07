@@ -5,6 +5,8 @@
 //$GLOBALS['cfgOpt']=$cfgOptx;
 
 
+//  php C:\0prj\lhc2023\cmd/../think   msgHdlrBjlTpcmd
+
 //  php app/main_cmd.php
 global $errdir;
 $errdir = __DIR__."/../runtime"; $GLOBALS['errdir']=$errdir;
@@ -18,7 +20,7 @@ while (true) {
         // $tlghr_msg_hdl = " C:\\w\\jbbot\\tlgrmHdl_temacyo.php ";
         $filename = __DIR__ . "/../think";
         //$filename = __DIR__ . "/ech.php";
-        $cmd = $phpexe . " " . $filename . "    cmd_lhc  ";  //$prm
+        $cmd = $phpexe . " " . $filename . " cmdBjlx";  //$prm
         var_dump($cmd);
       //  exec($cmd);
         log23::zdbg11(__METHOD__,"cmd",$cmd);
@@ -32,4 +34,5 @@ while (true) {
         \libspc\log_err($exception,__METHOD__,$errdir);
      }
     usleep(500*1000);
+    break;
 }

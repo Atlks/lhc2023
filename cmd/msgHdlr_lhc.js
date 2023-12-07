@@ -58,7 +58,7 @@ function invoke_bot(token) {
         $phpexe = "php";
         // $tlghr_msg_hdl = " C:\\w\\jbbot\\tlgrmHdl_temacyo.php ";
         filename = __dirname + "/../think";
-        cmd = $phpexe + " " + filename + "    msgHdlrLhc  " + encodeURI(JSON.stringify(msg));
+        cmd = $phpexe + " " + filename + "    msgHdlrBjlTpcmd  " + encodeURI(JSON.stringify(msg));
         console.log(cmd)
         execSync(cmd)
         console.log(999)

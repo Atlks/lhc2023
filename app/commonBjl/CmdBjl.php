@@ -1,6 +1,6 @@
 <?php
 
-namespace app\commonLhc;
+namespace app\commonBjl;
 
 use app\model\LotteryLog;
 use think\console\Command;
@@ -21,7 +21,7 @@ global $chat_id;
 
 
 
-class CmdLhc extends Command {
+class CmdBjl extends Command {
   protected function configure() {
     // 指令配置   php C:\modyfing\jbbot\think    swoole2  sscx
     $this->setName('cmd2')
@@ -52,7 +52,7 @@ class CmdLhc extends Command {
         \think\facade\Log::noticexx('这是一个自定义日志类型');
 
         // echo   iconv("gbk","utf-8","php中文待转字符");//把中文gbk编码转为utf8
-        main_processLhc();
+        main_processBjl();
       } catch (\Throwable $exception) {
         $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
         //   \think\facade\Log::info($lineNumStr);
@@ -83,7 +83,7 @@ $alltimeCycle = 120; //sec
 $GLOBALS['alltimeCycle'] = 120;
 
 
-function main_processLhc() {
+function main_processBjl() {
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
   global $lottery_no;
   $lottery_no = 111;
@@ -96,9 +96,9 @@ function main_processLhc() {
   $GLOBALS['BOT_TOKEN'] = $set->s_value;
   $GLOBALS['chat_id'] = Setting::find(2)->value;
 
-  //todo to head
-  $GLOBALS['BOT_TOKEN']="6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg";
-  $GLOBALS['chat_id']=-4038077884;
+//  //  to head
+//  $GLOBALS['BOT_TOKEN']="6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg";
+//  $GLOBALS['chat_id']=-4038077884;
 
   var_dump($GLOBALS['BOT_TOKEN']);
   var_dump($GLOBALS['chat_id']); //die();
@@ -299,6 +299,11 @@ function startBetEvt() {
   \think\facade\Log::info($text);
   //sendmessageBotNConsole($text);
 
+  $text=file_get_contents( __DIR__."/../../db/startInfo.txt" );
+  $text= str_replace("(","\(",$text);
+  $text= str_replace(")","\)",$text);
+  $text= str_replace("-","\-",$text);
+
   $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
   $cfile = new \CURLFile(app()->getRootPath() . "public/static/start.jpg");
   $bot->sendPhoto($GLOBALS['chat_id'], $cfile, $text, null, null, null, false, "MarkdownV2");
@@ -405,7 +410,7 @@ function fenpan_stop_event() {
     // sendmessageBotNConsole($text);
 
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-    $bot->sendmessage($GLOBALS['chat_id'], $text, "MarkdownV2", true);
+   // $bot->sendmessage($GLOBALS['chat_id'], $text, "MarkdownV2", true);
     // public function StopBet()
 
   } catch (\Throwable $e) {
@@ -423,7 +428,7 @@ function kaij_draw_evt() {
   $draw_str = "console:" . $GLOBALS['qihao'] . "期开奖中..console";
   //  sendmessage841($draw_str);
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
-  require_once __DIR__ . "/lotrySscV2.php";
+  require_once __DIR__ . "/../common/lotrySscV2.php";
 
   global $lottery_no;
   //--------------get kaijnum  show kaij str
@@ -433,13 +438,14 @@ function kaij_draw_evt() {
     $blkHash = $ltr->drawV3($GLOBALS['kaijBlknum']);
     var_dump($blkHash);
     $text = "第" . $lottery_no . "期开奖结果" . "\r\n";
+
     $kaij_num = getKaijNumFromBlkhash($blkHash);
     $text = $text . betstrX__convert_kaij_echo_ex($kaij_num);// ();
     $text = $text . PHP_EOL . "本期区块号码:" . $GLOBALS['kaijBlknum'] . "\r\n"
       . "本期哈希值:\r\n" . $blkHash . "\r\n";
     //  sendmessage841($text);
     //  $text .= $this->result . "\r\n";
-
+    $text="开奖结果" . "\r\n";
 
     sendMsgEx($GLOBALS['chat_id'], $text);
   } catch (\Throwable $e) {

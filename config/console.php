@@ -6,11 +6,11 @@ return [
     // 指令定义
     'commands' => [
         'runx' => 'app\main',
-      'cmd_lhc' => 'app\commonLhc\CmdLhc',
+      'cmdBjlx' => 'app\commonBjl\CmdBjl',
 
       'swoole2' => 'app\common\mainx',
         'keywdReqHdlr' => 'app\common\keywdReqHdlr',
-      'msgHdlrLhc' => 'app\common\msgHdlrLhc',
+      'msgHdlrBjlTpcmd' => 'app\common\msgHdlrBjlTpcmd',
 
 
       'testx' => 'app\common\testCls',

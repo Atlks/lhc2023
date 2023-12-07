@@ -1144,9 +1144,9 @@ class GameLogicSsc
 
 
         //-------------show 开奖结果 和中奖名单
-        $text = "第" . $this->lottery_no . "期开奖结果" .  $result_text . "\r\n";
+        $text = "开奖结果 闲赢\r\n";
         $text  = $text
-            .  betstrX__convert_kaij_echo_ex($result_text) . PHP_EOL
+           // .  betstrX__convert_kaij_echo_ex($result_text) . PHP_EOL
             . "=====本期中奖名单======" . "\r\n";
         // $helper = new Helper();
         //  $helper->BubbleSort1($temp_arr, 'income');

@@ -211,6 +211,8 @@ namespace libspc {
 namespace {
 
 
+  use function libspc\log_err;
+
   function log_e_toReqchain($meth, $varname, $varobj) {
 
     try {
@@ -351,6 +353,7 @@ namespace {
   }
 
 
+  //dep
   function log_enterMeth_reqchain(string $meth, $args, $logf_flag = "info") {
     var_dump(__METHOD__ . json_encode(func_get_args(), JSON_UNESCAPED_UNICODE));
 
@@ -364,6 +367,7 @@ namespace {
   }
 
 
+  //dep
   function log_enterMeth_reqchainWzIniLgfilfrg(string $meth, $args, $logf_flag) {
 
     $args_txt = json_encode($args, JSON_UNESCAPED_UNICODE);
@@ -388,6 +392,41 @@ namespace {
     log_setReqChainLog_enterMeth($meth, $args);
 
   }
+
+  function log_enterMethV2(string $LineNFun, $args, $logf_flag = "info") {
+
+   // var_dump(__METHOD__ . json_encode(func_get_args(), JSON_UNESCAPED_UNICODE));
+    if ($logf_flag != "info")
+      $GLOBALS['reqchain'] = $logf_flag;
+
+    try {
+      if(is_array($LineNFun))
+        $LineNFun=json_encode($LineNFun);
+
+
+      $args_txt = json_encode($args, JSON_UNESCAPED_UNICODE);
+
+      // $msg=sprintf("%s%s",$LineFun, $args_txt);
+      //statnd msg tmplt
+      // time >>  fun(((  args )))
+      $logtxt = sprintf("\r\n\r\n%s !>>FUN %s((( %s )))", date('mdHis'), $LineNFun,$args_txt );
+      $logf = __DIR__ . "/../runtime/" . date('Y-m-d') . "_$logf_flag.log";
+
+      file_put_contents($logf, $logtxt . PHP_EOL, FILE_APPEND);
+
+
+
+    } catch (\Throwable $exception) {
+
+      var_dump($exception);
+
+
+    }
+
+  }
+
+
+
 
   function log_ex_toReqChainLog(string $meth, $ex) {
     try {
@@ -463,6 +502,99 @@ namespace {
 
   }
 
+
+  function logV3($method_linenum, $msg, $filFrg = "info") {//log_err
+
+    try {
+
+      $logf = __DIR__ . "/../runtime/" . date('Y-m-d') . "_$filFrg.log";
+     // time [meth()] msg
+      $logtxt = sprintf("%s [%s()] %s", date('mdHis'), $method_linenum, $msg);
+      file_put_contents($logf, $logtxt . PHP_EOL, FILE_APPEND);
+
+
+    } catch (\Throwable $e) {
+      var_dump($e);
+    }
+  }
+
+
+  function log_setReqChainLog_enterMethx($LineFun, $args) {
+
+
+    try {
+      if(is_array($LineFun))
+        $LineFun=json_encode($LineFun);
+
+
+      $args_txt = json_encode($args, JSON_UNESCAPED_UNICODE);
+
+      // $msg=sprintf("%s%s",$LineFun, $args_txt);
+      //statnd msg tmplt
+
+      $logtxt = sprintf("%s ***%s%s \r\n", date('mdHis'), $LineFun,$args_txt );
+
+      log_rcd($logtxt);
+
+
+    } catch (\Throwable $exception) {
+
+      var_dump($exception);
+
+
+    }
+//        if(isset($GLOBALS['reqchain']))
+//            \think\facade\Log::$GLOBALS['reqchain'](__METHOD__ . json_encode($args, JSON_UNESCAPED_UNICODE));
+
+  }
+
+  function log_vardumpRetval($method_linenum,$varobj,$filFrg = "info")
+  {
+    try {
+      if (is_object($varobj) && get_class($varobj) == "Exception") {
+        log_err($varobj, $method_linenum, $filFrg);
+        return;
+      }
+      if (is_object($varobj) || is_array($varobj))
+        $varobj = json_encode($varobj, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+      if (is_bool($varobj))
+        $varobj = $varobj ? "TRUE" : "FALSE";
+
+      if (is_null($varobj))
+        $varobj = "@@@null";
+      $logf = __DIR__ . "/../runtime/" . date('Y-m-d') . "_$filFrg.log";
+      $logtxt = sprintf("%s <<<<< [%s] <<<ret:%s", date('mdHis'), $method_linenum, $varobj);
+      file_put_contents($logf, $logtxt . PHP_EOL. PHP_EOL. PHP_EOL, FILE_APPEND);
+
+
+    } catch (\Throwable $e) {
+      var_dump($e);
+    }
+
+  }
+  function log_Vardump($method_linenum, $varname, $varobj, $filFrg = "info") {//log_err
+
+    try {
+      if (is_object($varobj) && get_class($varobj) == "Exception") {
+        log_err($varobj, $method_linenum, $filFrg);
+        return;
+      }
+      if (is_object($varobj) || is_array($varobj))
+        $varobj = json_encode($varobj, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+      if (is_bool($varobj))
+        $varobj = $varobj ? "TRUE" : "FALSE";
+
+      if (is_null($varobj))
+        $varobj = "@@@null";
+      $logf = __DIR__ . "/../runtime/" . date('Y-m-d') . "_$filFrg.log";
+      $logtxt = sprintf("%s [%s] %s=>%s", date('mdHis'), $method_linenum, $varname, $varobj);
+      file_put_contents($logf, $logtxt . PHP_EOL, FILE_APPEND);
+
+
+    } catch (\Throwable $e) {
+      var_dump($e);
+    }
+  }
 
   function log_setReqChainLog_enterMeth($LineFun, $args) {
 

@@ -24,7 +24,7 @@ function var_dumpx($o) {
 }
 
 
-class Game2handlrLogicLhc {
+class Game2msgHdlBjlCore {
   // 当前玩家
   public $player = null;
   // 用户数据库
@@ -220,15 +220,16 @@ class Game2handlrLogicLhc {
   //msghdl bet
   //  bet v2222
   public function regex_betV2($content) {
+    log_enterMethV2(__METHOD__,func_get_args(), $GLOBALS['lgnm307']);
     //   $GLOBALS['loggerFun']= \think\facade\Log::betnotice;
-    \think\facade\Log::betnotice(__METHOD__ . json_encode(func_get_args()));
+   // \think\facade\Log::betnotice(__METHOD__ . json_encode(func_get_args()));
     // var_dump(__METHOD__. json_encode( func_get_args()));
-    $lineNumStr = __METHOD__ . json_encode(func_get_args()) . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-    \think\facade\Log::info($lineNumStr);
+//    $lineNumStr = __METHOD__ . json_encode(func_get_args()) . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
+//    \think\facade\Log::info($lineNumStr);
     //   define('NO_CACHE_RUNTIME',True);
     var_dumpx("218L betnums:" . $content);
-    \think\facade\Log::info("215L");
-    \think\facade\Log::info($content);
+//    \think\facade\Log::info("215L");
+//    \think\facade\Log::info($content);
     if (!$this->player) return;
     $config = Config::find(1);
     $this->min_limit = $config['Min_limit'];
@@ -257,7 +258,7 @@ class Game2handlrLogicLhc {
 
     //convert
     require_once __DIR__ . "/lotrySscV2.php";
-    require_once __DIR__ . "/Lhc.php";
+    require_once __DIR__ . "/BjlCoreFuns.php";
     try {
 
       $bet_str_arr_clr_spltMltSingle = $this->betstrX__split_convert_decodeLhc($bet_str_clr);
@@ -382,7 +383,7 @@ class Game2handlrLogicLhc {
     $bet_amt_total_arr = [];
     foreach ($bets as $key => $value) {
       // str_
-      $formatEchoBet = betstrX__fmt_lhc($value['text']);
+      $formatEchoBet = betstrX__fmt_bjl($value['text']);
       log_info_toReqchain(__LINE__ . __METHOD__, "formatEchoBet", $formatEchoBet);
 
       array_push($bet_lst_echo_arr, $formatEchoBet);
@@ -421,10 +422,14 @@ class Game2handlrLogicLhc {
     //   var_dump($text);
     //file_put_contents("exGlb304_55808.txt",   $text, FILE_APPEND);
     //    file_put_contents("exGlb304_55808.txt",   var_export($text, true), FILE_APPEND);
-    \think\facade\Log::info("340L");
-    \think\facade\Log::info($text);
+//    \think\facade\Log::info("340L");
+//    \think\facade\Log::info($text);
+//
+//    \think\facade\Log::bettonice("betecho:" . $text);
 
-    \think\facade\Log::bettonice("betecho:" . $text);
+    log_vardumpRetval(__METHOD__,$text, $GLOBALS['lgnm307']);
+
+
     return $text;
 
 
