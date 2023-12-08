@@ -202,29 +202,7 @@ class LotteryHashSsc extends Lottery
         \think\facade\Log::info($log_txt);
         while (true) {
             try {
-                $HexNum = dechex($blkNum);
-                $apikey = parse_ini_file(__DIR__ . "/../../.env")['eth_api_key'];
-                $url = "https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=0x$HexNum&boolean=false&apikey=$apikey";
-                $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-                \think\facade\Log::info($lineNumStr);
-                \think\facade\Log::info($url);
-                $t = $this->http_helper->http_request($url);
-                \think\facade\Log::info($t);
-                \think\facade\Log::debug($t);
-                \think\facade\Log::notice($t);
-                $json = json_decode($t, true);
-                if ($json == null) {
-                    sleep(1);
-                    continue;
-                } else if ($json['result'] == null) {
-                    sleep(1);
-                    continue;
-                } else if ($json['result']['hash'] == null) {
-                    sleep(1);
-                    continue;
-                }
-
-                return  $json['result']['hash'];
+                 return $this->kaijResult();
             } catch (\Throwable $e) {
                 $exception = $e;
                 $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
@@ -308,4 +286,20 @@ class LotteryHashSsc extends Lottery
             return false;
         }
     }
+
+  public function kaijResult() {
+
+    $t=http_post("http://34.150.68.52:8080/user/login/submit","userName=test04&password=aaa111");
+       $json = json_decode($t, true);
+       $token=$json['data']['userInfo']['token'];
+    $url="http://34.150.68.52:8080/api/baccarat/gameinfo";
+   // $tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoidGVzdDA0IiwiYWRtaW5JZCI6MTk0MCwiZXhwIjoxNzAyMDMwMjU0fQ.tYHmlQQtnCiPzOOBBDjtzKjRmG0fWN6JjhWULfiDk-8";
+
+    $t=http_post($url,"tableNo=8&token=".$token);
+    $json = json_decode($t, true);
+    $json['lottery_no']=$json['data'][0]['gameNo'];
+    return $json;
+    //ref ft cur dsk.json
+
+  }
 }

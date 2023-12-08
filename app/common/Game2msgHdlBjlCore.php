@@ -928,6 +928,7 @@ class Game2msgHdlBjlCore {
 
   private function betstrX__split_convert_decodeLhc(string $bet_str_arr_clr) {
    $a=[];
+    $bet_str_arr_clr=betstrX__fmt_bjl($bet_str_arr_clr);
    $a[]=$bet_str_arr_clr;
    return $a;
 

@@ -79,8 +79,7 @@ if (!class_exists("mainx")) {
 global $lottery_no;   // ="glb no";
 static $lottery_no = "...";
 $lottery_no = "...";
-$alltimeCycle = 120; //sec
-$GLOBALS['alltimeCycle'] = 120;
+
 
 
 function main_processBjl() {
@@ -146,28 +145,15 @@ function chkRemainTime_forBet(mixed $bet_time_sec_ramain_adjust) {
 function getStopRemaintime() {
 
 
-  $bet_time = Setting::find(6)->value; //1*60*1000;
-  $bet_time_sec = $bet_time / 1000;
 
-
-  $waring_time = Setting::find(7)->value; //30*1000;
-  $waring_time_sec = $waring_time / 1000;
-
-
-  $all_bet_time = $bet_time_sec + $waring_time_sec;
 
 
   global $lottery_no;
   $stop_bet_time = Setting::find(8)->value; //10*1000;
   $stop_bet_time_sec = $stop_bet_time / 1000;    //  20s
-  $delay_to_statrt_Kaijyo_sec = $stop_bet_time_sec;
 
-  $nowCntTime = $all_bet_time + $stop_bet_time_sec;
 
-  $allPasstime = time() - $GLOBALS['opentime'];
-
-  $remainTime = $nowCntTime - $allPasstime;
-
+  $remainTime =  $stop_bet_time_sec;
 
   $remainTime_adjst = $remainTime > 0 ? $remainTime : 0;
 
@@ -183,46 +169,61 @@ function getStopRemaintime() {
  * @throws \think\db\exception\ModelNotFoundException
  */
 function getBettimeRemain(): array {
-  $bet_time = Setting::find(6)->value; //1*60*1000;
-  $bet_time_sec = $bet_time / 1000;
-
-  global $alltimeCycle;
-  $countdown_time_sec = $GLOBALS['kaijtime'] - time();// if countdown_time_sec120s,so the bettime60s
-  //if countdown_time_sec 100s,so bettime 60-(120-countdown_time_sec)
-  $passtime = ($alltimeCycle - $countdown_time_sec);
-  $bet_time_sec_ramain = $bet_time_sec - $passtime;
-  $bet_time_sec_ramain_adjust = $bet_time_sec_ramain > 0 ? $bet_time_sec_ramain : 0;
-
-  $bet_time_sec_ramain_adjust = chkRemainTime_forBet($bet_time_sec_ramain_adjust);
-
-  //  $bet_time_sec = 10;
-  var_dump(' $bet_time_sec:' . $bet_time_sec_ramain_adjust);
-
-  return array($alltimeCycle, $bet_time_sec_ramain_adjust);
-}
-
-function getWarningBetTimeRemain() {
-
-
-  $bet_time = Setting::find(6)->value; //1*60*1000;
-  $bet_time_sec = $bet_time / 1000;
+//  $bet_time = Setting::find(6)->value; //1*60*1000;
+//  $bet_time_sec = $bet_time / 1000;
+//
 
 
   $waring_time = Setting::find(7)->value; //30*1000;
   $waring_time_sec = $waring_time / 1000;
 
 
-  $all_bet_time = $bet_time_sec + $waring_time_sec;
 
 
-  $countdown_time_sec = $GLOBALS['kaijtime'] - time();// if countdown_time_sec120s,so the bettime60s
+
+
+  $countdown_time_sec =   $GLOBALS['countdownSeconds'];// if countdown_time_sec120s,so the bettime60s
   //if countdown_time_sec 100s,so bettime 60-(120-countdown_time_sec)
-  $passtime = ($GLOBALS['alltimeCycle'] - $countdown_time_sec);
 
-  $all_bet_time_remain = $all_bet_time - $passtime;
+  $bet_time_sec_ramain = $countdown_time_sec - $waring_time_sec;
+
+  if($bet_time_sec_ramain>0)
+    $GLOBALS['cntdown_pass']=false;
+  else
+    $GLOBALS['cntdown_pass']=true;
+
+  $bet_time_sec_ramain_adjust = $bet_time_sec_ramain > 0 ? $bet_time_sec_ramain : 0;
+
+  $bet_time_sec_ramain_adjust = chkRemainTime_forBet($bet_time_sec_ramain_adjust);
 
 
-  $bet_time_sec_ramain_adjust = $all_bet_time_remain > 0 ? $all_bet_time_remain : 0;
+  //  $bet_time_sec = 10;
+  var_dump(' $bet_time_sec:' . $bet_time_sec_ramain_adjust);
+
+  return array(120, $bet_time_sec_ramain_adjust);
+}
+
+function getWarningBetTimeRemain() {
+
+
+  //if cnt down not pass,use db delay
+ if( $GLOBALS['cntdown_pass']==false)
+ {
+   $waring_time = Setting::find(7)->value; //30*1000;
+   $waring_time_sec = $waring_time / 1000;
+   return  $waring_time_sec;
+ }
+
+
+
+
+  $countdown_time_sec = $GLOBALS['countdownSeconds'];// if countdown_time_sec120s,so the bettime60s
+
+  $bet_time_sec_ramain =$countdown_time_sec;
+
+
+
+  $bet_time_sec_ramain_adjust = $bet_time_sec_ramain > 0 ? $bet_time_sec_ramain : 0;
   $waring_time_sec_remain = chkRemainTime_forBet($bet_time_sec_ramain_adjust);
   return $bet_time_sec_ramain_adjust;
 
@@ -240,18 +241,18 @@ function startBetEvt() {
 
   global $lottery_no;
   $ltr = new \app\common\LotteryHashSsc();
-  $qiohao_data = $ltr->get_current_noV3();
+  $qiohao_data = $ltr->kaijResult();
   $lottery_no = $qiohao_data['lottery_no'];
 
   //$lottery_no="19005195";
 
 
 
+  $GLOBALS['countdownSeconds'] = $qiohao_data['data'][0]['countdownSeconds'] ;
 
-
-  $kaijtime = $qiohao_data ['closetime'];
-  //   touzhu time 90s,, fenpe30s
-  $GLOBALS['kaijtime'] = $kaijtime;
+//  $kaijtime = $qiohao_data ['closetime'];
+//  //   touzhu time 90s,, fenpe30s
+//  $GLOBALS['kaijtime'] = $kaijtime;
 
 
   $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
@@ -276,36 +277,37 @@ function startBetEvt() {
   \think\facade\Log::info(json_encode($log));
 
   //--------------------start bet
-  $text = $lottery_no . "期 开始下注!\r\n";
+//  $text = $lottery_no . "期 开始下注!\r\n";
+//
+//  $bot_words = \app\model\BotWords::where('Id', 1)->find();
+//  $words = $bot_words->Start_Bet;
+//  $text = $text . $words;
+//
+//  $elapsed = Setting::find(6)->value + Setting::find(7)->value;
+//  $stop_time = date("Y-m-d H:i:s", $kaijtime - 30);
+//  $text = $text . "\n\n封盘时间：$stop_time\n";
+//  $elapsed += Setting::find(8)->value;
+//  $draw_time = date("Y-m-d H:i:s", $kaijtime);
+//  $text = $text . "开奖时间：$draw_time\n";
+//  $text = \app\common\Helper::replace_markdown($text);
+//  //for safe hide kaijblk
+//  $text = $text . "开奖区块号 ：[" . $GLOBALS['kaijBlknum'] . "](https://etherscan.io/block/" . $GLOBALS['kaijBlknum'] . ")";
 
-  $bot_words = \app\model\BotWords::where('Id', 1)->find();
-  $words = $bot_words->Start_Bet;
-  $text = $text . $words;
-
-  $elapsed = Setting::find(6)->value + Setting::find(7)->value;
-  $stop_time = date("Y-m-d H:i:s", $kaijtime - 30);
-  $text = $text . "\n\n封盘时间：$stop_time\n";
-  $elapsed += Setting::find(8)->value;
-  $draw_time = date("Y-m-d H:i:s", $kaijtime);
-  $text = $text . "开奖时间：$draw_time\n";
-  $text = \app\common\Helper::replace_markdown($text);
-  //for safe hide kaijblk
-  $text = $text . "开奖区块号 ：[" . $GLOBALS['kaijBlknum'] . "](https://etherscan.io/block/" . $GLOBALS['kaijBlknum'] . ")";
-  echo $text . PHP_EOL;
-
-  $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-  //   \think\facade\Log::info($lineNumStr);
-  \think\facade\Log::info($lineNumStr);
-  \think\facade\Log::info($text);
-  //sendmessageBotNConsole($text);
+//
+//  $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
+//  //   \think\facade\Log::info($lineNumStr);
+//  \think\facade\Log::info($lineNumStr);
+//  \think\facade\Log::info($text);
+//  //sendmessageBotNConsole($text);
 
   $text=file_get_contents( __DIR__."/../../db/startInfo.txt" );
+  echo $text . PHP_EOL;
   $text= str_replace("(","\(",$text);
   $text= str_replace(")","\)",$text);
   $text= str_replace("-","\-",$text);
 
   $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-  $cfile = new \CURLFile(app()->getRootPath() . "public/static/start.jpg");
+  $cfile = new \CURLFile(app()->getRootPath() . "res/bet_tips.jpg");
   $bot->sendPhoto($GLOBALS['chat_id'], $cfile, $text, null, null, null, false, "MarkdownV2");
   //    $bot->sendMessage(chatid,txt,parsemode,replyMsgID)
   //// 更新状态开放投注
@@ -423,6 +425,8 @@ function fenpan_stop_event() {
   \think\facade\Db::close();
 }
 
+
+// jaijyo evt
 //require  __DIR__ . "/../../lib/iniAutoload.php";
 function kaij_draw_evt() {
   $draw_str = "console:" . $GLOBALS['qihao'] . "期开奖中..console";
@@ -433,23 +437,24 @@ function kaij_draw_evt() {
   global $lottery_no;
   //--------------get kaijnum  show kaij str
 
-  try {
-    $ltr = new \app\common\LotteryHashSsc();
-    $blkHash = $ltr->drawV3($GLOBALS['kaijBlknum']);
-    var_dump($blkHash);
-    $text = "第" . $lottery_no . "期开奖结果" . "\r\n";
-
-    $kaij_num = getKaijNumFromBlkhash($blkHash);
-    $text = $text . betstrX__convert_kaij_echo_ex($kaij_num);// ();
-    $text = $text . PHP_EOL . "本期区块号码:" . $GLOBALS['kaijBlknum'] . "\r\n"
-      . "本期哈希值:\r\n" . $blkHash . "\r\n";
-    //  sendmessage841($text);
-    //  $text .= $this->result . "\r\n";
-    $text="开奖结果" . "\r\n";
-
-    sendMsgEx($GLOBALS['chat_id'], $text);
-  } catch (\Throwable $e) {
-  }
+//  try {
+//    $ltr = new \app\common\LotteryHashSsc();
+//    $blkHash = $ltr->drawV3($GLOBALS['kaijBlknum']);
+//    var_dump($blkHash);
+//    $text = "第" . $lottery_no . "期开奖结果" . "\r\n";
+//
+//    $kaij_num = getKaijNumFromBlkhash($blkHash);
+//    $text = $text . betstrX__convert_kaij_echo_ex($kaij_num);// ();
+//    $text = $text . PHP_EOL . "本期区块号码:" . $GLOBALS['kaijBlknum'] . "\r\n"
+//      . "本期哈希值:\r\n" . $blkHash . "\r\n";
+//    //  sendmessage841($text);
+//    //  $text .= $this->result . "\r\n";
+//    $text="开奖结果" . "\r\n";
+//
+//    sendMsgEx($GLOBALS['chat_id'], $text);
+//  } catch (\Throwable $e) {
+//    var_dump($e);
+//  }
 
 
   $gmLgcSSc = new   \app\common\GameLogicSsc();  //comm/gamelogc
@@ -486,13 +491,14 @@ function kaij_draw_evt() {
  * @throws \TelegramBot\Api\Exception
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
-function SendPicRzt(GameLogicSsc $gmLgcSSc): void {
+function SendPicRzt( $gmLgcSSc): void {
   try {
     $gmLgcSSc->SendTrendImage(20); // 生成图片
-    $cfile = new \CURLFile(app()->getRootPath() . "public/trend.jpg");
+    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_庄赢.jpg");
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Throwable $e) {
+    var_dump($e);
 
   }
 
