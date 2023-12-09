@@ -10,7 +10,8 @@ use think\console\Output;
 use app\model\Setting;
 use think\view\driver\Php;
 
-//   C:\phpstudy_pro\Extensions\php\php8.0.2nts\php.exe C:\modyfing\jbbot\think swoole2 
+//TEST CMND START
+//   C:\phpstudy_pro\Extensions\php\php8.0.2nts\php.exe C:\modyfing\jbbot\think testx
 
 function testKaij()
 {
@@ -53,6 +54,7 @@ class testCls extends Command
 
   protected function execute(Input $input, Output $output)
   {
+    painTest();DIE();
 
       $json_t=file_get_contents(__DIR__."/../../db/req.json");
       $json = json_decode($json_t, true);

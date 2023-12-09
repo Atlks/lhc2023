@@ -18,7 +18,7 @@ global $BOT_TOKEN;
 global $chat_id;
 //$bot_token = "6426986117:AAFb3woph_1zOWFS5cO98XIFUPcj6GqvmXc";  //sscNohk
 //$chat_id = -1001903259578;
-
+//php think cmdBjlx
 
 
 class CmdBjl extends Command {
@@ -52,6 +52,7 @@ class CmdBjl extends Command {
         \think\facade\Log::noticexx('这是一个自定义日志类型');
 
         // echo   iconv("gbk","utf-8","php中文待转字符");//把中文gbk编码转为utf8
+        $this->fenpan_betrLst_test();die();
         main_processBjl();
       } catch (\Throwable $exception) {
         $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
@@ -67,6 +68,13 @@ class CmdBjl extends Command {
       usleep(50 * 1000);
     //  break;
    // }
+  }
+
+  private function fenpan_betrLst_test() {
+    global $lottery_no;
+    $lottery_no="158283";
+    fenpan_betrLst();
+
   }
 }
 
@@ -84,6 +92,10 @@ $lottery_no = "...";
 
 function main_processBjl() {
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
+
+//  SendPicRzt( 11);
+//  die();
+
   global $lottery_no;
   $lottery_no = 111;
   // var_dump(  $lottery_no);die();
@@ -370,37 +382,7 @@ function fenpan_stop_event() {
   } catch (\Throwable $e) {
   }
 
-  global $lottery_no;
-  try {
-    $records = \app\common\Logs::getBetRecordByLotteryNoGrpbyU($lottery_no);
-    $text = "--------本期下注玩家---------" . "\r\n";
-    \think\facade\Log::info($text);
-    $sum = 0;
-    foreach ($records as $k => $v) {
-
-      try {
-        // array_push($bet_lst_echo_arr,  \echox\getBetContxEcHo($value['text']));
-
-        $echo = betstrx__format_echo_ex($v['betNoAmt'] . "99");
-        $bet = explode(" ", $echo);
-        $money = $v['Bet'] / 100;
-        $betNmoney = $bet[0] . " " . +$money;
-        //  \betstr\format_echo_ex();
-        $text = $text . $v['UserName'] . "【" . $v['UserId'] . "】" . $betNmoney . "\r\n";
-        $sum += $v['Bet'];
-      } catch (\Throwable $e) {
-      }
-
-
-    }
-    echo $text . PHP_EOL;
-    $msg = $text;
-
-    \think\facade\Log::info($msg);
-    //  $msg = str_replace("-", "\-", $text);  //  tlgrm txt encode prblm  BCS is markdown mode
-    sendMsgEx($GLOBALS['chat_id'], $msg);
-  } catch (\Throwable $e) {
-  }
+   fenpan_betrLst();
 
   // bot_sendMsg($msg, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);
   // sendmessageBotNConsole($text);
@@ -425,6 +407,183 @@ function fenpan_stop_event() {
   \think\facade\Db::close();
 }
 
+function fenpan_betrLst() {
+
+  global $lottery_no;
+  try {
+    $records = \app\common\Logs::getBetRecordByLotteryNoGrpbyU($lottery_no);
+    $text = "--------本期下注玩家---------" . "\r\n";
+    \think\facade\Log::info($text);
+
+
+    $lineHight=30;
+    $img_width = 1200;
+    // 图片高度（标题高度 + 每行高度 + 每行内边距）
+    $img_height = $lineHight* (count($records)+2)+9;
+    $font_size = 20;
+    $font = __DIR__ . "/../../public/msyhbd.ttc";
+
+
+    # 开始画图
+    // 创建画布
+    $img = imagecreatetruecolor($img_width, $img_height);
+    $white = imagecolorallocate($img, 255, 255, 255);
+    imagefill($img,0,0,$white); //这里的 "0, 0"是指坐标, 使用体验就类似 Windows 系统"画图"软件的"颜料桶", 点一下之后, 在整个封闭区间内填充颜色
+
+    $text_color_black = imagecolorallocate($img, 0, 0, 0);
+    $white_color = imagecolorallocate($img, 255, 255, 255);
+    $red_color = imagecolorallocate($img, 255, 0, 0);
+    $green_color = imagecolorallocate($img, 100, 149, 237);
+    $blue_color = imagecolorallocate($img, 10, 10, 255);
+    imageline($img, 0, 3, 500, 3, $red_color);
+
+
+    $datawidth=100;
+    $firstColWidth=350;
+    //title
+    //百家乐
+    $width=$firstColWidth;
+    $posX=0;$posY=0;
+    $font_baseline_y=$lineHight;
+    $font_x= 10;// $posX+($width-$font_size)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, "百家乐");
+    imageline($img, $width, 0, $width, $img_height, $text_color_black);
+
+
+    $posX=$posX+$width;
+    $width=100;
+    $font_x=  $posX+($width-$font_size)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $red_color, $font, "庄");
+    imageline($img, $posX+$width, 0, $posX+$width, $img_height, $text_color_black);
+
+
+    $posX=$posX+$width;
+    $width=100;
+    $font_x=  $posX+($width-$font_size)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $blue_color, $font, "闲");
+    imageline($img, $posX+$width, 0, $posX+$width, $img_height, $text_color_black);
+
+
+    $posX=$posX+$width;
+    $width=100;
+    $font_x=  $posX+($width-$font_size)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $red_color, $font, "庄对");
+    imageline($img, $posX+$width, 0, $posX+$width, $img_height, $text_color_black);
+
+
+    $posX=$posX+$width;
+    $width=100;
+    $font_x=  $posX+($width-$font_size)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $blue_color, $font, "庄对");
+    imageline($img, $posX+$width, 0, $posX+$width, $img_height, $text_color_black);
+
+    $posX=$posX+$width;
+    $width=100;
+    $font_x=  $posX+($width-$font_size)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $green_color, $font, "和");
+    imageline($img, $posX+$width, 0, $posX+$width, $img_height, $text_color_black);
+
+
+    $blockTxt= "幸运6";
+    $posX=$posX+$width;
+    $width=100;
+    $font_x=  $posX+($width-$font_size*3)/2-2;
+    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $red_color, $font, $blockTxt);
+    imageline($img, $posX+$width, 0, $posX+$width, $img_height, $text_color_black);
+
+
+
+    //title baes line
+    imageline($img, 0, $lineHight+5, $img_width, $lineHight+5, $red_color);
+
+
+    $posY=$lineHight;
+    $posX=0;
+    $sum = 0;
+    foreach ($records as $k => $v) {
+
+      try {
+        // array_push($bet_lst_echo_arr,  \echox\getBetContxEcHo($value['text']));
+
+        $echo = betstrx__format_echo_ex($v['betNoAmt'] . "99");
+        $bet = explode(" ", $echo);
+        $money = $v['Bet'] / 100;
+        $betNmoney = $bet[0] . " " . +$money;
+        //  \betstr\format_echo_ex();
+        $text = $text . $v['UserName'] . "【" . $v['UserId'] . "】" . $betNmoney . "\r\n";
+        $sum += $v['Bet'];
+
+
+        $blockTxt=$v['UserName'] ;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x= 10;// $posX+($width-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+
+        $posX=$posX+$firstColWidth;
+        $blockTxt= $money; $width=$datawidth;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x=  $posX+($width-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+
+        $posX=$posX+$datawidth;
+        $blockTxt= $money;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x=  $posX+($datawidth-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+        $posX=$posX+$datawidth;
+        $blockTxt= $money;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x=  $posX+($datawidth-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+
+        $posX=$posX+$datawidth;
+        $blockTxt= $money;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x=  $posX+($datawidth-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+
+        $posX=$posX+$datawidth;
+        $blockTxt= $money;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x=  $posX+($datawidth-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+
+        $posX=$posX+$datawidth;
+        $blockTxt= $money;
+        $font_baseline_y=$posY+$lineHight;
+        $font_x=  $posX+($datawidth-$font_size)/2-2;
+        imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $text_color_black, $font, $blockTxt);
+
+
+        //title baes line
+        $line_posY=$posY+5;
+        imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
+
+
+      } catch (\Throwable $e) {
+      }
+
+
+    }
+    echo $text . PHP_EOL;
+    $msg = $text;
+
+    \think\facade\Log::info($msg);
+
+
+    imagepng($img, __DIR__ . "/../../res/betlist.jpg");
+    //  $msg = str_replace("-", "\-", $text);  //  tlgrm txt encode prblm  BCS is markdown mode
+   // sendMsgEx($GLOBALS['chat_id'], $msg);
+  } catch (\Throwable $e) {
+  }
+}
+
 
 // jaijyo evt
 //require  __DIR__ . "/../../lib/iniAutoload.php";
@@ -437,24 +596,24 @@ function kaij_draw_evt() {
   global $lottery_no;
   //--------------get kaijnum  show kaij str
 
-//  try {
-//    $ltr = new \app\common\LotteryHashSsc();
-//    $blkHash = $ltr->drawV3($GLOBALS['kaijBlknum']);
-//    var_dump($blkHash);
-//    $text = "第" . $lottery_no . "期开奖结果" . "\r\n";
-//
-//    $kaij_num = getKaijNumFromBlkhash($blkHash);
-//    $text = $text . betstrX__convert_kaij_echo_ex($kaij_num);// ();
-//    $text = $text . PHP_EOL . "本期区块号码:" . $GLOBALS['kaijBlknum'] . "\r\n"
-//      . "本期哈希值:\r\n" . $blkHash . "\r\n";
-//    //  sendmessage841($text);
-//    //  $text .= $this->result . "\r\n";
-//    $text="开奖结果" . "\r\n";
-//
-//    sendMsgEx($GLOBALS['chat_id'], $text);
-//  } catch (\Throwable $e) {
-//    var_dump($e);
-//  }
+  try {
+    $ltr = new \app\common\LotteryHashSsc();
+    $blkHash = $ltr->drawV3($GLOBALS['kaijBlknum']);
+    var_dump($blkHash);
+    $text = "第" . $lottery_no . "期开奖结果" . "\r\n";
+
+    $kaij_num = getKaijNumFromBlkhash($blkHash);
+    $text = $text . betstrX__convert_kaij_echo_ex($kaij_num);// ();
+    $text = $text . PHP_EOL . "本期区块号码:" . $GLOBALS['kaijBlknum'] . "\r\n"
+      . "本期哈希值:\r\n" . $blkHash . "\r\n";
+    //  sendmessage841($text);
+    //  $text .= $this->result . "\r\n";
+    $text="开奖结果" . "\r\n";
+
+  //  sendMsgEx($GLOBALS['chat_id'], $text);
+  } catch (\Throwable $e) {
+    var_dump($e);
+  }
 
 
   $gmLgcSSc = new   \app\common\GameLogicSsc();  //comm/gamelogc
@@ -501,6 +660,23 @@ function SendPicRzt( $gmLgcSSc): void {
     var_dump($e);
 
   }
+
+
+  try {
+    require_once __DIR__."/../../libTpscrt/kaij.php";
+    \createTrendImageV2(1);
+    $f549 = __DIR__ . "/../../public/trend.jpg";
+    $f549=app()->getRootPath() ."public/trend.jpg";
+      var_dump($f549);
+    $cfile = new \CURLFile($f549);
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+  } catch (\Throwable $e) {
+    var_dump($e);
+
+  }
+
+
 
 }
 

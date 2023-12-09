@@ -38,6 +38,7 @@
     "silly-datetime": "^0.1.2",
     "sync-request": "^6.1.0",
     "underscore": "^1.13.6",
+    "webpage": "^0.3.0",
     "winston": "^3.10.0"
   }
 }
