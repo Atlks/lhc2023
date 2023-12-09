@@ -405,76 +405,48 @@ function fenpan_betrLst() {
     \think\facade\Log::info($text);
 
 
-    $lineHight = 30;
-    $img_width = 1200;
     // 图片高度（标题高度 + 每行高度 + 每行内边距）
-    $img_height = $lineHight * (count($records) + 2) + 9;
+    $css_lineHight = 40;
+    $canvas_height = $css_lineHight * (count($records) + 2) + 9;
     $font_size = 20;
     $font = __DIR__ . "/../../public/msyhbd.ttc";
 
 
     # 开始画图
     // 创建画布
-    $img = imagecreatetruecolor($img_width, $img_height);
-    $white = imagecolorallocate($img, 255, 255, 255);
-    imagefill($img, 0, 0, $white); //这里的 "0, 0"是指坐标, 使用体验就类似 Windows 系统"画图"软件的"颜料桶", 点一下之后, 在整个封闭区间内填充颜色
+    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 1200, "height" => $canvas_height);
 
-    $text_color_black = imagecolorallocate($img, 0, 0, 0);
-    $white_color = imagecolorallocate($img, 255, 255, 255);
-    $red_color = imagecolorallocate($img, 255, 0, 0);
-    $green_color = imagecolorallocate($img, 100, 149, 237);
-    $blue_color = imagecolorallocate($img, 10, 10, 255);
+    $img = renderElementCanvas($img_elmt);
+
+
     //imageline($img, 0, 3, 500, 3, $red_color);
 
-    $width = $firstColWidth;
+
     $posX = 0;
     $posY = 0;
-    $datawidth = 100;
+    $css_datawidth = 120;
     $firstColWidth = 350;
+
     //--------------------title
     //百家乐
+    $row327 = array("left" => 0, "padBtm"=>3,"top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight+3);
+    $cell1 = array('id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'txt' => "百家乐", 'bkgrd' => "", 'width' => $firstColWidth, 'height' => $css_lineHight);
+    $cell_bank = array('txt' => '庄', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_plyr = array('txt' => '闲', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_bankDui = array('txt' => '庄对', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_plyrDui = array('txt' => '闲对', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-    $cell1 = array('id'=>'cell1','txt' =>"百家乐", 'bkgrd' => $red_color, 'width' => $firstColWidth, 'height' => $lineHight);
- $cell_bank = array('txt' =>'庄' ,'color'=>$red_color, 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-    $cell_plyr = array('txt' => '闲','color'=>$blue_color, 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-    $cell_bankDui = array('txt' => '庄对','color'=>$red_color, 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-    $cell_plyrDui = array('txt' =>'闲对','color'=>$blue_color, 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
+    $cell_he = array('txt' => '和', 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_luck = array('txt' => '幸运6', 'color' => "white", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-    $cell_he = array('txt' => '和','color'=>$green_color, 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-    $cell_luck = array('txt' => '幸运6','color'=>$green_color, 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
+    $row327["childs"] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
-    $row140 = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
-
-
+    renderElementRow($row327, $img);
+    $posY = $posY + $row327['height'];
     //----------show row
-    $posX = 0;
-
-    $posY = $posY ;
-    $lastwidth = 0;
-    foreach ($row140 as $k => $v_cell) {
-
-      $blktxt = $v_cell['txt'];
-      $blktxtWidth=strlen($blktxt)/2*$font_size;
-      $posX = $posX + $lastwidth;
-
-      $font_baseline_y = $posY + $lineHight;
-      $font_x = $posX + ($v_cell['width'] - $blktxtWidth) / 2 - 2;
-      if($v_cell['id'] && $v_cell['id']=='cell1')
-        $font_x=$posX+10;
 
 
-      imagettftext($img, $font_size, 0, $font_x, $font_baseline_y, $v_cell['color'], $font, $v_cell['txt']);
-      imageline($img, $posX + $v_cell['width'], 0, $posX + $v_cell['width'], $img_height, $text_color_black);
-
-      $lastwidth = $v_cell['width'];
-      imagepng($img, __DIR__ . "/../../res/betlist.jpg");
-    }
-
-    //title baes line
-    imageline($img, 0, $lineHight + 5, $img_width, $lineHight + 5, $red_color);
-
-
-    $posY = $lineHight;
+    $posY = $css_lineHight;
     $posX = 0;
     $sum = 0;
     $arr = [];
@@ -501,48 +473,28 @@ function fenpan_betrLst() {
         $sum += $v['Bet'];
 
 
-        $cell1 = array('id'=>'cell1','txt' => $v['UserName'], 'bkgrd' => $red_color, 'width' => $firstColWidth, 'height' => $lineHight);
+        $row140 = array('elmtType' => 'tr', "padBtm"=>3,'font' => $font, 'font_size' => $font_size,"left" => 0, "top" => $posY, 'font_size' => $font_size, 'height' => $css_lineHight+3);
 
-       // imagettftext($img, $font_size, 0, $font_x, $font_baseline_y, $text_color_black, $font, $blockTxt);
+        $cell1 = array('id' => 'cell1', 'txt' => $v['UserName'], 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "", 'width' => $firstColWidth, 'height' => $css_lineHight);
+        $cell_bank = array('txt' => $row114['庄'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_plyr = array('txt' => $row114['闲'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_bankDui = array('txt' => $row114['庄对'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_plyrDui = array('txt' => $row114['闲对'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
+        $cell_he = array('txt' => $row114['和'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_luck = array('txt' => $row114['幸运6'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-        $cell_bank = array('txt' => $row114['庄'], 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-        $cell_plyr = array('txt' => $row114['闲'], 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-        $cell_bankDui = array('txt' => $row114['庄对'], 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-        $cell_plyrDui = array('txt' => $row114['闲对'], 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-
-        $cell_he = array('txt' => $row114['和'], 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-        $cell_luck = array('txt' => $row114['幸运6'], 'bkgrd' => $red_color, 'width' => $datawidth, 'height' => $lineHight);
-
-        $row140 = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
+        $row140['childs'] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
 
         //----------show row
-        $posX = 0;
-
-        $posY = $posY ;
-        $lastwidth = 0;
-        foreach ($row140 as $k => $v_cell) {
-
-          $blktxt = $v_cell['txt'];
-          $blktxtWidth=strlen($blktxt)/2*$font_size;
-          $posX = $posX + $lastwidth;
-
-          $font_baseline_y = $posY + $lineHight;
-          $font_x = $posX + ($v_cell['width'] - $blktxtWidth) / 2 - 2;
-         if($v_cell['id'] && $v_cell['id']=='cell1')
-           $font_x=$posX+10;
-
-
-          imagettftext($img, $font_size, 0, $font_x, $font_baseline_y, $text_color_black, $font, $v_cell['txt']);
-          $lastwidth = $v_cell['width'];
-          imagepng($img, __DIR__ . "/../../res/betlist.jpg");
-        }
-
+        renderElementRow($row140, $img);
+        $posY = $posY + $row140['height'];
 
         //title baes line
         $line_posY = $posY + 5;
-        imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
+        //  appendElemt(array("top"=>$posY,"color" => "black", "elmtType" => "line"), $row140, $img);
+        //  imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
 
 
       } catch (\Throwable $e) {
@@ -552,8 +504,10 @@ function fenpan_betrLst() {
 
     }
 
-    $line_posY = $posY + 5 + $lineHight;
-    imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
+    $line_posY = $posY + 5 + $css_lineHight;
+    //   imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
+    appendElemt(array("top" => $posY, "color" => "black", "elmtType" => "line"), $row140, $img);
+
 
     echo $text . PHP_EOL;
     $msg = $text;
@@ -561,30 +515,21 @@ function fenpan_betrLst() {
     \think\facade\Log::info($msg);
 
 
-    $row = [];
-    $row[] = array('height' => $lineHight, 'txt' => '总计' . count($arr) . '人', 'bkgrd' => $red_color, 'width' => $firstColWidth);
-    $row['ttl庄'] = array('txt' => array_sum_col('庄', $arr), 'bkgrd' => $red_color, 'width' => $datawidth);
-    $row['ttl闲'] = array('txt' => array_sum_col('闲', $arr), 'bkgrd' => $red_color, 'width' => $datawidth);
-    $row['庄对'] = array('txt' => array_sum_col('庄对', $arr), 'bkgrd' => $red_color, 'width' => $datawidth);
-    $row['闲对'] = array('txt' => array_sum_col('闲对', $arr), 'bkgrd' => $red_color, 'width' => $datawidth);
-    $row['和'] = array('txt' => array_sum_col('和', $arr), 'bkgrd' => $red_color, 'width' => $datawidth);
-    $row['幸运6'] = array('txt' => array_sum_col('幸运', $arr), 'bkgrd' => $red_color, 'width' => $datawidth);
+    $row = array('elmtType' => 'tr', 'font_size' => $font_size,'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
 
-    $posX = 0;
-    $posY = $posY + $lineHight;
-    $lastwidth = 0;
-    foreach ($row as $k => $v_cell) {
+    $row['childs'] = [
+      array('txt' => '总计' . count($arr) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
+      array('txt' => array_sum_col('庄', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col('闲', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col('庄对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col('闲对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col('和', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col('幸运', $arr), 'bkgrd' => "", 'width' => $css_datawidth)
 
-      $blktxt = $v_cell['txt'];
-      $posX = $posX + $lastwidth;
+    ];
 
-      $font_baseline_y = $posY + $lineHight;
-      $font_x = $posX + ($v_cell['width'] - $font_size) / 2 - 2;
-      imagettftext($img, $font_size, 0, $font_x, $font_baseline_y, $text_color_black, $font, $v_cell['txt']);
-      $lastwidth = $v_cell['width'];
-      imagepng($img, __DIR__ . "/../../res/betlist.jpg");
-    }
-
+    renderElementRow($row, $img);
+    // $posY = $posY + $row['height'];
 
     imagepng($img, __DIR__ . "/../../res/betlist.jpg");
     //  $msg = str_replace("-", "\-", $text);  //  tlgrm txt encode prblm  BCS is markdown mode
@@ -592,6 +537,107 @@ function fenpan_betrLst() {
   } catch (\Throwable $e) {
     var_dump($e);
   }
+}
+
+function appendElemt(array $e, array $lastElmt, $img) {
+
+
+  //  hr   line  hengxian
+  if ($e['elmtType'] == "line")
+    renderElmtLine($e, $img);
+
+  if ($e['elmtType'] == "tr") {
+
+    $e['top'] = $lastElmt['top'] + $lastElmt['height'];
+    $e['left'] = $lastElmt['left'];
+    renderElementRow($e, $img);
+  }
+
+}
+
+function renderElmtLine(array $e, $img) {
+
+  $color = getColor($e['color'], $img);
+  imageline($img, 0, $e['top'] , 2000, $e['top'] , $color);
+
+}
+
+function renderElementRow(array $row140, $img) {
+  $posX = $row140["left"];
+
+  $posY = $row140["top"];
+  $cells = $row140['childs'];
+
+  $idx = 0;
+  foreach ($cells as $k => $v_cell) {
+
+    $blktxt = $v_cell['txt'];
+  //  if($idx>0)
+ //   $posX = $posX + $v_cell['width'];
+
+
+    $font_baseline_y = $posY +$row140['height'] -($row140['height']-$row140["font_size"])/2 ;
+
+    $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
+    $font = $row140['font'];
+    imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
+    //竖线。。。
+    $line_posx = $posX + $v_cell['width'];
+    imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
+
+
+    imagepng($img, __DIR__ . "/../../res/betlist.jpg");
+    $idx++;
+    $posX = $posX + $v_cell['width'];
+  }
+  $posY = $row140["top"] + $row140["height"];
+  //title baes line
+  renderElmtLine(array("top" => $posY, "color" => "red", "elmtType" => "line"), $img);
+
+}
+
+function calcFontX($v_cell, $posX, $fontSize) {
+
+
+  if ($v_cell['align'] && $v_cell['align'] == "left") {
+    $font_x = $posX + $v_cell['padLeft'];
+    return $font_x;
+  } else {
+    // deflt left
+    $blktxt = $v_cell['txt'];
+    $blktxtWidth = strlen($blktxt) / 2 * $fontSize;
+    $font_x_deft_center = $posX + ($v_cell['width'] - $blktxtWidth) / 2 - 2;
+    return $font_x_deft_center;
+  }
+
+
+}
+
+function renderElementCanvas(array $elemt) {
+
+
+  $img = imagecreatetruecolor($elemt['width'], $elemt['height']);
+
+
+  $color = getColor($elemt['bkgrd'], $img);
+
+  imagefill($img, 0, 0, $color); //这里的 "0, 0"是指坐标, 使用体验就类似 Windows 系统"画图"软件的"颜料桶", 点一下之后, 在整个封闭区间内填充颜色
+  return $img;
+}
+
+function getColor($clrname, $img) {
+  $white = imagecolorallocate($img, 255, 255, 255);
+
+  $text_color_black = imagecolorallocate($img, 0, 0, 0);
+  $white_color = imagecolorallocate($img, 255, 255, 255);
+  $red_color = imagecolorallocate($img, 255, 0, 0);
+  $green_color = imagecolorallocate($img, 100, 149, 237);
+  $blue_color = imagecolorallocate($img, 10, 10, 255);
+  // 表面颜色（浅灰）
+  $grayColor = imagecolorallocate($img, 235, 242, 255);
+  $clrArr = array("red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  return $clrArr[$clrname];
+
 }
 
 function delFile(string $string) {
