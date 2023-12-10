@@ -522,7 +522,7 @@ class HandleMsgHdlBjlWebreq {
     //start bet
 
 
-    //-----------------------这里应该处理其他cmd和bet cmd
+    //-----------------------这里also 处理其他cmd和bet cmd
     // -------this msgHdlprcs...  player_exec just msghdlr
     $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
     \think\facade\Log::info($lineNumStr);

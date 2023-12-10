@@ -55,6 +55,12 @@ class testCls extends Command
   protected function execute(Input $input, Output $output)
   {
 
+
+    global $lottery_no;
+    $lottery_no=158283;
+    require_once __DIR__."/../commonBjl/CmdBjl.php";
+   \app\commonBjl\fenpan_betrLst();die();
+
     testKaij();
    // painTest();
     DIE();

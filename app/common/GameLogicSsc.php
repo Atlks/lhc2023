@@ -1324,7 +1324,7 @@ class GameLogicSsc {
 
       //--------------------title
       //百家乐
-      $row614 = array("left" => 0, "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight );
+      $row614 = array("left" => 0,'bkgrd'=>'gray', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight );
 
       $row614["childs"] = [
 

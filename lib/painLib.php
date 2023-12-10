@@ -30,7 +30,8 @@ function renderElementRow(array $row140, $img) {
   $posY = $row140["top"];
   $cells = $row140['childs'];
 
-  if($row140['bkgrd'])
+  if(  array_key_exists('bkgrd',$row140))
+
   {
     $surface_color_row = getColor($row140['bkgrd'], $img);
     imagefilledrectangle($img, $posX, $posY, 2000  , $posY +$row140['height'], $surface_color_row);
@@ -48,10 +49,15 @@ function renderElementRow(array $row140, $img) {
 
    // imagefilledrectangle
 
-    if( $v_cell['bkgrd'])
+    if(  array_key_exists('bkgrd',$v_cell)  )
     {
-      $surface_color = getColor($v_cell['bkgrd'], $img);
-      imagefilledrectangle($img, $posX, $posY, $posX+$v_cell['width']  , $posY +$v_cell['height'], $surface_color);
+      if( $v_cell['bkgrd']!="")
+      {
+        $surface_color = getColor($v_cell['bkgrd'], $img);
+        imagefilledrectangle($img, $posX, $posY, $posX+$v_cell['width']  , $posY +$v_cell['height'], $surface_color);
+
+      }
+
 
     }
 
@@ -61,6 +67,8 @@ function renderElementRow(array $row140, $img) {
 
     $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
     $font = $row140['font'];
+    if(! array_key_exists('color',$v_cell)  )
+      $v_cell['color']="black";
     imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
     //竖线。。。
     //todo th implt
@@ -84,8 +92,8 @@ function renderElementRow(array $row140, $img) {
 
 function calcFontX($v_cell, $posX, $fontSize) {
 
-
-  if ($v_cell['align'] && $v_cell['align'] == "left") {
+  // if(!in_array('color',$v_cell))
+  if (  array_key_exists('align',$v_cell)   && $v_cell['align'] == "left") {
     $font_x = $posX + $v_cell['padLeft'];
     return $font_x;
   } else {
@@ -123,7 +131,7 @@ function getColor($clrname, $img) {
   // 表面颜色（浅灰）
   $grayColor = imagecolorallocate($img, 235, 242, 255);
   $clrArr = array('pink'=>$pink,"red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
-  if(!$clrArr[$clrname])
+  if(!  array_key_exists  ($clrname,$clrArr))
     return $clrArr["black"];
 
 
@@ -135,7 +143,8 @@ function delFile(string $string) {
   try {
     unlink($string);
   } catch (\Throwable $e) {
-    var_dump($e);
+    echo $e;
+   // var_dump($e);
   }
 }
 

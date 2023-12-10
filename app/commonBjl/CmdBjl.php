@@ -409,7 +409,7 @@ function fenpan_betrLst() {
 
   global $lottery_no;
   try {
-    $records = \app\common\Logs::getBetRecordByLotteryNo($lottery_no);
+    $records = \app\common\Logs::getBetRecordByLotteryNoGrpbyU_BJL($lottery_no);
     $text = "--------本期下注玩家---------" . "\r\n";
     \think\facade\Log::info($text);
 
@@ -438,7 +438,7 @@ function fenpan_betrLst() {
 
     //--------------------title
     //百家乐
-    $row327 = array("left" => 0, "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
+    $row327 = array("left" => 0,'bkgrd'=>'gray', "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
     $cell1 = array('id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'txt' => "百家乐", 'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
     $cell_bank = array('txt' => '庄', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyr = array('txt' => '闲', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
@@ -463,22 +463,30 @@ function fenpan_betrLst() {
 
       try {
         $row114 = [];
-        $row114['庄'] = getBankAmt($v['BetContent'], $v['Bet'] / 100);
-        $row114['闲'] = getPlayerAmt($v['BetContent'], $v['Bet'] / 100);
-        $row114['庄对'] = getBankDuiAmt($v['BetContent'], $v['Bet'] / 100);
-        $row114['闲对'] = getPlayerDuiAmt($v['BetContent'], $v['Bet'] / 100);
-        $row114['和'] = getHeAmt($v['BetContent'], $v['Bet'] / 100);
-        $row114['幸运6'] = getLuck6Amt($v['BetContent'], $v['Bet'] / 100);
+        $uid=$v['UserId'];$bettype=$v['betNoAmt'];
+        $row114['庄'] = getBankAmtV2($lottery_no,$uid,'庄');
+        $row114['闲'] = getBankAmtV2($lottery_no,$uid,'闲');
+        $row114['庄对'] = getBankAmtV2($lottery_no,$uid,'庄对');
+
+        $row114['闲对'] = getBankAmtV2($lottery_no,$uid,'闲对');
+
+
+        $row114['和'] =  getBankAmtV2($lottery_no,$uid,'和');
+
+
+        $row114['幸运6'] = getBankAmtV2($lottery_no,$uid,'幸运');
+
+
         $arr[] = $row114;
 
         // array_push($bet_lst_echo_arr,  \echox\getBetContxEcHo($value['text']));
 
-        $echo = betstrx__format_echo_ex($v['betNoAmt'] . "99");
-        $bet = explode(" ", $echo);
+//        $echo = betstrx__format_echo_ex($v['betNoAmt'] . "99");
+//        $bet = explode(" ", $echo);
         $money = $v['Bet'] / 100;
-        $betNmoney = $bet[0] . " " . +$money;
+      //  $betNmoney = $bet[0] . " " . +$money;
         //  \betstr\format_echo_ex();
-        $text = $text . $v['UserName'] . "【" . $v['UserId'] . "】" . $betNmoney . "\r\n";
+       // $text = $text . $v['UserName'] . "【" . $v['UserId'] . "】" . $betNmoney . "\r\n";
         $sum += $v['Bet'];
 
 
@@ -523,7 +531,7 @@ function fenpan_betrLst() {
 
     \think\facade\Log::info($msg);
 
-
+     //-----------------bottom
     $row = array('elmtType' => 'tr','bkgrd'=>'red', 'font_size' => $font_size, 'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
 
     $row['childs'] = [
@@ -554,6 +562,21 @@ function fenpan_betrLst() {
   } catch (\Throwable $e) {
     var_dump($e);
   }
+}
+
+function getBankAmtV2(string $lottery_no, $uid, $bettype) {
+
+  $rows =  \think\facade\Db::name('bet_record')
+    ->where('lotteryno', '=', $lottery_no)
+    ->where('userid', '=', $uid)
+    ->where('betNoAmt', '=', $bettype)
+    ->group('userid,username')
+    ->field('userid,username,sum(Bet) as sumbet')
+    ->select();
+  if(count($rows)>0)
+     return $rows[0]['sumbet']/100;
+  else
+    return  0;
 }
 
 

@@ -259,9 +259,10 @@ class Game2msgHdlBjlCore {
     //convert
     require_once __DIR__ . "/lotrySscV2.php";
     require_once __DIR__ . "/BjlCoreFuns.php";
+    require_once __DIR__ . "/../../libBiz/strBjl.php";
     try {
 
-      $bet_str_arr_clr_spltMltSingle = $this->betstrX__split_convert_decodeLhc($bet_str_clr);
+      $bet_str_arr_clr_spltMltSingle =  betstrX__split_convert_decodeLhc($bet_str_clr);
       \think\facade\Log::betnotice("bet_str_arr_clr_spltMltSingle is:" . json_encode($bet_str_arr_clr_spltMltSingle, JSON_UNESCAPED_UNICODE));
       \think\facade\Log::betnoticex("bet_str_arr_clr_spltMltSingle is:" . json_encode($bet_str_arr_clr_spltMltSingle, JSON_UNESCAPED_UNICODE));
     } catch (ValidateException $e) {
@@ -926,13 +927,7 @@ class Game2msgHdlBjlCore {
     return $text;
   }
 
-  private function betstrX__split_convert_decodeLhc(string $bet_str_arr_clr) {
-   $a=[];
-    $bet_str_arr_clr=betstrX__fmt_bjl($bet_str_arr_clr);
-   $a[]=$bet_str_arr_clr;
-   return $a;
 
-  }
 
 
 }
