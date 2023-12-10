@@ -298,6 +298,7 @@ class LotteryHashSsc extends Lottery
     $t=http_post($url,"tableNo=8&token=".$token);
     $json = json_decode($t, true);
     $json['lottery_no']=$json['data'][0]['gameNo'];
+    $GLOBALS['qihao']= $json['lottery_no'];
     return $json;
     //ref ft cur dsk.json
 

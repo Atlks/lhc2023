@@ -52,8 +52,7 @@ class CmdBjl extends Command {
       \think\facade\Log::noticexx('这是一个自定义日志类型');
 
       // echo   iconv("gbk","utf-8","php中文待转字符");//把中文gbk编码转为utf8
-      $this->fenpan_betrLst_test();
-      die();
+
       main_processBjl();
     } catch (\Throwable $exception) {
       $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
@@ -71,12 +70,7 @@ class CmdBjl extends Command {
     // }
   }
 
-  private function fenpan_betrLst_test() {
-    global $lottery_no;
-    $lottery_no = "158283";
-    fenpan_betrLst();
 
-  }
 }
 
 
@@ -90,7 +84,20 @@ static $lottery_no = "...";
 $lottery_no = "...";
 
 
+function fenpan_betrLst_test() {
+  global $lottery_no;
+  $lottery_no = "158283";
+  fenpan_betrLst();
+
+}
+
 function main_processBjl() {
+
+//        fenpan_betrLst_test();
+//      die();
+//  imagefilledrectangle — 绘制矩形并填充
+
+
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
 
 //  SendPicRzt( 11);
@@ -147,7 +154,7 @@ function main_processBjl() {
 
 //Not suit for stop evet
 function chkRemainTime_forBet(mixed $bet_time_sec_ramain_adjust) {
-  if (time() - 15 > $GLOBALS['kaijtime'])
+  if ($GLOBALS['countdownSeconds'] < 5)
     return 0;
   else return $bet_time_sec_ramain_adjust;
 
@@ -396,6 +403,8 @@ function fenpan_stop_event() {
 }
 
 function fenpan_betrLst() {
+
+  require_once __DIR__ . "/../../lib/painLib.php";
   delFile(__DIR__ . "/../../res/betlist.jpg");
 
   global $lottery_no;
@@ -410,11 +419,14 @@ function fenpan_betrLst() {
     $canvas_height = $css_lineHight * (count($records) + 2) + 9;
     $font_size = 20;
     $font = __DIR__ . "/../../public/msyhbd.ttc";
-
+    $posX = 0;
+    $posY = 0;
+    $css_datawidth = 120;
+    $firstColWidth = 350;
 
     # 开始画图
     // 创建画布
-    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 1200, "height" => $canvas_height);
+    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" =>  $firstColWidth+$css_datawidth*6, "height" => $canvas_height);
 
     $img = renderElementCanvas($img_elmt);
 
@@ -422,22 +434,19 @@ function fenpan_betrLst() {
     //imageline($img, 0, 3, 500, 3, $red_color);
 
 
-    $posX = 0;
-    $posY = 0;
-    $css_datawidth = 120;
-    $firstColWidth = 350;
+
 
     //--------------------title
     //百家乐
-    $row327 = array("left" => 0, "padBtm"=>3,"top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight+3);
-    $cell1 = array('id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'txt' => "百家乐", 'bkgrd' => "", 'width' => $firstColWidth, 'height' => $css_lineHight);
+    $row327 = array("left" => 0, "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
+    $cell1 = array('id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'txt' => "百家乐", 'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
     $cell_bank = array('txt' => '庄', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyr = array('txt' => '闲', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_bankDui = array('txt' => '庄对', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyrDui = array('txt' => '闲对', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
     $cell_he = array('txt' => '和', 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_luck = array('txt' => '幸运6', 'color' => "white", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_luck = array('txt' => '幸运6', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
     $row327["childs"] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
@@ -473,16 +482,16 @@ function fenpan_betrLst() {
         $sum += $v['Bet'];
 
 
-        $row140 = array('elmtType' => 'tr', "padBtm"=>3,'font' => $font, 'font_size' => $font_size,"left" => 0, "top" => $posY, 'font_size' => $font_size, 'height' => $css_lineHight+3);
+        $row140 = array('elmtType' => 'tr', "padBtm" => 3, 'font' => $font, 'font_size' => $font_size, "left" => 0, "top" => $posY, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
 
         $cell1 = array('id' => 'cell1', 'txt' => $v['UserName'], 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "", 'width' => $firstColWidth, 'height' => $css_lineHight);
-        $cell_bank = array('txt' => $row114['庄'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-        $cell_plyr = array('txt' => $row114['闲'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-        $cell_bankDui = array('txt' => $row114['庄对'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-        $cell_plyrDui = array('txt' => $row114['闲对'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_bank = array('txt' => $row114['庄'], 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_plyr = array('txt' => $row114['闲'], 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_bankDui = array('txt' => $row114['庄对'], 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_plyrDui = array('txt' => $row114['闲对'], 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-        $cell_he = array('txt' => $row114['和'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-        $cell_luck = array('txt' => $row114['幸运6'], 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_he = array('txt' => $row114['和'], 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_luck = array('txt' => $row114['幸运6'], 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
         $row140['childs'] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
@@ -504,9 +513,9 @@ function fenpan_betrLst() {
 
     }
 
-    $line_posY = $posY + 5 + $css_lineHight;
+   // $line_posY = $posY + 5 + $css_lineHight;
     //   imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
-    appendElemt(array("top" => $posY, "color" => "black", "elmtType" => "line"), $row140, $img);
+  //  renderElmtLine(array("top" => $posY, "color" => "black", "elmtType" => "line"), $img);
 
 
     echo $text . PHP_EOL;
@@ -515,7 +524,7 @@ function fenpan_betrLst() {
     \think\facade\Log::info($msg);
 
 
-    $row = array('elmtType' => 'tr', 'font_size' => $font_size,'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
+    $row = array('elmtType' => 'tr','bkgrd'=>'red', 'font_size' => $font_size, 'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
 
     $row['childs'] = [
       array('txt' => '总计' . count($arr) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
@@ -533,169 +542,18 @@ function fenpan_betrLst() {
 
     imagepng($img, __DIR__ . "/../../res/betlist.jpg");
     //  $msg = str_replace("-", "\-", $text);  //  tlgrm txt encode prblm  BCS is markdown mode
-    // sendMsgEx($GLOBALS['chat_id'], $msg);
+    sendMsgEx($GLOBALS['chat_id'], $msg);
+
+
+    //------------send pic
+    // 生成图片
+    $cfile = new \CURLFile(__DIR__ . "/../../res/betlist.jpg");
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+
   } catch (\Throwable $e) {
     var_dump($e);
   }
-}
-
-function appendElemt(array $e, array $lastElmt, $img) {
-
-
-  //  hr   line  hengxian
-  if ($e['elmtType'] == "line")
-    renderElmtLine($e, $img);
-
-  if ($e['elmtType'] == "tr") {
-
-    $e['top'] = $lastElmt['top'] + $lastElmt['height'];
-    $e['left'] = $lastElmt['left'];
-    renderElementRow($e, $img);
-  }
-
-}
-
-function renderElmtLine(array $e, $img) {
-
-  $color = getColor($e['color'], $img);
-  imageline($img, 0, $e['top'] , 2000, $e['top'] , $color);
-
-}
-
-function renderElementRow(array $row140, $img) {
-  $posX = $row140["left"];
-
-  $posY = $row140["top"];
-  $cells = $row140['childs'];
-
-  $idx = 0;
-  foreach ($cells as $k => $v_cell) {
-
-    $blktxt = $v_cell['txt'];
-  //  if($idx>0)
- //   $posX = $posX + $v_cell['width'];
-
-
-    $font_baseline_y = $posY +$row140['height'] -($row140['height']-$row140["font_size"])/2 ;
-
-    $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
-    $font = $row140['font'];
-    imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
-    //竖线。。。
-    $line_posx = $posX + $v_cell['width'];
-    imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
-
-
-    imagepng($img, __DIR__ . "/../../res/betlist.jpg");
-    $idx++;
-    $posX = $posX + $v_cell['width'];
-  }
-  $posY = $row140["top"] + $row140["height"];
-  //title baes line
-  renderElmtLine(array("top" => $posY, "color" => "red", "elmtType" => "line"), $img);
-
-}
-
-function calcFontX($v_cell, $posX, $fontSize) {
-
-
-  if ($v_cell['align'] && $v_cell['align'] == "left") {
-    $font_x = $posX + $v_cell['padLeft'];
-    return $font_x;
-  } else {
-    // deflt left
-    $blktxt = $v_cell['txt'];
-    $blktxtWidth = strlen($blktxt) / 2 * $fontSize;
-    $font_x_deft_center = $posX + ($v_cell['width'] - $blktxtWidth) / 2 - 2;
-    return $font_x_deft_center;
-  }
-
-
-}
-
-function renderElementCanvas(array $elemt) {
-
-
-  $img = imagecreatetruecolor($elemt['width'], $elemt['height']);
-
-
-  $color = getColor($elemt['bkgrd'], $img);
-
-  imagefill($img, 0, 0, $color); //这里的 "0, 0"是指坐标, 使用体验就类似 Windows 系统"画图"软件的"颜料桶", 点一下之后, 在整个封闭区间内填充颜色
-  return $img;
-}
-
-function getColor($clrname, $img) {
-  $white = imagecolorallocate($img, 255, 255, 255);
-
-  $text_color_black = imagecolorallocate($img, 0, 0, 0);
-  $white_color = imagecolorallocate($img, 255, 255, 255);
-  $red_color = imagecolorallocate($img, 255, 0, 0);
-  $green_color = imagecolorallocate($img, 100, 149, 237);
-  $blue_color = imagecolorallocate($img, 10, 10, 255);
-  // 表面颜色（浅灰）
-  $grayColor = imagecolorallocate($img, 235, 242, 255);
-  $clrArr = array("red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
-  return $clrArr[$clrname];
-
-}
-
-function delFile(string $string) {
-  try {
-    unlink($string);
-  } catch (\Throwable $e) {
-    var_dump($e);
-  }
-}
-
-function getLuck6Amt($BetContent, float $bet) {
-  if (str_delLastNumX($BetContent) == "幸运") {
-    return $bet . "";
-  } else
-    return "0";
-}
-
-function getHeAmt($BetContent, float $bet) {
-  if (str_delLastNumX($BetContent) == "和") {
-    return $bet . "";
-  } else
-    return "0";
-}
-
-function getBankDuiAmt($BetContent, float $bet) {
-  if (str_delLastNumX($BetContent) == "庄对") {
-    return $bet . "";
-  } else
-    return "0";
-}
-
-function getPlayerDuiAmt($BetContent, float $bet) {
-
-  if (str_delLastNumX($BetContent) == "闲对") {
-    return $bet . "";
-  } else
-    return "0";
-}
-
-function getPlayerAmt($BetContent, float $bet) {
-
-  if (str_delLastNumX($BetContent) == "闲") {
-    return $bet . "";
-  } else
-    return "0";
-}
-
-function getBankAmt($BetContent, $bet) {
-  if (str_delLastNumX($BetContent) == "庄") {
-    return $bet . "";
-  } else
-    return "0";
-
-}
-
-function array_sum_col($colName, array $a) {
-  $records = array_column($a, $colName);
-  return array_sum($records);
 }
 
 
@@ -742,15 +600,24 @@ function kaij_draw_evt() {
     $gmLgcSSc->lottery_no = $lottery_no;
 
 
-    $echoTxt = $gmLgcSSc->DrawLotteryV2($blkHash);    // if finish chg stat to next..
-    bot_sendMsgTxtModeEx($echoTxt, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);
+    $echoTxt = $gmLgcSSc->DrawLotteryBjl($lottery_no);    // if finish chg stat to next..
+    // bot_sendMsgTxtModeEx($echoTxt, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);
+
+
+
 
   } catch (\Throwable $e) {
     log_err($e, __METHOD__);
   }
 
 //------------------ gene pic rzt
-  SendPicRzt($gmLgcSSc);
+  //  开奖结果图 与走势图
+  SendPicRzt($GLOBALS['qihao']);
+
+  //---中奖结果图发送
+  $cfile = new \CURLFile(__DIR__ . "/../../public/betRztlist.jpg");
+  $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+  $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
 
   \think\facade\Db::close();
   $show_str = "console:" . $lottery_no . "期开奖完毕==开始下注 \r\n";
@@ -764,10 +631,15 @@ function kaij_draw_evt() {
  * @throws \TelegramBot\Api\Exception
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
-function SendPicRzt($gmLgcSSc): void {
+function SendPicRzt($qihao): void {
+
+
+  require_once __DIR__ . "/../../libBiz/bjl.php";
+
+ $rzt= getKaijRztBjl($qihao);
   try {
-    $gmLgcSSc->SendTrendImage(20); // 生成图片
-    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_庄赢.jpg");
+  //  $gmLgcSSc->SendTrendImage(20); // 生成图片
+    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_".$rzt.".jpg");
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Throwable $e) {

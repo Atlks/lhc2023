@@ -33,7 +33,7 @@ function testKaij()
   //kaij_draw_evt();
   echo 999;
 
-  // var_dump($gmLgcSSc->DrawLotteryV2("0xajfdklsjfl91690"))  ;
+   var_dump($gmLgcSSc->DrawLotteryBjl("158283"))  ;
 }
 
 
@@ -54,7 +54,10 @@ class testCls extends Command
 
   protected function execute(Input $input, Output $output)
   {
-    painTest();DIE();
+
+    testKaij();
+   // painTest();
+    DIE();
 
       $json_t=file_get_contents(__DIR__."/../../db/req.json");
       $json = json_decode($json_t, true);
