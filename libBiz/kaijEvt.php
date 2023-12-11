@@ -94,8 +94,8 @@ function SendPicRztV2($qihao,$rzt): void {
   try {
    // -----------------闲赢---生成图片
     $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_".$rzt.".jpg");
-    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+   // $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+  //  $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Throwable $e) {
     var_dump($e);
 
@@ -103,8 +103,9 @@ function SendPicRztV2($qihao,$rzt): void {
 
 
   try {
-    //require_once __DIR__ . "/../../libTpscrt/kaij.php";
-    \createTrendImageV2(getKaijRztBjl_retryX($qihao) );
+   //  require_once __DIR__ . "/../../libTpscrt/kaij.php";
+    require_once __DIR__ . "/../libBiz/startEvt.php";
+    \createTrendImageV2(\kaipanInfoCore() );
     $f549 = __DIR__ . "/../public/trend.jpg";
     //  $f549 = app()->getRootPath() . "public/trend.jpg";
     var_dump($f549);
@@ -216,17 +217,7 @@ function getKaijRztBjl($gameNo)
 //lewis, [08/12/2023 2:28 pm]
 //比如这个3$0 就是 闲，0表示无对子
 
-//  if ($seltedRow['playerCount'] == $seltedRow['bankerCount']) {
-//    $win = "和";
-//  }
-//
-//  if ($seltedRow['playerCount'] >$seltedRow['bankerCount']) {
-//    $win = "庄赢";
-//
-//  } else {
-//    $win = "闲赢";
-//  }
-//  return $win;
+
 }
 
 
@@ -372,7 +363,9 @@ function createTrendImageV2($records) {
 //    else
 //      $pos_y = $pos_y + $withMain;
 
-
+    $rzt=$record['gameRecord'];
+    if(!$rzt)
+      continue;
 
     if ($int_num % 6 == 0) {
       $pos_x = $pos_x + $withMain;
@@ -382,20 +375,47 @@ function createTrendImageV2($records) {
     }
     $int_num++;
 
-    if ($record['playerCount'] == $record['bankerCount']) {
-      $win = "和";
-      $curClr = $green_color;
 
+
+
+
+    $a=explode("$",$rzt) ;
+
+    if($a[0]==1)
+    {
+      $win = "庄";
+      $curClr = $green_color;
     }
 
 
-    if ($record['playerCount'] > $record['bankerCount']) {
-      $win = "庄";
-      $curClr = $red_color;
-    } else {
+    if($a[0]==2){
+      $win = "和";  $curClr = $green_color;
+    }
+
+    if($a[0]==3)
+    {
+
       $win = "闲";
       $curClr = $blue_color;
     }
+
+
+//    return $win;
+
+//    if ($record['playerCount'] == $record['bankerCount']) {
+//      $win = "和";
+//
+//
+//    }
+//
+//
+//    if ($record['playerCount'] > $record['bankerCount']) {
+//      $win = "庄";
+//      $curClr = $red_color;
+//    } else {
+//      $win = "闲";
+//      $curClr = $blue_color;
+//    }
 
 
     //---------球球

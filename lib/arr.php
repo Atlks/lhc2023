@@ -6,6 +6,23 @@ function array_sum_col($colName,array $a) {
   return array_sum($records);
 }
 
+
+function in_array_rxChk(string $txt, array $arr_fmt) {
+
+  $fnl=false;
+  foreach ($arr_fmt as $itm) {
+    if (empty($itm))
+      continue;
+
+    $p = '/^' . $itm . '$/iu';
+    if (preg_match($p, $txt)) {
+      $fnl=true;
+    }
+
+  }
+  return $fnl;
+}
+
 function array_filterx($arr,$f)
 {
 

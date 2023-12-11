@@ -54,6 +54,19 @@ class testCls extends Command
 
   protected function execute(Input $input, Output $output)
   {
+    require_once __DIR__."/../../libBiz/kaijEvt.php";
+    \SendPicRztV2(232904,"闲赢");
+    die();
+
+
+    //test bet
+    $hdr =   new  \app\controller\HandleMsgHdlBjlWebreq();
+    $hdr->Bot_Token= $GLOBALS['BOT_TOKEN'];
+    $json_t=file_get_contents(__DIR__."/../../db/testJson.json");
+    $json = json_decode($json_t, true);
+    $ret = $hdr->processMessage($json);
+
+    die();
 
     //---------------------开奖流程
 
@@ -78,14 +91,6 @@ class testCls extends Command
 
 
 
-    //test bet
-    $hdr =   new  \app\controller\HandleMsgHdlBjlWebreq();
-    $hdr->Bot_Token= $GLOBALS['BOT_TOKEN'];
-    $json_t=file_get_contents(__DIR__."/../../db/testJson.json");
-    $json = json_decode($json_t, true);
-    $ret = $hdr->processMessage($json);
-
-    die();
 
 
     global $lottery_no;
