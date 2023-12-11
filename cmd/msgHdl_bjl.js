@@ -5,7 +5,7 @@
 //   npm install  mysql
 // execSync
 
-//   node tlgrm/keywoHdlr.js
+//   node cmd/msgHdl_bjl.js
 // node  C:\modyfing\jbbot\tlgrm\keywoHdlr.js
 const { exec, execSync } = require('child_process');
 
@@ -13,28 +13,28 @@ const { exec, execSync } = require('child_process');
 
 
 
-// var connection = getConn();
-// //token = "6510408569:AAHrrbsKgCvklwiFje_TKPF-ABMz0kdxn2c" // msg2025
-// token = "";
-// connection.query('SELECT  * from setting where id=20  ', function(error, results, fields) {
-//     if (error) throw error;
-//     //  console.log(JSON.stringify(results));
-//     token = results[0].s_value
-//     console.log('The solution is: ', results[0].s_value);
-//
-//
-//     //test
-//    // token="6193061603:AAGuHLcUR0-pjiIRFc9wfYglsvhae61ZEqA";
-//    // token="";
-//     invoke_bot(token);
-// });
-// connection.end(); //要加不然唱起了回报个 conn close err。。。must add beir longt time
-// console.log(9999);
+var connection = getConn();
+//token = "6510408569:AAHrrbsKgCvklwiFje_TKPF-ABMz0kdxn2c" // msg2025
+token = "";
+connection.query('SELECT  * from setting where id=20  ', function(error, results, fields) {
+    if (error) throw error;
+    //  console.log(JSON.stringify(results));
+    token = results[0].s_value
+    console.log('The solution is: ', results[0].s_value);
 
 
-token="6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg";
+    //test
+   // token="6193061603:AAGuHLcUR0-pjiIRFc9wfYglsvhae61ZEqA";
    // token="";
     invoke_bot(token);
+});
+connection.end(); //要加不然唱起了回报个 conn close err。。。must add beir longt time
+console.log(9999);
+
+
+// token="6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg";
+//    // token="";
+//     invoke_bot(token);
 
 function invoke_bot(token) {
     //6357469915: AAGyKxgsBJ4NmaazHG - 6 aiAuoodeT0gJmPA   //ssc2023 bot

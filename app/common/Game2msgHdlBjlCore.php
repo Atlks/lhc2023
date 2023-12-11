@@ -291,28 +291,46 @@ class Game2msgHdlBjlCore {
       \think\facade\Log::betnotice($lineNumStr);
       \think\facade\Log::betnotice(" forech per betstr :getWefa($bet_nums) ");
       log_info_toReqchain(__LINE__ . __METHOD__, "bet_num", $bet_nums);
+//
+//      $wefa413 = betstrX__parse_getWefa($bet_nums);
+//      log_info_toReqchain(__LINE__ . __METHOD__, "wefa413", $wefa413);
+//
+//      \think\facade\Log::betnotice("   wefa413 rzt :" . $wefa413);
+//      //  var_dumpx($rows);
+//      //   var_dumpx($rows[0]['玩法']);
+//      if ($wefa413 == "") {
+//        // continue;
+//         //  return "格式错误";
+//      }
 
-      $wefa413 = betstrX__parse_getWefa($bet_nums);
-      log_info_toReqchain(__LINE__ . __METHOD__, "wefa413", $wefa413);
-
-      \think\facade\Log::betnotice("   wefa413 rzt :" . $wefa413);
-      //  var_dumpx($rows);
-      //   var_dumpx($rows[0]['玩法']);
-      if ($wefa413 == "") {
-        // continue;
-         //  return "格式错误";
-      }
+      //todo act bjl
       $wefa413="lhc";
 
-      $amount = getAmt_frmBetStr340($bet_nums) * 100;  //bcs money amt is base fen...so   cheni 100
+      //----------soha to   xx999   fmt
+      require_once  __DIR__."/../../libBiz/user.php";
+      if($bet_nums=="庄梭")
+      {
+        $userBls=getBlsByU($this->player->getId());
+        $bet_nums="庄".$userBls;
+      }
+      if($bet_nums=="闲梭")
+      {
+        $userBls=getBlsByU($this->player->getId());
+        $bet_nums="闲".$userBls;
+      }
+      $amount = getAmt_frmStrLastV3($bet_nums,0) * 100;  //bcs money amt is base fen...so   cheni 100
 
 
+
+      //-------------get bettype info row
       $wanfa = $wefa413;
       //   var_dump("265L wanfa:".$wanfa);
       $rows = \think\facade\Db::name('bet_types')->whereRaw("玩法='" . $wanfa . "'")->select();
       \think\facade\Log::info("262L rows count:" . count($rows));
       if (count($rows) == 0) {
 
+         //todo to log by reqchain log
+        log_Vardump(__LINE__ .__METHOD__,"qry Peilv by wefa",$rows,$GLOBALS['lgnm307']);
 
         log_e_toReqchain(__LINE__ . __METHOD__, "qry Peilv by wefa", $rows);
 
@@ -333,12 +351,9 @@ class Game2msgHdlBjlCore {
 
       //---------------------------------bet bef chk
       if ($bet['amount'] == 0)
-        break;
+        return $text = "没有达到最小下注:";
 
-      $min = $type['Bet_Min'];
-      if ($min <= 0)
-        $min = $this->min_limit;
-      if ($bet['amount'] < $min) {
+      if ($bet['amount'] < $type['Bet_Min']) {
         return $text = "没有达到最小下注:" . $min / 100;
       }
 
@@ -357,6 +372,8 @@ class Game2msgHdlBjlCore {
 
       $text = $text . $bet_text . "(" . $type['Odds'] . "赔率)\r\n";
       $total_bet_amount += $bet['amount'];
+
+      //-----------------push bet row
 
       //  $bet['bet_type']=[];
       //  var_dump(  $bet['bet_type']);  ==rows..

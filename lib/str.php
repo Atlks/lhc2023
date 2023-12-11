@@ -10,7 +10,7 @@ function str_parseToFunExprs(mixed $funx): array {
 }
 
 
-function cvt155($r): bool|string {
+function cvt155($r)   {
   return iconv("ucs-2be", 'utf-8', pack('h4', $r[1]));
 }
 

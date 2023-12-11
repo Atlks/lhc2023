@@ -1,4 +1,12 @@
 <?php
+
+
+
+function file_get_contents_Asjson($f) {
+  $t=file_get_contents($f);
+  $json = json_decode($t, true);
+  return $json;
+}
 function file_mov(string $filpath, string $dir_oked): void
 {
     if (!file_exists($dir_oked))

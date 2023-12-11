@@ -279,7 +279,7 @@ function bot_sendmsg_reply_byQrystrV2($bot_token, $Qrystr)
     log23::tlgrmlib(__LINE__ . __METHOD__, ">>>ret", $r);
 
 
-    log_Vardump(__METHOD__,"<<<<ret",$r, $GLOBALS['lgnm307']);
+    log_vardumpRetval(__METHOD__, $r, $GLOBALS['lgnm307']);
 
     return $r;
   } catch (\Throwable $exception) {

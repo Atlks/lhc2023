@@ -8,6 +8,7 @@ use app\model\MoneyLog;
 use app\model\RechargeLog;
 use app\model\UserDailyReport;
 use app\model\LotteryLog;
+use think\Db;
 
 
 class Logs
@@ -37,13 +38,20 @@ class Logs
     {
         \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
         $log = LotteryLog::where('No', $lottery_no)->find();
+       // $s= $log['No'];
         if(empty($log))
         {
-            $log = LotteryLog::create(array(
-                'Date' => $date,
-                'No' => $lottery_no,
-                'Hash' => $hash_no,
-            ));
+
+          $data = ['Date' => $date,
+            'No' => $lottery_no,
+            'Hash' => $hash_no];
+          \think\facade\Db::name('lottery_log')->save($data);
+
+//            $log = LotteryLog::create(array(
+//                'Date' => $date,
+//                'No' => $lottery_no,
+//                'Hash' => $hash_no,
+//            ));
         }
         return $log;
     }

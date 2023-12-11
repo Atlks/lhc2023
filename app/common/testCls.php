@@ -55,6 +55,38 @@ class testCls extends Command
   protected function execute(Input $input, Output $output)
   {
 
+    //---------------------开奖流程
+
+    $GLOBALS['qihao']=220949;
+    require_once __DIR__."/../../libBiz/kaijEvt.php";
+    kaij_draw_evt_bjl();
+    die();
+
+    //---stgartg
+
+    require_once __DIR__."/../../libBiz/startEvt.php";
+    startBetEvtBjl();die();
+
+
+
+
+
+
+    require_once __DIR__."/../../app/commonBjl/CmdBjl.php";
+    \app\commonBjl\main_processBjl();die();
+
+
+
+
+    //test bet
+    $hdr =   new  \app\controller\HandleMsgHdlBjlWebreq();
+    $hdr->Bot_Token= $GLOBALS['BOT_TOKEN'];
+    $json_t=file_get_contents(__DIR__."/../../db/testJson.json");
+    $json = json_decode($json_t, true);
+    $ret = $hdr->processMessage($json);
+
+    die();
+
 
     global $lottery_no;
     $lottery_no=158283;

@@ -7,7 +7,8 @@
 
 //  php C:\0prj\lhc2023\cmd/../think   msgHdlrBjlTpcmd
 
-//  php app/main_cmd.php
+//php cmd/main_cmd.php
+
 global $errdir;
 $errdir = __DIR__."/../runtime"; $GLOBALS['errdir']=$errdir;
 require_once __DIR__ . "/../lib/ex.php";

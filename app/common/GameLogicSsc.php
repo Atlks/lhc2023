@@ -1141,6 +1141,8 @@ class GameLogicSsc {
 //  }
 
 
+
+//gene rzt list pic
   //  对讲计算
   public function DrawLotteryBjl($gameNo) {
     //todo
@@ -1160,7 +1162,9 @@ class GameLogicSsc {
 
 
     require_once __DIR__ . "/../../libBiz/bjl.php";
-    $result_text = \getKaijRztBjl($gameNo);
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    $result_text = \getKaijRztBjl_retryX($gameNo);
+    $GLOBALS['kaij_rzt']=$result_text;
     \think\facade\Log::debug("aft getKaijNumFromBlkhash:" . $gameNo);
 
     //计算输赢
@@ -1266,15 +1270,15 @@ class GameLogicSsc {
 
 
     //-------------show 开奖结果 和中奖名单
-    $text = "开奖结果 闲赢\r\n";
+    $text = "开奖结果 ".$result_text."\r\n";
     $text = $text
       // .  betstrX__convert_kaij_echo_ex($result_text) . PHP_EOL
       . "=====本期中奖名单======" . "\r\n";
 
-
+    //show jonjyo list 中奖名单
     $text = $text . $this->calcIncomeGrpby($gameNo);
 
-
+    var_dump($text);
     $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
     // var_dump($lineNumStr);
     \think\facade\Log::info($lineNumStr);
@@ -1291,6 +1295,7 @@ class GameLogicSsc {
   // show jonjyo list 中奖名单
   public function calcIncomeGrpby($lotteryno) {
     require_once __DIR__ . "/../../lib/painLib.php";
+    $outFile=__DIR__ . "/../../public/betRztlist.jpg";
     delFile(__DIR__ . "/../../public/betRztlist.jpg");
     try {
       $a = [];
@@ -1341,7 +1346,7 @@ class GameLogicSsc {
 
       ];
 
-      renderElementRow($row614, $img);
+      renderElementRowV2($row614, $img,$outFile);
       $posY = $posY + $row614['height'];
 
 
@@ -1385,7 +1390,7 @@ class GameLogicSsc {
 
         ];
 
-        renderElementRow($row327, $img);
+        renderElementRowV2($row327, $img,$outFile);
         $posY = $posY + $row327['height'];
 
 
@@ -1405,10 +1410,11 @@ class GameLogicSsc {
 
       ];
 
-      renderElementRow($row, $img);
+
+      renderElementRowV2($row, $img,$outFile);
       // $posY = $posY + $row['height'];
 
-      imagepng($img, __DIR__ . "/../../public/betRztlist.jpg");
+      imagepng($img, $outFile);
 
 
 

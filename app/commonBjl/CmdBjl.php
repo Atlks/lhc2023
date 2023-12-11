@@ -127,7 +127,8 @@ function main_processBjl() {
   global $lottery_no;
   // $lottery_no = 1133;
   echo "-------------------------开始投注----60s" . PHP_EOL;
-  startBetEvt();
+  require_once __DIR__."/../../libBiz/startEvt.php";
+  startBetEvtBjl();
   // $GLOBALS['kaijtime']
   // touzhu ,60then  warning  ,30 then stop  ,,30then kaij
   list($alltimeCycle, $bet_time_sec_ramain_adjust) = getBettimeRemain();   // $bet_time:105000     105s   1分40s
@@ -148,7 +149,8 @@ function main_processBjl() {
   // $delay_to_statrt_Kaijyo_sec=chkRemainTime($delay_to_statrt_Kaijyo_sec);
   sleep($delay_to_statrt_Kaijyo_sec);
   //---------------------开奖流程
-  kaij_draw_evt();
+  require_once __DIR__."/../../libBiz/kaijEvt.php";
+  kaij_draw_evt_bjl();
 }
 
 
@@ -239,90 +241,6 @@ function getWarningBetTimeRemain() {
 }
 
 
-function startBetEvt() {
-  //// 更新状态开放投注  must close here lst for open b cs secury
-  $set = Setting::find(3);
-  $set->value = 1;   //1 just close bet
-  $set->save();
-  \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
-  //-------------------- start bet
-
-  global $lottery_no;
-  $ltr = new \app\common\LotteryHashSsc();
-  $qiohao_data = $ltr->kaijResult();
-  $lottery_no = $qiohao_data['lottery_no'];
-
-  //$lottery_no="19005195";
-
-
-  $GLOBALS['countdownSeconds'] = $qiohao_data['data'][0]['countdownSeconds'];
-
-//  $kaijtime = $qiohao_data ['closetime'];
-//  //   touzhu time 90s,, fenpe30s
-//  $GLOBALS['kaijtime'] = $kaijtime;
-
-
-  $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-  //   \think\facade\Log::info($lineNumStr);
-  \think\facade\Log::info(" get_current_noV2: " . $lottery_no);
-
-
-  $today = date("Y-m-d", time());
-  //准确性保障 添加unqidx must。。。  ALTER TABLE `jbdb`.`lottery_log`   //ADD UNIQUE INDEX `no_unq`(`No`);
-//  $log = \app\common\Logs::addLotteryLog($today, $lottery_no, $GLOBALS['kaijBlknum']);
-  $log = LotteryLog::create(array(
-
-    'No' => $lottery_no,
-    'Hash' => $GLOBALS['kaijBlknum'],
-  ));
-
-
-  var_dump($log);
-  $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-  //   \think\facade\Log::info($lineNumStr);
-  \think\facade\Log::info("add new lotry qihao " . $lineNumStr);
-  \think\facade\Log::info(json_encode($log));
-
-  //--------------------start bet
-//  $text = $lottery_no . "期 开始下注!\r\n";
-//
-//  $bot_words = \app\model\BotWords::where('Id', 1)->find();
-//  $words = $bot_words->Start_Bet;
-//  $text = $text . $words;
-//
-//  $elapsed = Setting::find(6)->value + Setting::find(7)->value;
-//  $stop_time = date("Y-m-d H:i:s", $kaijtime - 30);
-//  $text = $text . "\n\n封盘时间：$stop_time\n";
-//  $elapsed += Setting::find(8)->value;
-//  $draw_time = date("Y-m-d H:i:s", $kaijtime);
-//  $text = $text . "开奖时间：$draw_time\n";
-//  $text = \app\common\Helper::replace_markdown($text);
-//  //for safe hide kaijblk
-//  $text = $text . "开奖区块号 ：[" . $GLOBALS['kaijBlknum'] . "](https://etherscan.io/block/" . $GLOBALS['kaijBlknum'] . ")";
-
-//
-//  $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-//  //   \think\facade\Log::info($lineNumStr);
-//  \think\facade\Log::info($lineNumStr);
-//  \think\facade\Log::info($text);
-//  //sendmessageBotNConsole($text);
-
-  $text = file_get_contents(__DIR__ . "/../../db/startInfo.txt");
-  echo $text . PHP_EOL;
-  $text = str_replace("(", "\(", $text);
-  $text = str_replace(")", "\)", $text);
-  $text = str_replace("-", "\-", $text);
-
-  $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-  $cfile = new \CURLFile(app()->getRootPath() . "res/bet_tips.jpg");
-  $bot->sendPhoto($GLOBALS['chat_id'], $cfile, $text, null, null, null, false, "MarkdownV2");
-  //    $bot->sendMessage(chatid,txt,parsemode,replyMsgID)
-  //// 更新状态开放投注
-  $set = Setting::find(3);
-  $set->value = 0;
-  $set->save();
-  \think\facade\Db::close();
-}
 
 function fenpan_wanrning_event() {
 
@@ -382,19 +300,7 @@ function fenpan_stop_event() {
   // bot_sendMsg($msg, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);
   // sendmessageBotNConsole($text);
 
-  //---------------------------------点击官方开奖-----------
 
-  try {
-    $text = "第" . $lottery_no . "期 [点击官方开奖](https://etherscan.io/block/" . $GLOBALS['kaijBlknum'] . ")";
-    // sendmessageBotNConsole($text);
-
-    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-    // $bot->sendmessage($GLOBALS['chat_id'], $text, "MarkdownV2", true);
-    // public function StopBet()
-
-  } catch (\Throwable $e) {
-
-  }
 
   $set = Setting::find(3);
   $set->value = 1;
@@ -439,7 +345,7 @@ function fenpan_betrLst() {
     //--------------------title
     //百家乐
     $row327 = array("left" => 0,'bkgrd'=>'gray', "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
-    $cell1 = array('id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'txt' => "百家乐", 'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
+    $cell1 = array('txt' => "百家乐NO.".$GLOBALS['qihao'],'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
     $cell_bank = array('txt' => '庄', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyr = array('txt' => '闲', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_bankDui = array('txt' => '庄对', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
@@ -549,7 +455,6 @@ function fenpan_betrLst() {
     // $posY = $posY + $row['height'];
 
     imagepng($img, __DIR__ . "/../../res/betlist.jpg");
-    //  $msg = str_replace("-", "\-", $text);  //  tlgrm txt encode prblm  BCS is markdown mode
     sendMsgEx($GLOBALS['chat_id'], $msg);
 
 
@@ -580,86 +485,19 @@ function getBankAmtV2(string $lottery_no, $uid, $bettype) {
 }
 
 
-// jaijyo evt
-//require  __DIR__ . "/../../lib/iniAutoload.php";
-function kaij_draw_evt() {
-  $draw_str = "console:" . $GLOBALS['qihao'] . "期开奖中..console";
-  //  sendmessage841($draw_str);
-  \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
-  require_once __DIR__ . "/../common/lotrySscV2.php";
-
-  global $lottery_no;
-  //--------------get kaijnum  show kaij str
-
-  try {
-    $ltr = new \app\common\LotteryHashSsc();
-    $blkHash = $ltr->drawV3($GLOBALS['kaijBlknum']);
-    var_dump($blkHash);
-    $text = "第" . $lottery_no . "期开奖结果" . "\r\n";
-
-    $kaij_num = getKaijNumFromBlkhash($blkHash);
-    $text = $text . betstrX__convert_kaij_echo_ex($kaij_num);// ();
-    $text = $text . PHP_EOL . "本期区块号码:" . $GLOBALS['kaijBlknum'] . "\r\n"
-      . "本期哈希值:\r\n" . $blkHash . "\r\n";
-    //  sendmessage841($text);
-    //  $text .= $this->result . "\r\n";
-    $text = "开奖结果" . "\r\n";
-
-    //  sendMsgEx($GLOBALS['chat_id'], $text);
-  } catch (\Throwable $e) {
-    var_dump($e);
-  }
-
-
-  $gmLgcSSc = new   \app\common\GameLogicSsc();  //comm/gamelogc
-  // $gl->lottery_no = $lottery_no;
-
-  //--------------------show kaj rzt
-  try {
-    $data['hash_no'] = $lottery_no;
-    $data['lottery_no'] = $lottery_no;
-    $gmLgcSSc->lottery->setData($data);
-    $gmLgcSSc->hash_no = $lottery_no;
-    $gmLgcSSc->lottery_no = $lottery_no;
-
-
-    $echoTxt = $gmLgcSSc->DrawLotteryBjl($lottery_no);    // if finish chg stat to next..
-    // bot_sendMsgTxtModeEx($echoTxt, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);
-
-
-
-
-  } catch (\Throwable $e) {
-    log_err($e, __METHOD__);
-  }
-
-//------------------ gene pic rzt
-  //  开奖结果图 与走势图
-  SendPicRzt($GLOBALS['qihao']);
-
-  //---中奖结果图发送
-  $cfile = new \CURLFile(__DIR__ . "/../../public/betRztlist.jpg");
-  $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-  $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
-
-  \think\facade\Db::close();
-  $show_str = "console:" . $lottery_no . "期开奖完毕==开始下注 \r\n";
-  //  sendmessage841($show_str);
-  // $gl->DrawLottery();
-}
-
 /**
+ * send kaij rzt pic n trend pic
  * @param GameLogicSsc $gmLgcSSc
  * @return void
  * @throws \TelegramBot\Api\Exception
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
-function SendPicRzt($qihao): void {
+function SendPicRzt($qihao,$rzt): void {
 
 
   require_once __DIR__ . "/../../libBiz/bjl.php";
 
- $rzt= getKaijRztBjl($qihao);
+ //$rzt= getKaijRztBjl($qihao);
   try {
   //  $gmLgcSSc->SendTrendImage(20); // 生成图片
     $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_".$rzt.".jpg");
@@ -675,7 +513,7 @@ function SendPicRzt($qihao): void {
     require_once __DIR__ . "/../../libTpscrt/kaij.php";
     \createTrendImageV2(1);
     $f549 = __DIR__ . "/../../public/trend.jpg";
-    $f549 = app()->getRootPath() . "public/trend.jpg";
+  //  $f549 = app()->getRootPath() . "public/trend.jpg";
     var_dump($f549);
     $cfile = new \CURLFile($f549);
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);

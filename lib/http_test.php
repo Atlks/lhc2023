@@ -30,6 +30,8 @@ function kaijResult() {
 
   $t=http_post($url,"tableNo=8&token=".$token);
   $json = json_decode($t, true);
+
+  file_put_contents(__DIR__."/../test/gameinfo.json",$t);
   return $json;
   //ref ft cur dsk.json
 

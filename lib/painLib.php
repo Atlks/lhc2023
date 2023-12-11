@@ -24,7 +24,77 @@ function renderElmtLine(array $e, $img) {
 
 }
 
+
+
 function renderElementRow(array $row140, $img) {
+  $posX = $row140["left"];
+
+  $posY = $row140["top"];
+  $cells = $row140['childs'];
+
+  if(  array_key_exists('bkgrd',$row140))
+
+  {
+    $surface_color_row = getColor($row140['bkgrd'], $img);
+    imagefilledrectangle($img, $posX, $posY, 2000  , $posY +$row140['height'], $surface_color_row);
+
+  }
+
+
+  $idx = 0;
+  foreach ($cells as $k => $v_cell) {
+
+    $blktxt = $v_cell['txt'];
+    //  if($idx>0)
+    //   $posX = $posX + $v_cell['width'];
+
+
+    // imagefilledrectangle
+
+    if(  array_key_exists('bkgrd',$v_cell)  )
+    {
+      if( $v_cell['bkgrd']!="")
+      {
+        $surface_color = getColor($v_cell['bkgrd'], $img);
+        imagefilledrectangle($img, $posX, $posY, $posX+$v_cell['width']  , $posY +$v_cell['height'], $surface_color);
+
+      }
+
+
+    }
+
+    //— 绘制矩形并填充
+
+    $font_baseline_y = $posY +$row140['height'] -($row140['height']-$row140["font_size"])/2 ;
+
+    $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
+    $font = $row140['font'];
+    if(! array_key_exists('color',$v_cell)  )
+      $v_cell['color']="black";
+    imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
+    //竖线。。。
+    //todo th implt
+    //if th then pain shuxian
+    $line_posx = $posX + $v_cell['width'];
+    imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
+
+
+    $outputPic = __DIR__ . "/../res/betlist.jpg";
+    imagepng($img, $outputPic);
+    $idx++;
+    $posX = $posX + $v_cell['width'];
+  }
+  $posY = $row140["top"] + $row140["height"];
+  //title baes line
+  renderElmtLine(array("top" => $posY, "color" => "red", "elmtType" => "line"), $img);
+
+}
+
+
+
+
+//dep
+function renderElementRowV2(array $row140, $img,$outputPic) {
   $posX = $row140["left"];
 
   $posY = $row140["top"];
@@ -77,7 +147,8 @@ function renderElementRow(array $row140, $img) {
     imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
 
 
-    imagepng($img, __DIR__ . "/../res/betlist.jpg");
+   // $outputPic = __DIR__ . "/../res/betlist.jpg";
+    imagepng($img, $outputPic);
     $idx++;
     $posX = $posX + $v_cell['width'];
   }
