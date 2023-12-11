@@ -1,6 +1,6 @@
 <?php
 
-
+//php dbKaijSrc/kaijsrc.php
 
 while(true)
 {
@@ -28,7 +28,7 @@ while(true)
 
   //------------------save kaij rzt
   $json=file_get_contents_Asjson($f);
-  $newJu['gameRecord']="1$0";
+  $newJu['gameRecord']="3$0";
   $json['data'][0]=$newJu;
   file_put_contents($f,json_encode($json,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
