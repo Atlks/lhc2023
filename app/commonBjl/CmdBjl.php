@@ -259,7 +259,7 @@ function fenpan_wanrning_event() {
   // sendmessage841($waring_str);
   var_dump(' $waring_time_sec:' . $waring_time_sec);  ///   $waring_time_sec:50
   $words = $bot_words->StopBet_Waring;
-  $text = $words;
+  $text = file_get_contents(__DIR__."/../../db/warn.txt");
 
   echo $text . PHP_EOL;
   bot_sendMsgTxtMode($text, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);

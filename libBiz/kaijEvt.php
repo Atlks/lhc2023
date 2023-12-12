@@ -231,10 +231,6 @@ function createTrendImageV2($records) {
   $log_txt = __METHOD__ . json_encode(func_get_args(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
 
-  // 数据
-  $data = ["turn" => '期数', "result" => "         A   B    C   D   E", "sum" => "和", "zuhe" => "组合", 'limit' => "龙虎"];
-  $row_x = ["turn" => '12345678', "result" => "a+b+c=102", "sum" => "22", "zuhe" => "组合", 'limit' => "龍"];
-
   $font = __DIR__ . "/../public/msyhbd.ttc";
   $font_path = $font;
   var_dump($font_path);
@@ -247,103 +243,15 @@ function createTrendImageV2($records) {
   //$title_x_len = $this_title_box[2] - $this_title_box[0];
   $title_height = 40;
 
-  // 每行高度
-  $row_hight = $title_height - 10;
-  $pre_title_w = [];
-//  foreach ($data as $key => $value) {
-//    $this_box = \imagettfbbox($font_size, 0, $font, $value);
-//    $pre_title_w[$key] = $this_box[2] - $this_box[0];
-//  }
 
 
-  $text_x_len = 0;
-  $pre_col_w = [];
-  $pre_col_x = [];
-//  foreach ($row_x as $key => $value) {
-//    $this_box = \imagettfbbox($font_size, 0, $font, $value);
-//    $pre_col_w[$key] = $this_box[2] - $this_box[0];
-//    $text_x_len += $pre_col_w[$key];
-//  }
 
-  // 列数
-  $column = 5;
+  $img_height=300;$img_width=800;
+  //--------------------- 创建画布
+  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $img_width, "height" => $img_height);
+  require_once  __DIR__."/../lib/painLib.php";
+  $img = renderElementCanvas($img_elmt);
 
-  $title_height = 40;
-  // 文本左右内边距
-  $x_padding = 10;
-  $y_padding = 10;
-  // 图片宽度（每列宽度 + 每列左右内边距）
-  $img_width = 500;
-  // 图片高度（标题高度 + 每行高度 + 每行内边距）
-  $img_height = 400;
-
-  # 开始画图
-  // 创建画布
-  $img = imagecreatetruecolor($img_width, $img_height);
-
-  # 创建画笔
-  // 背景颜色（蓝色）
-  $bg_color = imagecolorallocate($img, 10, 10, 10);
-  $blue_color = imagecolorallocate($img, 10, 10, 255);
-  $blue_color_half = imagecolorallocate($img, 100, 100, 255);
-  // 表面颜色（浅灰）
-  $surface_color = imagecolorallocate($img, 235, 242, 255);
-  // 标题字体颜色（白色）
-  $title_color = imagecolorallocate($img, 255, 255, 255);
-  // 内容字体颜色（灰色）
-  $text_color = imagecolorallocate($img, 0, 0, 0);
-
-  $text_color_black = imagecolorallocate($img, 0, 0, 0);
-  $green_color = imagecolorallocate($img, 0, 255, 0);
-  $blueLight_color = imagecolorallocate($img, 100, 149, 237);
-
-  // 大双为红色
-  $big_2_color = imagecolorallocate($img, 255, 0, 0);
-  // 小单为青色
-  $small_1_color = imagecolorallocate($img, 100, 149, 237);
-  // 无的颜色
-  $null_color = imagecolorallocate($img, 125, 125, 125);
-  // 对子
-  $pair_color = imagecolorallocate($img, 10, 200, 10);
-  // 顺子
-  $_color = imagecolorallocate($img, 200, 134, 0);
-  // 豹子
-  $all_color = imagecolorallocate($img, 255, 0, 0);
-  $box = imagettfbbox($font_size, 0, $font, "小");
-  $big_small_with = $box[2] - $box[0];
-
-
-  // 画矩形 （先填充一个大背景，小一点的矩形形成外边框）
-  imagefill($img, 0, 0, $bg_color);  //背景颜色（蓝色）
-  imagefilledrectangle($img, 0, 0, $img_width, $img_height, $surface_color);
-
-  $x = 0;
-  $title_x = 0;
-  $intN = 0;
-  foreach ($pre_col_w as $k => $col_x) {
-//    $x += $x_padding * 2;
-//    $x += $col_x;
-//
-//    $intN++;
-//
-//    //  break;
-//    imageline($img, $x, $title_height, $x, $img_height, $bg_color);
-//
-//    $pre_col_x[$k] = $x;
-//    //写入首行
-//    imagettftext($img, $font_title_size, 0, $title_x + intval(($col_x + $x_padding * 2 - $pre_title_w[$k]) / 2), intval($title_height - $font_title_size / 2), $title_color, $font, $data[$k]);
-//    $title_x += $col_x + $x_padding * 2;
-  }
-  $white_color = imagecolorallocate($img, 255, 255, 255);
-  $red_color = imagecolorallocate($img, 255, 0, 0);
-  $blue_color = imagecolorallocate($img, 10, 10, 255);
-
-
-  // 写入表格
-  $temp_height = $title_height;
-
-  imageline($img, 0, 3, 500, 3, $red_color);
-//  imagettftext($img, $font_size, 0, 0 , 0+20 , $blue_color, $font, "我");
 
 
   $pos_x = 0;
@@ -354,8 +262,8 @@ function createTrendImageV2($records) {
   $css_datawidth=$withMain;
 
   $outFile = __DIR__ . "/../public/trend.jpg";
-  //----------------------百家乐
-  $row614 = array("left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
+  //----------------------百家乐 hd-----------
+  $row614 = array("th_row"=>"true","left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
 
   $bankWinCnt = getBkWinCnt($records,"1$");
   $plyerWinCnt = getBkWinCnt($records,"3$");
@@ -364,21 +272,22 @@ function createTrendImageV2($records) {
   $plyrDwiCnt= getDzCnt($records,"$2");
   $bkgrdBallWidth=40;
   // gameRecord
+  $ballwd=40;
   $row614["childs"] = [
 
-    array('txt' => "庄", 'color' => "white", 'shape'=>'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'bkgrd' => "red", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
+    array('txt' => "庄",'ballwidth'=>$ballwd, 'color' => "white", 'shape'=>'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'bkgrd' => "red", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
     array('txt' => $bankWinCnt, 'color' => "red", 'bkgrd' => "", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
 
-    array('txt' => '闲','shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'align' => 'center', 'color' => "white", 'bkgrd' => "blue", 'width' => $withMain, 'height' => $css_lineHight),
+    array('txt' => '闲','ballwidth'=>$ballwd,'shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'align' => 'center', 'color' => "white", 'bkgrd' => "blue", 'width' => $withMain, 'height' => $css_lineHight),
     array('txt' => $plyerWinCnt, 'align' => 'center', 'color' => "blue", 'bkgrd' => "", 'width' => $withMain, 'height' => $css_lineHight),
 
-    array('txt' => '和','shape'=>'ball' ,'bkgrdBallWidth' => $bkgrdBallWidth,'color' => "white", 'bkgrd' => "green", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => '和','ballwidth'=>$ballwd,'shape'=>'ball' ,'bkgrdBallWidth' => $bkgrdBallWidth,'color' => "white", 'bkgrd' => "green", 'width' => $css_datawidth, 'height' => $css_lineHight),
     array('txt' => $HeCnt, 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-    array('txt' => '对','shape'=>'ball' , 'color' => "white", 'bkgrd' => "red", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => '对','ballwidth'=>$ballwd,'shape'=>'ball' , 'color' => "white", 'bkgrd' => "red", 'width' => $css_datawidth, 'height' => $css_lineHight),
     array('txt' => $bkDwiCnt, 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-    array('txt' => '对','shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'color' => "white", 'bkgrd' => "blue", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => '对','ballwidth'=>$ballwd,'shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'color' => "white", 'bkgrd' => "blue", 'width' => $css_datawidth, 'height' => $css_lineHight),
  array('txt' => $plyrDwiCnt, 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
 
@@ -390,96 +299,163 @@ function createTrendImageV2($records) {
    //-----------end head
 
 
-
+  $rowIdx=0;
+  $colIdx=0;
 
   $maxLen=count($records);
+  //---------tag  row col idx
   for($i=$maxLen-1;$i>0;$i--)
   {
-    $record=$records[$i];
-  //这里已经打印了title n 竖线。。没有横线
- // foreach ($records as $key => $record) {
-
-//    if($int_num==1)
-//      $pos_y = $pos_y + $withMain/2;
-//    else
-//      $pos_y = $pos_y + $withMain;
+    $record=&$records[$i];
 
     $rzt = $record['gameRecord'];
     if (!$rzt)
-      continue;
+      continue;  //flt now open game...
 
+    //----------split to rowIdx,colIdx
     $arr_jmp=[7,13,19,25,31,37,43,49,55,61,67,73,79,85,91,97];
     if ( in_array($int_num,$arr_jmp)  ) {
+      $rowIdx=0;//rest rowidx
       $pos_x = $pos_x + $withMain;
       $pos_y = $withMain;  //这里这番需要avd head..
-      $linex = $pos_x;
-      imageline($img, $linex, 0, $linex, $img_height, $bg_color);
+
+      $colIdx++;
+
     }
+    $record['rowIdx']=$rowIdx;
+    $record['colIdx']=$colIdx;
+    $rowIdx++;
     $int_num++;
 
 
-    $a = explode("$", $rzt);
+    list($win, $curClrTxt) = calcTxtNclr($rzt);
+    $record['txt']=$win;
+    $record['color']="white";
 
-    if ($a[0] == 1) {
-      $win = "庄";
-      $curClr = $red_color;
-    }
+     $record['bkgrd']=$curClrTxt;
 
-
-    if ($a[0] == 2) {
-      $win = "和";
-      $curClr = $green_color;
-    }
-
-    if ($a[0] == 3) {
-
-      $win = "闲";
-      $curClr = $blue_color;
-    }
+   }
 
 
-//    return $win;
-
-//    if ($record['playerCount'] == $record['bankerCount']) {
-//      $win = "和";
-//
+  //--------render row each
+  //max row 6
+  for($j=0;$j<6;$j++){
+    $row614 = array("left" => 0,"row_btm_lineClr"=>"grayHalf",  "padBtm" => 0, "top" => $pos_y, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
+    $row614["childs"] = [];
+    $curRow = getRow($j, $records);
+    $row614["childs"]=$curRow;
+   // array_push($row614["childs"], $curRow);
+//    for($k=0;$k<$colIdx;$k++){
 //
 //    }
-//
-//
-//    if ($record['playerCount'] > $record['bankerCount']) {
-//      $win = "庄";
-//      $curClr = $red_color;
-//    } else {
-//      $win = "闲";
-//      $curClr = $blue_color;
-//    }
+    renderElementRowV2($row614, $img, $outFile);
+    $pos_y = $pos_y + $row614['height'];
 
-
-    //---------球球
-
-    $elipse_height = $withMain - 10;
-    $elipse_width = $elipse_height;
-    $color = $green_color;
-    $pos_x_eclps = $pos_x + $withMain / 2;
-    $pos_y_eclps = $pos_y + $withMain / 2;
-    imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $elipse_width, $elipse_height, $curClr);
-
-    $font_baseline_y = $pos_y + $font_size + 0 + ($withMain - $font_size) / 2;
-    $font_x = $pos_x + ($withMain - $font_size) / 2 - 2;
-    imagettftext($img, $font_size, 0, $font_x, $font_baseline_y, $white_color, $font, $win);
-
-
-    // 画线 hengsye
-    $lineY = $pos_y + $withMain;
-    imageline($img, 0, $lineY, $img_width, $lineY, $bg_color);
-
-
-    $pos_y = $pos_y + $withMain;
   }
-
   imagepng($img, __DIR__ . "/../public/trend.jpg");
   echo "";
+}
+
+function getRow(int $rowIdx, $records) {
+  $a=[];
+  $maxLen=count($records);
+  for($i=$maxLen-1;$i>0;$i--) {
+    $cell = $records[$i];
+    $cell['shape']='ball';
+    $cell['ballwidth']=40;
+    $cell['width']=50;  $cell['height']= $cell['width'];
+    if( $cell['rowIdx']==$rowIdx)
+    array_push($a,$cell);
+  }
+  return $a;
+}
+
+
+//$white_color = imagecolorallocate($img, 255, 255, 255);
+//$grayClr= imagecolorallocate($img, 200, 200, 200);
+//
+//$red_color = imagecolorallocate($img, 255, 0, 0);
+//$blue_color = imagecolorallocate($img, 10, 10, 255);
+//
+//
+//// 写入表格
+//$temp_height = $title_height;
+//
+//imageline($img, 0, 3, 500, 3, $red_color);
+//  imagettftext($img, $font_size, 0, 0 , 0+20 , $blue_color, $font, "我");
+
+//
+//# 开始画图
+//// 创建画布
+//$img = imagecreatetruecolor($img_width, $img_height);
+//
+//# 创建画笔
+//// 背景颜色（蓝色）
+//$bg_color = imagecolorallocate($img, 10, 10, 10);
+//$blue_color = imagecolorallocate($img, 10, 10, 255);
+//$blue_color_half = imagecolorallocate($img, 100, 100, 255);
+//// 表面颜色（浅灰）
+//$surface_color = imagecolorallocate($img, 235, 242, 255);
+//// 标题字体颜色（白色）
+//$title_color = imagecolorallocate($img, 255, 255, 255);
+//// 内容字体颜色（灰色）
+//$text_color = imagecolorallocate($img, 0, 0, 0);
+//
+//$text_color_black = imagecolorallocate($img, 0, 0, 0);
+//$green_color = imagecolorallocate($img, 0, 255, 0);
+//$blueLight_color = imagecolorallocate($img, 100, 149, 237);
+//
+//// 大双为红色
+//$big_2_color = imagecolorallocate($img, 255, 0, 0);
+//// 小单为青色
+//$small_1_color = imagecolorallocate($img, 100, 149, 237);
+//// 无的颜色
+//$null_color = imagecolorallocate($img, 125, 125, 125);
+//// 对子
+//$pair_color = imagecolorallocate($img, 10, 200, 10);
+//// 顺子
+//$_color = imagecolorallocate($img, 200, 134, 0);
+//// 豹子
+//$all_color = imagecolorallocate($img, 255, 0, 0);
+//$box = imagettfbbox($font_size, 0, $font, "小");
+//$big_small_with = $box[2] - $box[0];
+//
+//
+//// 画矩形 （先填充一个大背景，小一点的矩形形成外边框）
+//imagefill($img, 0, 0, $bg_color);  //背景颜色（蓝色）
+//imagefilledrectangle($img, 0, 0, $img_width, $img_height, $surface_color);
+
+
+/**
+ * @param $rzt
+ * @param $red_color
+ * @param $green_color
+ * @param $blue_color
+ * @return string[]
+ */
+function calcTxtNclr($rzt ): array {
+  $a = explode("$", $rzt);
+
+  if ($a[0] == 1) {
+    $win = "庄";
+
+    $curClrTxt = "red";
+  }
+
+
+  if ($a[0] == 2) {
+    $win = "和";
+
+    $curClrTxt = "green";
+  }
+
+  if ($a[0] == 3) {
+
+    $win = "闲";
+
+    $curClrTxt = "blue";
+  }
+  return array($win, $curClrTxt);
 }
 
 

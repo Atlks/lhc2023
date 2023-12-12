@@ -87,7 +87,7 @@ function renderElementRow(array $row140, $img) {
 
 
 //dep
-function              renderElementRowV2(array $row140, $img, $outputPic) {
+function   renderElementRowV2(array $row140, $img, $outputPic) {
   $posX = $row140["left"];
 
   $posY = $row140["top"];
@@ -96,14 +96,19 @@ function              renderElementRowV2(array $row140, $img, $outputPic) {
   if (array_key_exists('bkgrd', $row140)) {
     $surface_color_row = getColor($row140['bkgrd'], $img);
     imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
-
   }
 
 
-  $idx = 0;
+  $idx = 0; $cellIdx=0;
   foreach ($cells as $k => $v_cell) {
+    $cellIdx++;
+   // echo "cellIdx:".$cellIdx."\r\n";
+    if($cellIdx==1)
+    {
+     // echo 11;
+    }
 
-    $blktxt = $v_cell['txt'];
+    $blktxt =array_key('txt',$v_cell);
     //  if($idx>0)
     //   $posX = $posX + $v_cell['width'];
 
@@ -118,7 +123,8 @@ function              renderElementRowV2(array $row140, $img, $outputPic) {
 
         $pos_x_eclps = $posX + $v_cell['width'] / 2;
         $pos_y_eclps = $posY + $v_cell['width'] / 2;
-        imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $v_cell['width'], $v_cell['height'], $curClr);
+       $ballwidth= array_key("ballwidth",$v_cell);
+        imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
 
       } else {
         //df rect
@@ -147,8 +153,18 @@ function              renderElementRowV2(array $row140, $img, $outputPic) {
       //if th then pain shuxian
       $line_posx = $posX + $v_cell['width'];
 
-      imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
+      imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
     }
+    if (array_key("th_row",$row140) == "true") {
+      //竖线。。。
+      //todo th implt
+      //if th then pain shuxian
+      $line_posx = $posX + $v_cell['width'];
+
+      imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
+    }
+
+
 
     imagepng($img, $outputPic);
     $idx++;
@@ -161,10 +177,26 @@ function              renderElementRowV2(array $row140, $img, $outputPic) {
   //----------------hr line bottom
   $posY = $row140["top"] + $row140["height"];
   //title baes line
-  renderElmtLine(array("top" => $posY, "color" => "black", "elmtType" => "line"), $img);
+  $clr=array_key_df("row_btm_lineClr",$row140,"black");
+
+  renderElmtLine(array("top" => $posY, "color" => $clr, "elmtType" => "line"), $img);
   imagepng($img, $outputPic);
   //end  renderElementRowV2
 
+}
+
+
+function array_key_df(string $string, $v_cell,$dfval) {
+  if(!array_key_exists($string,$v_cell))
+    return $dfval;
+
+  return  $v_cell[$string];
+}
+function array_key(string $string, $v_cell) {
+  if(!array_key_exists($string,$v_cell))
+    return "";
+
+  return  $v_cell[$string];
 }
 
 
@@ -225,9 +257,12 @@ function getColor($clrname, $img) {
   $red_color = imagecolorallocate($img, 255, 0, 0);
   $green_color = imagecolorallocate($img, 0, 255, 0);
   $blue_color = imagecolorallocate($img, 10, 10, 255);
+
+
   // 表面颜色（浅灰）
+  $grayColorHalf = imagecolorallocate($img, 200, 200, 200);
   $grayColor = imagecolorallocate($img, 235, 242, 255);
-  $clrArr = array('pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  $clrArr = array('grayHalf'=>$grayColor,'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
   if (!array_key_exists($clrname, $clrArr))
     return $clrArr["black"];
 
