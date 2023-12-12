@@ -1,7 +1,7 @@
 <?php
 
 //php dbKaijSrc/kaijsrc.php
-
+$seconds = 45;
 while(true)
 {
 
@@ -22,13 +22,21 @@ while(true)
 
 
   //-------------------------wait...secs
-  sleep(45);
+
+  sleep($seconds);
 
 
 
   //------------------save kaij rzt
+//  lewis, [08/12/2023 2:27 pm]
+//A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+//  B:0无对 1 庄对 2 闲对 3 庄闲对
+//
+//lewis, [08/12/2023 2:28 pm]
+//比如这个3$0 就是 闲，0表示无对子
   $json=file_get_contents_Asjson($f);
-  $newJu['gameRecord']="3$0";
+  $n=rand(1,3);
+  $newJu['gameRecord']=$n."$".rand(0,3);
   $json['data'][0]=$newJu;
   file_put_contents($f,json_encode($json,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
