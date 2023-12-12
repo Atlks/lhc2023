@@ -17,6 +17,7 @@ function startBetEvtBjl() {
   $qiohao_data =kaipanInfo();
   var_dump($qiohao_data['data'][0]);
   $lottery_no = $qiohao_data['lottery_no'];
+  $GLOBALS['qihao'] =$lottery_no;
 
   //$lottery_no="19005195";
 

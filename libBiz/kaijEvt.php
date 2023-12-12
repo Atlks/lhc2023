@@ -1,15 +1,13 @@
 <?php
 
 
-
-
 // jaijyo evt
 //require  __DIR__ . "/../../lib/iniAutoload.php";
 use function app\commonBjl\SendPicRzt;
 use function libspc\log_err;
 
 function kaij_draw_evt_bjl() {
-  $GLOBALS['kaij_rzt']="";
+  $GLOBALS['kaij_rzt'] = "";
   $draw_str = "console:" . $GLOBALS['qihao'] . "期开奖中..console";
   //  sendmessage841($draw_str);
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
@@ -43,7 +41,7 @@ function kaij_draw_evt_bjl() {
 
   //--------------------show kaj rzt
   try {
-    $lottery_no=$GLOBALS['qihao'];
+    $lottery_no = $GLOBALS['qihao'];
     $data['hash_no'] = $lottery_no;
     $data['lottery_no'] = $lottery_no;
     $gmLgcSSc->lottery->setData($data);
@@ -56,15 +54,13 @@ function kaij_draw_evt_bjl() {
     // bot_sendMsgTxtModeEx($echoTxt, $GLOBALS['BOT_TOKEN'], $GLOBALS['chat_id']);
 
 
-
-
   } catch (\Throwable $e) {
     log_err($e, __METHOD__);
   }
 
 //------------------ gene pic rzt
   //  开奖结果图 与走势图
-  SendPicRztV2($GLOBALS['qihao'],$GLOBALS['kaij_rzt']);
+  SendPicRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
 
   //---中奖结果图发送
   $cfile = new \CURLFile(__DIR__ . "/../public/betRztlist.jpg");
@@ -85,31 +81,15 @@ function kaij_draw_evt_bjl() {
  * @throws \TelegramBot\Api\Exception
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
-function SendPicRztV2($qihao,$rzt): void {
+function SendPicRztV2($qihao, $rzt): void {
 
 
   require_once __DIR__ . "/../libBiz/bjl.php";
 
   //$rzt= getKaijRztBjl($qihao);
   try {
-   // -----------------闲赢---生成图片
-    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_".$rzt.".jpg");
-   // $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-  //  $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
-  } catch (\Throwable $e) {
-    var_dump($e);
-
-  }
-
-
-  try {
-   //  require_once __DIR__ . "/../../libTpscrt/kaij.php";
-    require_once __DIR__ . "/../libBiz/startEvt.php";
-    \createTrendImageV2(\kaipanInfoCore() );
-    $f549 = __DIR__ . "/../public/trend.jpg";
-    //  $f549 = app()->getRootPath() . "public/trend.jpg";
-    var_dump($f549);
-    $cfile = new \CURLFile($f549);
+    // -----------------闲赢---生成图片
+    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_" . $rzt . ".jpg");
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Throwable $e) {
@@ -118,52 +98,71 @@ function SendPicRztV2($qihao,$rzt): void {
   }
 
 
+  try {
+    sendTrendPic();
+  } catch (\Throwable $e) {
+    var_dump("L116");
+    var_dump($e);
+
+  }
+
+
 }
 
+/**
+ * @return void
+ * @throws \TelegramBot\Api\Exception
+ * @throws \TelegramBot\Api\InvalidArgumentException
+ */
+function sendTrendPic(): void {
+//  require_once __DIR__ . "/../../libTpscrt/kaij.php";
+  require_once __DIR__ . "/../libBiz/startEvt.php";
+  \createTrendImageV2(\kaipanInfoCore());
+  $f549 = __DIR__ . "/../public/trend.jpg";
+  //  $f549 = app()->getRootPath() . "public/trend.jpg";
+  var_dump($f549);
+  $cfile = new \CURLFile($f549);
+  $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+  $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+}
 
 
 // 开奖
 function getKaijRztBjl_retryX($qihao) {
 
 
+  \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
+  var_dump($qihao);
+  $log_txt = __METHOD__ . json_encode(func_get_args());
 
-    \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
-    var_dump($qihao);
-    $log_txt = __METHOD__ . json_encode(func_get_args());
+  \think\facade\Log::info($log_txt);
+  while (true) {
+    try {
+      require_once "startEvt.php";
+      $kaipanInfo = getKaijRztBjl($qihao);
 
-    \think\facade\Log::info($log_txt);
-    while (true) {
-      try {
-        require_once "startEvt.php";
-        $kaipanInfo = getKaijRztBjl($qihao);
-
-        return $kaipanInfo;
-      } catch (\Throwable $e) {
-        $exception = $e;
-        $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-        \think\facade\Log::error("----------------errrrr3---------------------------");
-        \think\facade\Log::error("file_linenum:" . $exception->getFile() . ":" . $exception->getLine());
-        \think\facade\Log::error("errmsg:" . $exception->getMessage());
-        \think\facade\Log::error("errtraceStr:" . $exception->getTraceAsString());
-        // var_dump($e);
-      }
-
-      sleep(1);
+      return $kaipanInfo;
+    } catch (\Throwable $e) {
+      $exception = $e;
+      $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
+      \think\facade\Log::error("----------------errrrr3---------------------------");
+      \think\facade\Log::error("file_linenum:" . $exception->getFile() . ":" . $exception->getLine());
+      \think\facade\Log::error("errmsg:" . $exception->getMessage());
+      \think\facade\Log::error("errtraceStr:" . $exception->getTraceAsString());
+      // var_dump($e);
     }
 
-
+    sleep(1);
+  }
 
 
 }
 
 
-function getKaijRztBjl($gameNo)
-{
+function getKaijRztBjl($gameNo) {
 
   require_once "startEvt.php";
- $json= kaipanInfoCore();
-
-
+  $json = kaipanInfoCore();
 
 
   $seltedRow = [];
@@ -183,29 +182,27 @@ function getKaijRztBjl($gameNo)
 
 
   foreach ($json['data'] as $k => $row) {
-    if ($row['gameNo']==$gameNo)
-    {
-      $seltedRow[]=$row;
+    if ($row['gameNo'] == $gameNo) {
+      $seltedRow[] = $row;
       break;
     }
   }
 
 
+  file_put_contents("d635.json", json_encode($seltedRow));
 
-  file_put_contents("d635.json",json_encode($seltedRow));
 
+  $rzt = $seltedRow[0]['gameRecord'];
+  $a = explode("$", $rzt);
 
-  $rzt=$seltedRow[0]['gameRecord'];
-  $a=explode("$",$rzt) ;
+  if ($a[0] == 1)
+    $win = "庄赢";
 
-  if($a[0]==1)
-       $win = "庄赢";
-
-  if($a[0]==2)
+  if ($a[0] == 2)
     $win = "和";
 
 
-  if($a[0]==3)
+  if ($a[0] == 3)
     $win = "闲赢";
 
   return $win;
@@ -221,16 +218,15 @@ function getKaijRztBjl($gameNo)
 }
 
 
-
 function createTrendImageV2($records) {
 
   var_dump(__METHOD__ . json_encode(func_get_args()));
 
 
-
 //  $records = file_get_contents("C:\\0prj\\lhc2023\\test\\ft_curDsk.json");
 //  $records = json_decode($records, true);
   $records = $records['data'];
+
 
   $log_txt = __METHOD__ . json_encode(func_get_args(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
@@ -298,7 +294,8 @@ function createTrendImageV2($records) {
   $text_color = imagecolorallocate($img, 0, 0, 0);
 
   $text_color_black = imagecolorallocate($img, 0, 0, 0);
-  $green_color = imagecolorallocate($img, 100, 149, 237);
+  $green_color = imagecolorallocate($img, 0, 255, 0);
+  $blueLight_color = imagecolorallocate($img, 100, 149, 237);
 
   // 大双为红色
   $big_2_color = imagecolorallocate($img, 255, 0, 0);
@@ -318,7 +315,7 @@ function createTrendImageV2($records) {
 
   // 画矩形 （先填充一个大背景，小一点的矩形形成外边框）
   imagefill($img, 0, 0, $bg_color);  //背景颜色（蓝色）
-  imagefilledrectangle($img, 0, 0, $img_width , $img_height , $surface_color);
+  imagefilledrectangle($img, 0, 0, $img_width, $img_height, $surface_color);
 
   $x = 0;
   $title_x = 0;
@@ -339,7 +336,6 @@ function createTrendImageV2($records) {
   }
   $white_color = imagecolorallocate($img, 255, 255, 255);
   $red_color = imagecolorallocate($img, 255, 0, 0);
-  $green_color = imagecolorallocate($img, 100, 149, 237);
   $blue_color = imagecolorallocate($img, 10, 10, 255);
 
 
@@ -353,7 +349,43 @@ function createTrendImageV2($records) {
   $pos_x = 0;
   $pos_y = 0;
   $int_num = 1;
-  $withMain=50;
+  $withMain = 50;
+  $css_lineHight=$withMain;
+  $css_datawidth=$withMain;
+
+  $outFile = __DIR__ . "/../public/trend.jpg";
+  //百家乐
+  $row614 = array("left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
+
+  $bankWinCnt = getBkWinCnt($records,"1$");
+  $plyerWinCnt = getBkWinCnt($records,"3$");
+  $HeCnt = getBkWinCnt($records,"2$");
+  $bkDwiCnt= getBkWinCnt($records,"1$");
+  $bkDwiCnt= getBkWinCnt($records,"3$");
+  $bkgrdBallWidth=40;
+  // gameRecord
+  $row614["childs"] = [
+
+    array('txt' => "庄", 'color' => "white", 'shape'=>'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'bkgrd' => "red", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
+    array('txt' => $bankWinCnt, 'color' => "red", 'bkgrd' => "", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
+
+    array('txt' => '闲','shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'align' => 'center', 'color' => "white", 'bkgrd' => "blue", 'width' => $withMain, 'height' => $css_lineHight),
+    array('txt' => $plyerWinCnt, 'align' => 'center', 'color' => "blue", 'bkgrd' => "", 'width' => $withMain, 'height' => $css_lineHight),
+
+    array('txt' => '和','shape'=>'ball' ,'bkgrdBallWidth' => $bkgrdBallWidth,'color' => "white", 'bkgrd' => "green", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => $HeCnt, 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+    array('txt' => '对','shape'=>'ball' , 'color' => "white", 'bkgrd' => "red", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+    array('txt' => '对','shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'color' => "white", 'bkgrd' => "blue", 'width' => $css_datawidth, 'height' => $css_lineHight)
+
+
+  ];
+
+  require_once __DIR__."/../lib/painLib.php";
+  renderElementRowV2($row614, $img, $outFile);
+  $pos_y = $pos_y + $row614['height'];
+
 
   //这里已经打印了title n 竖线。。没有横线
   foreach ($records as $key => $record) {
@@ -363,37 +395,33 @@ function createTrendImageV2($records) {
 //    else
 //      $pos_y = $pos_y + $withMain;
 
-    $rzt=$record['gameRecord'];
-    if(!$rzt)
+    $rzt = $record['gameRecord'];
+    if (!$rzt)
       continue;
 
     if ($int_num % 6 == 0) {
       $pos_x = $pos_x + $withMain;
-      $pos_y = 0;
+      $pos_y = $withMain;  //这里这番需要avd head..
       $linex = $pos_x;
       imageline($img, $linex, 0, $linex, $img_height, $bg_color);
     }
     $int_num++;
 
 
+    $a = explode("$", $rzt);
 
-
-
-    $a=explode("$",$rzt) ;
-
-    if($a[0]==1)
-    {
+    if ($a[0] == 1) {
       $win = "庄";
+      $curClr = $red_color;
+    }
+
+
+    if ($a[0] == 2) {
+      $win = "和";
       $curClr = $green_color;
     }
 
-
-    if($a[0]==2){
-      $win = "和";  $curClr = $green_color;
-    }
-
-    if($a[0]==3)
-    {
+    if ($a[0] == 3) {
 
       $win = "闲";
       $curClr = $blue_color;
@@ -420,16 +448,16 @@ function createTrendImageV2($records) {
 
     //---------球球
 
-    $elipse_height = $withMain-10;
+    $elipse_height = $withMain - 10;
     $elipse_width = $elipse_height;
     $color = $green_color;
-    $pos_x_eclps=$pos_x+ $withMain/2;
-    $pos_y_eclps=$pos_y+ $withMain/2;
+    $pos_x_eclps = $pos_x + $withMain / 2;
+    $pos_y_eclps = $pos_y + $withMain / 2;
     imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $elipse_width, $elipse_height, $curClr);
 
-    $font_baseline_y=$pos_y+$font_size+0+($withMain-$font_size)/2;
-    $font_x=  $pos_x+($withMain-$font_size)/2-2;
-    imagettftext($img, $font_size, 0, $font_x ,$font_baseline_y  , $white_color, $font, $win);
+    $font_baseline_y = $pos_y + $font_size + 0 + ($withMain - $font_size) / 2;
+    $font_x = $pos_x + ($withMain - $font_size) / 2 - 2;
+    imagettftext($img, $font_size, 0, $font_x, $font_baseline_y, $white_color, $font, $win);
 
 
     // 画线 hengsye
@@ -437,8 +465,22 @@ function createTrendImageV2($records) {
     imageline($img, 0, $lineY, $img_width, $lineY, $bg_color);
 
 
-    $pos_y=     $pos_y +$withMain;
+    $pos_y = $pos_y + $withMain;
   }
 
   imagepng($img, __DIR__ . "/../public/trend.jpg");
+}
+
+function getBkWinCnt($records, $find) {
+
+  require_once __DIR__."/../lib/arr.php";
+  $rows = array_filterx($records, function ($row) use ($find) {
+    $gameRecord = $row['gameRecord'];
+
+    // $find = "3$";
+    if (startwithV1252($gameRecord, $find))
+      return true;
+  });
+  return count($rows);
+
 }

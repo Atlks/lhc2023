@@ -1333,15 +1333,15 @@ class GameLogicSsc {
 
       $row614["childs"] = [
 
-        array('txt' => "百家乐", 'bkgrd' => "red",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
+        array('txt' => "百家乐",'tag'=>'th', 'bkgrd' => "red",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
 
-        array('txt' => '本局得分', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+        array('txt' => '本局得分', 'tag'=>'th', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-        array('txt' => '剩余分', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+        array('txt' => '剩余分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-        array('txt' => '初始分', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+        array('txt' => '初始分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-        array('txt' => '佣金', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
+        array('txt' => '佣金', 'tag'=>'th','color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
 
 
       ];
@@ -1402,11 +1402,11 @@ class GameLogicSsc {
 
       $row['childs'] = [
         array('txt' => '总计' . count($rows) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
-        array('txt' => array_sum_col('本局得分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
-        array('txt' => array_sum_col('剩余分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
-        array('txt' => array_sum_col('初始分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+        array('txt' => array_sum_col_inpainlib('本局得分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+        array('txt' => array_sum_col_inpainlib('剩余分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+        array('txt' => array_sum_col_inpainlib('初始分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
 
-        array('txt' => array_sum_col('佣金', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+        array('txt' => array_sum_col_inpainlib('佣金', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
 
       ];
 

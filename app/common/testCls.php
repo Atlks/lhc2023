@@ -54,6 +54,23 @@ class testCls extends Command
 
   protected function execute(Input $input, Output $output)
   {
+
+    $GLOBALS['BOT_TOKEN']='6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
+    $GLOBALS['chat_id']=4038077884;
+    $GLOBALS['qihao']=141919;
+    require_once __DIR__."/../../libBiz/kaijEvt.php";
+    sendTrendPic(); die();
+
+    //---------------------开奖流程
+    $GLOBALS['BOT_TOKEN']='6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
+    $GLOBALS['chat_id']=4038077884;
+    $GLOBALS['qihao']=141919;
+    require_once __DIR__."/../../libBiz/kaijEvt.php";
+    kaij_draw_evt_bjl();
+    die();
+
+
+
     require_once __DIR__."/../../libBiz/kaijEvt.php";
     \SendPicRztV2(232904,"闲赢");
     die();
@@ -68,12 +85,7 @@ class testCls extends Command
 
     die();
 
-    //---------------------开奖流程
 
-    $GLOBALS['qihao']=220949;
-    require_once __DIR__."/../../libBiz/kaijEvt.php";
-    kaij_draw_evt_bjl();
-    die();
 
     //---stgartg
 

@@ -6,7 +6,7 @@ function appendElemt(array $e, array $lastElmt, $img) {
 
   //  hr   line  hengxian
   if ($e['elmtType'] == "line")
-     \renderElmtLine($e, $img);
+    \renderElmtLine($e, $img);
 
   if ($e['elmtType'] == "tr") {
 
@@ -20,23 +20,20 @@ function appendElemt(array $e, array $lastElmt, $img) {
 function renderElmtLine(array $e, $img) {
 
   $color = getColor($e['color'], $img);
-  imageline($img, 0, $e['top'] , 2000, $e['top'] , $color);
+  imageline($img, 0, $e['top'], 2000, $e['top'], $color);
 
 }
 
-
-
+//dep
 function renderElementRow(array $row140, $img) {
   $posX = $row140["left"];
 
   $posY = $row140["top"];
   $cells = $row140['childs'];
 
-  if(  array_key_exists('bkgrd',$row140))
-
-  {
+  if (array_key_exists('bkgrd', $row140)) {
     $surface_color_row = getColor($row140['bkgrd'], $img);
-    imagefilledrectangle($img, $posX, $posY, 2000  , $posY +$row140['height'], $surface_color_row);
+    imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
 
   }
 
@@ -51,12 +48,10 @@ function renderElementRow(array $row140, $img) {
 
     // imagefilledrectangle
 
-    if(  array_key_exists('bkgrd',$v_cell)  )
-    {
-      if( $v_cell['bkgrd']!="")
-      {
+    if (array_key_exists('bkgrd', $v_cell)) {
+      if ($v_cell['bkgrd'] != "") {
         $surface_color = getColor($v_cell['bkgrd'], $img);
-        imagefilledrectangle($img, $posX, $posY, $posX+$v_cell['width']  , $posY +$v_cell['height'], $surface_color);
+        imagefilledrectangle($img, $posX, $posY, $posX + $v_cell['width'], $posY + $v_cell['height'], $surface_color);
 
       }
 
@@ -65,12 +60,12 @@ function renderElementRow(array $row140, $img) {
 
     //— 绘制矩形并填充
 
-    $font_baseline_y = $posY +$row140['height'] -($row140['height']-$row140["font_size"])/2 ;
+    $font_baseline_y = $posY + $row140['height'] - ($row140['height'] - $row140["font_size"]) / 2;
 
     $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
     $font = $row140['font'];
-    if(! array_key_exists('color',$v_cell)  )
-      $v_cell['color']="black";
+    if (!array_key_exists('color', $v_cell))
+      $v_cell['color'] = "black";
     imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
     //竖线。。。
     //todo th implt
@@ -91,20 +86,16 @@ function renderElementRow(array $row140, $img) {
 }
 
 
-
-
 //dep
-function renderElementRowV2(array $row140, $img,$outputPic) {
+function              renderElementRowV2(array $row140, $img, $outputPic) {
   $posX = $row140["left"];
 
   $posY = $row140["top"];
   $cells = $row140['childs'];
 
-  if(  array_key_exists('bkgrd',$row140))
-
-  {
+  if (array_key_exists('bkgrd', $row140)) {
     $surface_color_row = getColor($row140['bkgrd'], $img);
-    imagefilledrectangle($img, $posX, $posY, 2000  , $posY +$row140['height'], $surface_color_row);
+    imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
 
   }
 
@@ -117,54 +108,89 @@ function renderElementRowV2(array $row140, $img,$outputPic) {
     //   $posX = $posX + $v_cell['width'];
 
 
-   // imagefilledrectangle
+    //-------------bkgrd ---- imagefilledrectangle
 
-    if(  array_key_exists('bkgrd',$v_cell)  )
-    {
-      if( $v_cell['bkgrd']!="")
-      {
-        $surface_color = getColor($v_cell['bkgrd'], $img);
-        imagefilledrectangle($img, $posX, $posY, $posX+$v_cell['width']  , $posY +$v_cell['height'], $surface_color);
+    if (array_key_exists('bkgrd', $v_cell) && $v_cell['bkgrd'] != "") {
+
+      $curClr = getColor($v_cell['bkgrd'], $img);
+
+      if (array_key_exists('shape', $v_cell) && $v_cell['shape'] == 'ball') {
+
+        $pos_x_eclps = $posX + $v_cell['width'] / 2;
+        $pos_y_eclps = $posY + $v_cell['width'] / 2;
+        imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $v_cell['width'], $v_cell['height'], $curClr);
+
+      } else {
+        //df rect
+        imagefilledrectangle($img, $posX, $posY, $posX + $v_cell['width'], $posY + $v_cell['height'], $curClr);
 
       }
 
 
     }
 
-    //— 绘制矩形并填充
 
-    $font_baseline_y = $posY +$row140['height'] -($row140['height']-$row140["font_size"])/2 ;
+    //—-------td txt
+
+    $font_baseline_y = $posY + $row140['height'] - ($row140['height'] - $row140["font_size"]) / 2;
 
     $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
     $font = $row140['font'];
-    if(! array_key_exists('color',$v_cell)  )
-      $v_cell['color']="black";
+    if (!array_key_exists('color', $v_cell))
+      $v_cell['color'] = "black";
     imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
-    //竖线。。。
-    //todo th implt
-    //if th then pain shuxian
-    $line_posx = $posX + $v_cell['width'];
-    imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
 
 
-   // $outputPic = __DIR__ . "/../res/betlist.jpg";
+    if (getCellTagName($v_cell) == "th") {
+      //竖线。。。
+      //todo th implt
+      //if th then pain shuxian
+      $line_posx = $posX + $v_cell['width'];
+
+      imageline($img, $line_posx, 0, $line_posx, 2000, getColor($v_cell['color'], $img));
+    }
+
     imagepng($img, $outputPic);
     $idx++;
     $posX = $posX + $v_cell['width'];
   }
+  //foreach row end
+
+
+
+  //----------------hr line bottom
   $posY = $row140["top"] + $row140["height"];
   //title baes line
-  renderElmtLine(array("top" => $posY, "color" => "red", "elmtType" => "line"), $img);
+  renderElmtLine(array("top" => $posY, "color" => "black", "elmtType" => "line"), $img);
+  imagepng($img, $outputPic);
+  //end  renderElementRowV2
 
 }
 
 
+function getRowTagName($row) {
+
+  if (array_key_exists('tag', $row)) {
+    return $row['tag'];
+  } else
+    return "td";
+
+}
+
+function getCellTagName($v_cell) {
+
+  if (array_key_exists('tag', $v_cell)) {
+    return $v_cell['tag'];
+  } else
+    return "td";
+
+}
 
 
 function calcFontX($v_cell, $posX, $fontSize) {
 
   // if(!in_array('color',$v_cell))
-  if (  array_key_exists('align',$v_cell)   && $v_cell['align'] == "left") {
+  if (array_key_exists('align', $v_cell) && $v_cell['align'] == "left") {
     $font_x = $posX + $v_cell['padLeft'];
     return $font_x;
   } else {
@@ -201,8 +227,8 @@ function getColor($clrname, $img) {
   $blue_color = imagecolorallocate($img, 10, 10, 255);
   // 表面颜色（浅灰）
   $grayColor = imagecolorallocate($img, 235, 242, 255);
-  $clrArr = array('pink'=>$pink,"red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
-  if(!  array_key_exists  ($clrname,$clrArr))
+  $clrArr = array('pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  if (!array_key_exists($clrname, $clrArr))
     return $clrArr["black"];
 
 
@@ -215,7 +241,7 @@ function delFile(string $string) {
     unlink($string);
   } catch (\Throwable $e) {
     echo $e;
-   // var_dump($e);
+    // var_dump($e);
   }
 }
 
@@ -264,7 +290,7 @@ function getBankAmt($BetContent, $bet) {
 
 }
 
-function array_sum_col($colName, array $a) {
+function array_sum_col_inpainlib($colName, array $a) {
   $records = array_column($a, $colName);
   return array_sum($records);
 }

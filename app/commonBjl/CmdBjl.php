@@ -93,6 +93,8 @@ function fenpan_betrLst_test() {
 
 function main_processBjl() {
 
+  $GLOBALS['qihao']="";
+
 //        fenpan_betrLst_test();
 //      die();
 //  imagefilledrectangle — 绘制矩形并填充
@@ -309,9 +311,9 @@ function fenpan_stop_event() {
 }
 
 function fenpan_betrLst() {
-
+  $outputPic=__DIR__."/../../public/betlist.jpg";
   require_once __DIR__ . "/../../lib/painLib.php";
-  delFile(__DIR__ . "/../../res/betlist.jpg");
+  delFile($outputPic);
 
   global $lottery_no;
   try {
@@ -346,17 +348,17 @@ function fenpan_betrLst() {
     //百家乐
     $row327 = array("left" => 0,'bkgrd'=>'gray', "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
     $cell1 = array('txt' => "百家乐NO.".$GLOBALS['qihao'],'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
-    $cell_bank = array('txt' => '庄', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_plyr = array('txt' => '闲', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_bankDui = array('txt' => '庄对', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_plyrDui = array('txt' => '闲对', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_bank = array('txt' => '庄','tag'=>'th', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_plyr = array('txt' => '闲','tag'=>'th', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_bankDui = array('txt' => '庄对','tag'=>'th', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_plyrDui = array('txt' => '闲对', 'tag'=>'th','color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-    $cell_he = array('txt' => '和', 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_luck = array('txt' => '幸运6', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_he = array('txt' => '和', 'tag'=>'th','color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_luck = array('txt' => '幸运6', 'tag'=>'th','color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
     $row327["childs"] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
-    renderElementRow($row327, $img);
+    renderElementRowV2($row327, $img,$outputPic);
     $posY = $posY + $row327['height'];
     //----------show row
 
@@ -411,7 +413,7 @@ function fenpan_betrLst() {
 
 
         //----------show row
-        renderElementRow($row140, $img);
+        renderElementRowV2($row140, $img,$outputPic);
         $posY = $posY + $row140['height'];
 
         //title baes line
@@ -442,25 +444,25 @@ function fenpan_betrLst() {
 
     $row['childs'] = [
       array('txt' => '总计' . count($arr) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
-      array('txt' => array_sum_col('庄', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => array_sum_col('闲', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => array_sum_col('庄对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => array_sum_col('闲对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => array_sum_col('和', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => array_sum_col('幸运', $arr), 'bkgrd' => "", 'width' => $css_datawidth)
+      array('txt' => array_sum_col_inpainlib('庄', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('闲', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('庄对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('闲对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('和', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('幸运', $arr), 'bkgrd' => "", 'width' => $css_datawidth)
 
     ];
 
-    renderElementRow($row, $img);
+    renderElementRowV2($row, $img,$outputPic);
     // $posY = $posY + $row['height'];
 
-    imagepng($img, __DIR__ . "/../../res/betlist.jpg");
+    imagepng($img, $outputPic);
     sendMsgEx($GLOBALS['chat_id'], $msg);
 
 
     //------------send pic
     // 生成图片
-    $cfile = new \CURLFile(__DIR__ . "/../../res/betlist.jpg");
+    $cfile = new \CURLFile($outputPic);
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
 
