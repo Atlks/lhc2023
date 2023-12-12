@@ -7,7 +7,7 @@
 
 //  php C:\0prj\lhc2023\cmd/../think   msgHdlrBjlTpcmd
 
-//php cmd/main_cmd.php
+//php cmd/main_cmd_bjl.php
 
 global $errdir;
 $errdir = __DIR__."/../runtime"; $GLOBALS['errdir']=$errdir;

@@ -3,7 +3,7 @@
 $prm = $_SERVER['argv'][1];
 $cfgOptx = urldecode($prm);
 $GLOBALS['cfgOpt']=$cfgOptx;
-//  php app/main_cmd.php
+//  php app/main_cmd_bjl.php
 global $errdir;
 $errdir = __DIR__."/../runtime"; $GLOBALS['errdir']=$errdir;
 require_once __DIR__ . "/../lib/ex.php";
