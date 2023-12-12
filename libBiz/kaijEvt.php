@@ -238,137 +238,183 @@ function createTrendImageV2($records) {
   //echo $font;
   $font_title_size = 16;
   $font_size = 20;
-  // 标题长度
-  //$this_title_box = imagettfbbox($font_size, 0, $font, $title);
-  //$title_x_len = $this_title_box[2] - $this_title_box[0];
-  $title_height = 40;
 
 
-
-
-  $img_height=300;$img_width=800;
   //--------------------- 创建画布
-  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $img_width, "height" => $img_height);
-  require_once  __DIR__."/../lib/painLib.php";
-  $img = renderElementCanvas($img_elmt);
+  $img_height = 370;
+  $img_width = 800;
 
+  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $img_width, "height" => $img_height);
+  require_once __DIR__ . "/../lib/painLib.php";
+  $img = renderElementCanvas($img_elmt);
 
 
   $pos_x = 0;
   $pos_y = 0;
   $int_num = 1;
   $withMain = 50;
-  $css_lineHight=$withMain;
-  $css_datawidth=$withMain;
+  $css_lineHight = $withMain;
+  $css_datawidth = $withMain;
 
   $outFile = __DIR__ . "/../public/trend.jpg";
   //----------------------百家乐 hd-----------
-  $row614 = array("th_row"=>"true","left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
+  $row614 = array("th_row" => "true", "left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
 
-  $bankWinCnt = getBkWinCnt($records,"1$");
-  $plyerWinCnt = getBkWinCnt($records,"3$");
-  $HeCnt = getBkWinCnt($records,"2$");
-  $bkDwiCnt= getDzCnt($records,"$1");
-  $plyrDwiCnt= getDzCnt($records,"$2");
-  $bkgrdBallWidth=40;
+  $bankWinCnt = getBkWinCnt($records, "1$");
+  $plyerWinCnt = getBkWinCnt($records, "3$");
+  $HeCnt = getBkWinCnt($records, "2$");
+  $bkDwiCnt = getDzCnt($records, "$1");
+  $plyrDwiCnt = getDzCnt($records, "$2");
+  $bkgrdBallWidth = 40;
   // gameRecord
-  $ballwd=40;
+  $ballwd = 40;
   $row614["childs"] = [
 
-    array('txt' => "庄",'ballwidth'=>$ballwd, 'color' => "white", 'shape'=>'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'bkgrd' => "red", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
+    array('txt' => "庄", 'ballwidth' => $ballwd, 'color' => "white", 'shape' => 'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'bkgrd' => "red", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
     array('txt' => $bankWinCnt, 'color' => "red", 'bkgrd' => "", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $withMain, 'height' => $css_lineHight),
 
-    array('txt' => '闲','ballwidth'=>$ballwd,'shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'align' => 'center', 'color' => "white", 'bkgrd' => "blue", 'width' => $withMain, 'height' => $css_lineHight),
+    array('txt' => '闲', 'ballwidth' => $ballwd, 'shape' => 'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'align' => 'center', 'color' => "white", 'bkgrd' => "blue", 'width' => $withMain, 'height' => $css_lineHight),
     array('txt' => $plyerWinCnt, 'align' => 'center', 'color' => "blue", 'bkgrd' => "", 'width' => $withMain, 'height' => $css_lineHight),
 
-    array('txt' => '和','ballwidth'=>$ballwd,'shape'=>'ball' ,'bkgrdBallWidth' => $bkgrdBallWidth,'color' => "white", 'bkgrd' => "green", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => '和', 'ballwidth' => $ballwd, 'shape' => 'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'color' => "white", 'bkgrd' => "green", 'width' => $css_datawidth, 'height' => $css_lineHight),
     array('txt' => $HeCnt, 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-    array('txt' => '对','ballwidth'=>$ballwd,'shape'=>'ball' , 'color' => "white", 'bkgrd' => "red", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => '对', 'ballwidth' => $ballwd, 'shape' => 'ball', 'color' => "white", 'bkgrd' => "red", 'width' => $css_datawidth, 'height' => $css_lineHight),
     array('txt' => $bkDwiCnt, 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
-    array('txt' => '对','ballwidth'=>$ballwd,'shape'=>'ball','bkgrdBallWidth' => $bkgrdBallWidth, 'color' => "white", 'bkgrd' => "blue", 'width' => $css_datawidth, 'height' => $css_lineHight),
- array('txt' => $plyrDwiCnt, 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => '对', 'ballwidth' => $ballwd, 'shape' => 'ball', 'bkgrdBallWidth' => $bkgrdBallWidth, 'color' => "white", 'bkgrd' => "blue", 'width' => $css_datawidth, 'height' => $css_lineHight),
+    array('txt' => $plyrDwiCnt, 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
 
   ];
 
-  require_once __DIR__."/../lib/painLib.php";
+  require_once __DIR__ . "/../lib/painLib.php";
   renderElementRowV2($row614, $img, $outFile);
   $pos_y = $pos_y + $row614['height'];
-   //-----------end head
+  //-----------end head
 
 
-  $rowIdx=0;
-  $colIdx=0;
+  $rowIdx = 0;
+  $colIdx = 0;
 
-  $maxLen=count($records);
+  $maxLen = count($records);
+  //todo  列转行 算法：  arr_cut 每次，gene col,push arr,然后循环row num,。。
   //---------tag  row col idx
-  for($i=$maxLen-1;$i>0;$i--)
-  {
-    $record=&$records[$i];
 
-    $rzt = $record['gameRecord'];
-    if (!$rzt)
-      continue;  //flt now open game...
+  $records = array_reverse($records);
 
-    //----------split to rowIdx,colIdx
-    $arr_jmp=[7,13,19,25,31,37,43,49,55,61,67,73,79,85,91,97];
-    if ( in_array($int_num,$arr_jmp)  ) {
-      $rowIdx=0;//rest rowidx
-      $pos_x = $pos_x + $withMain;
-      $pos_y = $withMain;  //这里这番需要avd head..
+  $colss = [];
+  $perColRowsCnt = 6;
 
-      $colIdx++;
+  while (true) {
+    $curCol = array_slice($records, 0, $perColRowsCnt);
+    if (count($curCol) == 0)
+      break;
+    array_push($colss, $curCol);
+    require_once __DIR__ . "/../lib/queue.php";
+    array_removeElmt($records, 0, $perColRowsCnt);
 
-    }
-    $record['rowIdx']=$rowIdx;
-    $record['colIdx']=$colIdx;
-    $rowIdx++;
-    $int_num++;
-
-
-    list($win, $curClrTxt) = calcTxtNclr($rzt);
-    $record['txt']=$win;
-    $record['color']="white";
-
-     $record['bkgrd']=$curClrTxt;
-
-   }
+  }
 
 
   //--------render row each
   //max row 6
-  for($j=0;$j<6;$j++){
-    $row614 = array("left" => 0,"row_btm_lineClr"=>"grayHalf",  "padBtm" => 0, "top" => $pos_y, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
+  for ($rowIdx = 0; $rowIdx < $perColRowsCnt; $rowIdx++) {
+    $row614 = array("left" => 0, "row_btm_lineClr" => "grayHalf", "padBtm" => 0, "top" => $pos_y, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
     $row614["childs"] = [];
-    $curRow = getRow($j, $records);
-    $row614["childs"]=$curRow;
-   // array_push($row614["childs"], $curRow);
-//    for($k=0;$k<$colIdx;$k++){
-//
-//    }
+
+    if ($rowIdx == 4) {
+      echo 2;
+    }
+
+    $colIdx = 1;
+    foreach ($colss as $k => $col) {
+      if ($rowIdx == 4 && $colIdx == 5)
+        echo 3;
+    //  echo "rowIdx" . $rowIdx . " colIdx" . $colIdx . "\r\n";
+      if ($rowIdx >= count($col))
+        break;
+      $cell = $col[$rowIdx];
+      if (!$cell)
+        break;
+
+      list($win, $curClrTxt) = calcTxtNclr($cell['gameRecord']);
+
+      $cell['txt'] = $win;
+      $cell['color'] = "white";
+
+      $cell['bkgrd'] = $curClrTxt;
+      $cell['shape'] = 'ball';
+      $cell['ballwidth'] = 40;
+      $cell['width'] = 50;
+      $cell['height'] = $cell['width'];
+      array_push($row614["childs"], $cell);
+      $colIdx++;
+    }
+
+    if (count($row614["childs"]) == 4) {
+      echo 1;
+    }
+
+
     renderElementRowV2($row614, $img, $outFile);
     $pos_y = $pos_y + $row614['height'];
 
   }
+  //end foreach row
   imagepng($img, __DIR__ . "/../public/trend.jpg");
   echo "";
 }
 
-function getRow(int $rowIdx, $records) {
-  $a=[];
-  $maxLen=count($records);
-  for($i=$maxLen-1;$i>0;$i--) {
-    $cell = $records[$i];
-    $cell['shape']='ball';
-    $cell['ballwidth']=40;
-    $cell['width']=50;  $cell['height']= $cell['width'];
-    if( $cell['rowIdx']==$rowIdx)
-    array_push($a,$cell);
-  }
-  return $a;
-}
+
+//  foreach ($records as $k => $record) // for($i=$maxLen-1;$i>0;$i--)
+//  {
+//    //  $record=&$records[$i];
+//
+//    $rzt = $record['gameRecord'];
+//    if (!$rzt)
+//      continue;  //flt now open game...
+//
+//
+//    //----------split to rowIdx,colIdx
+//    $arr_jmp = [7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85, 91, 97];
+//    if (in_array($int_num, $arr_jmp)) {
+//      $rowIdx = 0;//rest rowidx
+//      $pos_x = $pos_x + $withMain;
+//      $pos_y = $withMain;  //这里这番需要avd head..
+//
+//      $colIdx++;
+//
+//    }
+//    $record['rowIdx'] = $rowIdx;
+//    $record['colIdx'] = $colIdx;
+//    $rowIdx++;
+//    $int_num++;
+//
+//
+//    list($win, $curClrTxt) = calcTxtNclr($rzt);
+//    $record['txt'] = $win;
+//    $record['color'] = "white";
+//
+//    $record['bkgrd'] = $curClrTxt;
+//
+//  }
+
+//function getRow(int $rowIdx, $colss) {
+//  $a = [];
+//  $maxLen = count($colss);
+//  for ($i =0; $i < $maxLen; $i++) {
+//
+//    $col = $colss[$i];
+//    $cell['shape'] = 'ball';
+//    $cell['ballwidth'] = 40;
+//    $cell['width'] = 50;
+//    $cell['height'] = $cell['width'];
+//    if ($cell['rowIdx'] == $rowIdx)
+//      array_push($a, $cell);
+//  }
+//  return $a;
+//}
 
 
 //$white_color = imagecolorallocate($img, 255, 255, 255);
@@ -433,7 +479,7 @@ function getRow(int $rowIdx, $records) {
  * @param $blue_color
  * @return string[]
  */
-function calcTxtNclr($rzt ): array {
+function calcTxtNclr($rzt): array {
   $a = explode("$", $rzt);
 
   if ($a[0] == 1) {
@@ -467,7 +513,7 @@ function getDzCnt($records, $find) {
 //
 
 //比如这个3$0 就是 闲，0表示无对子
-  require_once __DIR__."/../lib/arr.php";
+  require_once __DIR__ . "/../lib/arr.php";
   $rows = array_filterx($records, function ($row) use ($find) {
     $gameRecord = $row['gameRecord'];
 
@@ -478,6 +524,7 @@ function getDzCnt($records, $find) {
   return count($rows);
 
 }
+
 function getBkWinCnt($records, $find) {
   //------------------save kaij rzt
 
@@ -486,7 +533,7 @@ function getBkWinCnt($records, $find) {
 //
 
 //比如这个3$0 就是 闲，0表示无对子
-  require_once __DIR__."/../lib/arr.php";
+  require_once __DIR__ . "/../lib/arr.php";
   $rows = array_filterx($records, function ($row) use ($find) {
     $gameRecord = $row['gameRecord'];
 
@@ -499,6 +546,6 @@ function getBkWinCnt($records, $find) {
 }
 
 
-function endsWith339($str, $needle){
+function endsWith339($str, $needle) {
   return $needle === '' || substr_compare($str, $needle, -strlen($needle)) === 0;
 }
