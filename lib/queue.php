@@ -1,7 +1,7 @@
 <?php
 
 
-function file_get_contents_Asjson($f) {
+function file_get_contents_Asjson1019($f) {
   $t=file_get_contents($f);
   $json = json_decode($t, true);
   return $json;

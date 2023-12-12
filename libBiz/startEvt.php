@@ -59,28 +59,7 @@ if($GLOBALS['qihao']=="")
   \think\facade\Log::info(json_encode($log));
 
   //--------------------start bet
-//  $text = $lottery_no . "期 开始下注!\r\n";
-//
-//  $bot_words = \app\model\BotWords::where('Id', 1)->find();
-//  $words = $bot_words->Start_Bet;
-//  $text = $text . $words;
-//
-//  $elapsed = Setting::find(6)->value + Setting::find(7)->value;
-//  $stop_time = date("Y-m-d H:i:s", $kaijtime - 30);
-//  $text = $text . "\n\n封盘时间：$stop_time\n";
-//  $elapsed += Setting::find(8)->value;
-//  $draw_time = date("Y-m-d H:i:s", $kaijtime);
-//  $text = $text . "开奖时间：$draw_time\n";
-//  $text = \app\common\Helper::replace_markdown($text);
-//  //for safe hide kaijblk
-//  $text = $text . "开奖区块号 ：[" . $GLOBALS['kaijBlknum'] . "](https://etherscan.io/block/" . $GLOBALS['kaijBlknum'] . ")";
 
-//
-//  $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-//  //   \think\facade\Log::info($lineNumStr);
-//  \think\facade\Log::info($lineNumStr);
-//  \think\facade\Log::info($text);
-//  //sendmessageBotNConsole($text);
 
   $text = file_get_contents(__DIR__ . "/../db/startInfo.txt");
   echo $text . PHP_EOL;

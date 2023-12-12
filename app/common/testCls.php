@@ -108,14 +108,14 @@ class testCls extends Command {
     die();
 
 
-    require_once __DIR__ . "/../../app/commonBjl/CmdBjl.php";
+    require_once __DIR__ . "/../../app/commonBjl/MainBjlTpcmd.php";
     \app\commonBjl\main_processBjl();
     die();
 
 
     global $lottery_no;
     $lottery_no = 158283;
-    require_once __DIR__ . "/../commonBjl/CmdBjl.php";
+    require_once __DIR__ . "/../commonBjl/MainBjlTpcmd.php";
     \app\commonBjl\fenpan_betrLst();
     die();
 

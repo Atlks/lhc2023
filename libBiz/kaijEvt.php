@@ -485,23 +485,23 @@ function calcTxtNclr($rzt): array {
   if ($a[0] == 1) {
     $win = "庄";
 
-    $curClrTxt = "red";
+    $curClrTxtBkgrd = "red";
   }
 
 
   if ($a[0] == 2) {
     $win = "和";
 
-    $curClrTxt = "green";
+    $curClrTxtBkgrd = "green";
   }
 
   if ($a[0] == 3) {
 
     $win = "闲";
 
-    $curClrTxt = "blue";
+    $curClrTxtBkgrd = "blue";
   }
-  return array($win, $curClrTxt);
+  return array($win, $curClrTxtBkgrd);
 }
 
 

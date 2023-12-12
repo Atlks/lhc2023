@@ -6,7 +6,7 @@ while(true)
 {
 
   $f = __DIR__ . "/../dbKaijSrc/kaijsrc.json";
-  $json=file_get_contents_Asjson($f);
+  $json=file_get_contents_Asjson1019($f);
  array_removeElmt($json['data'],100,500);
 
 
@@ -34,7 +34,7 @@ while(true)
 //
 
 //比如这个3$0 就是 闲，0表示无对子
-  $json=file_get_contents_Asjson($f);
+  $json=file_get_contents_Asjson1019($f);
   $n=rand(1,3);
   $newJu['gameRecord']=$n."$".rand(0,3);
   $json['data'][0]=$newJu;

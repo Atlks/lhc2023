@@ -135,7 +135,7 @@ function kaipanInfoCore() {
   if ($GLOBALS['kaijSrcUseLocal']) {
     $f = __DIR__ . "/../dbKaijSrc/kaijsrc.json";
     require_once __DIR__ . "/../lib/file.php";
-    $json = file_get_contents_Asjson($f);
+    $json = file_get_contents_Asjson1019($f);
 
     $json['lottery_no'] = $json['data'][0]['gameNo'];
     $GLOBALS['qihao'] = $json['lottery_no'];
