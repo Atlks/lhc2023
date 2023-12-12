@@ -18,11 +18,6 @@ function startBetEvtBjl() {
   var_dump($qiohao_data['data'][0]);
   $lottery_no = $qiohao_data['lottery_no'];
   $GLOBALS['qihao'] =$lottery_no;
-if($GLOBALS['qihao']=="")
-{
-  echo "!!! qihao is empty. startBetEvtBjl()L23";
-  return;
-}
 
   //$lottery_no="19005195";
 
@@ -99,25 +94,28 @@ if($GLOBALS['qihao']=="")
   \think\facade\Db::close();
 }
 
+
+require_once  __DIR__."/../lib/http.php";
+kaipanInfo() ;
 function kaipanInfo()  {
 
   while(true)
   {
-   // try{
-      $json=kaipanInfoCore();
-      //if have rzt,already finish...next try
-      if($json['data'][0]['gameRecord'])
-      {
+    // try{
+    $json=kaipanInfoCore();
+    //if have rzt,already finish...next try
+    if($json['data'][0]['gameRecord'])
+    {
 
-        echo " !!!  kaipanInfoL106 gameRecord now new ju..contyine retry\r\n";
-        var_dump($json['data'][0]);
+      echo " !!!  kaipanInfoL106 gameRecord now new ju..contyine retry\r\n";
+      var_dump($json['data'][0]);
 
-        sleep(2);
-        continue;
-      }
+      sleep(2);
+      continue;
+    }
 
-      else
-        return $json;
+    else
+      return $json;
 //    }catch(\Exception $e)
 //    {
 //       var_dump($e);
@@ -144,7 +142,7 @@ function kaipanInfoCore() {
     return $json;
   }
 
-  require_once __DIR__."/../lib/http.php";
+
   $t = http_post("http://34.150.68.52:8080/user/login/submit", "userName=test04&password=aaa111");
   $json = json_decode($t, true);
   $token = $json['data']['userInfo']['token'];

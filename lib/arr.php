@@ -38,6 +38,8 @@ function in_array_rxChk(string $txt, array $arr_fmt) {
 function startwithV1252($str,$pattern) {
   return (strpos($str,$pattern) === 0 )? true:false ;
 }
+
+
 function array_filterx($arr,$f)
 {
 

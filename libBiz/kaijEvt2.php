@@ -354,7 +354,7 @@ function createTrendImageV2($records) {
   $css_datawidth=$withMain;
 
   $outFile = __DIR__ . "/../public/trend.jpg";
-  //----------------------百家乐
+  //百家乐
   $row614 = array("left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
 
   $bankWinCnt = getBkWinCnt($records,"1$");
@@ -387,9 +387,6 @@ function createTrendImageV2($records) {
   require_once __DIR__."/../lib/painLib.php";
   renderElementRowV2($row614, $img, $outFile);
   $pos_y = $pos_y + $row614['height'];
-   //-----------end head
-
-
 
 
   $maxLen=count($records);

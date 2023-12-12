@@ -34,6 +34,6 @@ while (true) {
 
         \libspc\log_err($exception,__METHOD__,$errdir);
      }
-    usleep(500*1000);
+    usleep(1000*1000);
     // break;
 }

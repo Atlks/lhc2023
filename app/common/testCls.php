@@ -13,9 +13,8 @@ use think\view\driver\Php;
 //TEST CMND START
 //   C:\phpstudy_pro\Extensions\php\php8.0.2nts\php.exe C:\modyfing\jbbot\think testx
 
-function testKaij()
-{
- //   saD
+function testKaij() {
+  //   saD
   echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" . PHP_EOL;
   echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." . PHP_EOL;
   echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." . PHP_EOL;
@@ -25,7 +24,7 @@ function testKaij()
   $data['hash_no'] = 17870669;
   $data['lottery_no'] = 17870669;
   $gmLgcSSc->lottery->setData($data);
-  $gmLgcSSc->hash_no =   $data['hash_no'];
+  $gmLgcSSc->hash_no = $data['hash_no'];
   $gmLgcSSc->lottery_no = $data['hash_no'];
 
   global $lottery_no;
@@ -33,133 +32,142 @@ function testKaij()
   //kaij_draw_evt();
   echo 999;
 
-   var_dump($gmLgcSSc->DrawLotteryBjl("158283"))  ;
+  var_dump($gmLgcSSc->DrawLotteryBjl("158283"));
 }
 
 
-function painTest()
-{
+function painTest() {
   $gmLgcSSc = new   \app\common\GameLogicSsc();
   $gmLgcSSc->SendTrendImage(13);
   //  imagepng($img, app()->getRootPath() . "public/trend.jpg");
 }
-class testCls extends Command
-{
-  protected function configure()
-  {
+
+class testCls extends Command {
+  protected function configure() {
     // 指令配置
     $this->setName('testClsNm')
       ->setDescription('the cmd2 command');
   }
 
-  protected function execute(Input $input, Output $output)
-  {
+  protected function execute(Input $input, Output $output) {
 
-    $GLOBALS['BOT_TOKEN']='6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
-    $GLOBALS['chat_id']=4038077884;
-    $GLOBALS['qihao']=141919;
-    require_once __DIR__."/../../libBiz/kaijEvt.php";
-    sendTrendPic(); die();
+    $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
+    $GLOBALS['chat_id'] = 4038077884;
+
+
+
+
+    $GLOBALS['qihao'] = 141919;
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    sendTrendPic();
+    die();
+
+    //---stgartg
+
+    require_once __DIR__ . "/../../libBiz/startEvt.php";
+    startBetEvtBjl();
+    die();
+
+
+
+    $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
+    $GLOBALS['chat_id'] = 4038077884;
+    $GLOBALS['qihao'] = 141919;
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    sendTrendPic();
+    die();
 
     //---------------------开奖流程
-    $GLOBALS['BOT_TOKEN']='6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
-    $GLOBALS['chat_id']=4038077884;
-    $GLOBALS['qihao']=141919;
-    require_once __DIR__."/../../libBiz/kaijEvt.php";
+    $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
+    $GLOBALS['chat_id'] = 4038077884;
+    $GLOBALS['qihao'] = 141919;
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
     kaij_draw_evt_bjl();
     die();
 
 
-
-    require_once __DIR__."/../../libBiz/kaijEvt.php";
-    \SendPicRztV2(232904,"闲赢");
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    \SendPicRztV2(232904, "闲赢");
     die();
 
 
     //test bet
-    $hdr =   new  \app\controller\HandleMsgHdlBjlWebreq();
-    $hdr->Bot_Token= $GLOBALS['BOT_TOKEN'];
-    $json_t=file_get_contents(__DIR__."/../../db/testJson.json");
+    $hdr = new  \app\controller\HandleMsgHdlBjlWebreq();
+    $hdr->Bot_Token = $GLOBALS['BOT_TOKEN'];
+    $json_t = file_get_contents(__DIR__ . "/../../db/testJson.json");
     $json = json_decode($json_t, true);
     $ret = $hdr->processMessage($json);
 
     die();
 
 
-
     //---stgartg
 
-    require_once __DIR__."/../../libBiz/startEvt.php";
-    startBetEvtBjl();die();
+    require_once __DIR__ . "/../../libBiz/startEvt.php";
+    startBetEvtBjl();
+    die();
 
 
-
-
-
-
-    require_once __DIR__."/../../app/commonBjl/CmdBjl.php";
-    \app\commonBjl\main_processBjl();die();
-
-
-
-
+    require_once __DIR__ . "/../../app/commonBjl/CmdBjl.php";
+    \app\commonBjl\main_processBjl();
+    die();
 
 
     global $lottery_no;
-    $lottery_no=158283;
-    require_once __DIR__."/../commonBjl/CmdBjl.php";
-   \app\commonBjl\fenpan_betrLst();die();
+    $lottery_no = 158283;
+    require_once __DIR__ . "/../commonBjl/CmdBjl.php";
+    \app\commonBjl\fenpan_betrLst();
+    die();
 
     testKaij();
-   // painTest();
-    DIE();
+    // painTest();
+    die();
 
-      $json_t=file_get_contents(__DIR__."/../../db/req.json");
-      $json = json_decode($json_t, true);
-
-
-      $hdr =   new  \app\controller\Handle2();
-      $hdr->Bot_Token= $GLOBALS['BOT_TOKEN'];
-      $ret =   $hdr->processMessage($json);
+    $json_t = file_get_contents(__DIR__ . "/../../db/req.json");
+    $json = json_decode($json_t, true);
 
 
-      die();
+    $hdr = new  \app\controller\Handle2();
+    $hdr->Bot_Token = $GLOBALS['BOT_TOKEN'];
+    $ret = $hdr->processMessage($json);
+
+
+    die();
 //  //    select sum(bet),sum(payout),sum(bet)-sum(payout) as income
 //  //    from betrecord where lotterno=xxx group by userid
 
-      $lotteryno=17954621;
-      $rows =  \think\facade\Db::name('bet_record')->where('lotteryno', '=', $lotteryno)
-          ->field(' username,userid,sum(bet) bet,sum(payout) payout,sum(bet)-sum(payout) as income')
-          ->group('userid,username')
-          ->select();
+    $lotteryno = 17954621;
+    $rows = \think\facade\Db::name('bet_record')->where('lotteryno', '=', $lotteryno)
+      ->field(' username,userid,sum(bet) bet,sum(payout) payout,sum(bet)-sum(payout) as income')
+      ->group('userid,username')
+      ->select();
 
-      die();
+    die();
 
-      painTest();
-      die();
-   //   $rzt717= lotrySpltrCls::msgHdlr("a123操200");
+    painTest();
+    die();
+    //   $rzt717= lotrySpltrCls::msgHdlr("a123操200");
     //  $rzt717= lotrySpltrCls::msgHdlr("1小100");
-  //    $rzt717= lotrySpltrCls::msgHdlr("abc小100");
-      $rzt717= lotrySpltrCls::msgHdlr("123小100");
+    //    $rzt717= lotrySpltrCls::msgHdlr("abc小100");
+    $rzt717 = lotrySpltrCls::msgHdlr("123小100");
 //$rzt717= lotrySpltrCls::tmqwfabc1200zhms("abc1.200");
-      $rzt717=1;
+    $rzt717 = 1;
 
-      die();
+    die();
 
 
-    
     \think\facade\Log::betnotice("aa哇哇哇叫123");
     \think\facade\Log::info("aa哇哇哇叫123");
     die();
 
 
     require_once __DIR__ . "/../../lib/strx.php";
-     $bet_str_arr_clr = \strspc\spltBySpace("aaa bbb");
-  
+    $bet_str_arr_clr = \strspc\spltBySpace("aaa bbb");
+
     //$bet_str_arr_clr =\extend\spltBySpace("aaa bbb");
-    var_dump(   $bet_str_arr_clr);
+    var_dump($bet_str_arr_clr);
     die();
- 
+
 
     testKaij();
     die();
@@ -176,7 +184,7 @@ class testCls extends Command
     var_dump($gmLgcSSc->calcIncome(17875980));
     die();
 
-    $rows =  \think\facade\Db::name('bet_record')->where('lotteryno', '=', 17875980)->select();
+    $rows = \think\facade\Db::name('bet_record')->where('lotteryno', '=', 17875980)->select();
     var_dump($rows);
     //  var_dump( $rows[0]['UserName']);
     foreach ($rows as $row) {
@@ -186,7 +194,7 @@ class testCls extends Command
       var_dump($betamt);
       $payout = $row['Payout'];
       var_dump($row['Payout'] / 100 - $betamt);
-      $income = $row['Payout'] / 100 -  $betamt;
+      $income = $row['Payout'] / 100 - $betamt;
       $uid = $row['UserId'];
       $uname = $row['UserName'];
       $txt = "$uname [$uid] 下注金额:$betamt 盈亏: $income \r\n";

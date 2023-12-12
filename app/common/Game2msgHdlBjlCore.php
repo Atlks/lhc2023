@@ -279,32 +279,11 @@ class Game2msgHdlBjlCore {
     foreach ($bet_str_arr_clr_spltMltSingle as $str) {
 
       $match = false;
-
-
       $bet_nums = $str;
       $bet_nums = trim($bet_nums);
+
       var_dumpx($bet_nums);
       //     var_dumpx(getWefa($bet_nums));
-
-
-      $lineNumStr = " mm:))" . __METHOD__ . "() sa " . __FILE__ . ":" . __LINE__;
-      \think\facade\Log::betnotice($lineNumStr);
-      \think\facade\Log::betnotice(" forech per betstr :getWefa($bet_nums) ");
-      log_info_toReqchain(__LINE__ . __METHOD__, "bet_num", $bet_nums);
-//
-//      $wefa413 = betstrX__parse_getWefa($bet_nums);
-//      log_info_toReqchain(__LINE__ . __METHOD__, "wefa413", $wefa413);
-//
-//      \think\facade\Log::betnotice("   wefa413 rzt :" . $wefa413);
-//      //  var_dumpx($rows);
-//      //   var_dumpx($rows[0]['玩法']);
-//      if ($wefa413 == "") {
-//        // continue;
-//         //  return "格式错误";
-//      }
-
-      //todo act bjl
-      $wefa413="lhc";
 
       //----------soha to   xx999   fmt
       require_once  __DIR__."/../../libBiz/user.php";
@@ -318,12 +297,29 @@ class Game2msgHdlBjlCore {
         $userBls=getBlsByU($this->player->getId());
         $bet_nums="闲".$userBls;
       }
+
+
+
+
+      $lineNumStr = " mm:))" . __METHOD__ . "() sa " . __FILE__ . ":" . __LINE__;
+      \think\facade\Log::betnotice($lineNumStr);
+      \think\facade\Log::betnotice(" forech per betstr :getWefa($bet_nums) ");
+      log_info_toReqchain(__LINE__ . __METHOD__, "bet_num", $bet_nums);
+
+
+
       $amount = getAmt_frmStrLastV3($bet_nums,0) * 100;  //bcs money amt is base fen...so   cheni 100
 
 
 
       //-------------get bettype info row
-      $wanfa = $wefa413;
+      $wanfa ="百家乐";
+
+      $bettype434=str_delLastNum($bet_nums);
+      if($bettype434=="和")
+        $wanfa="百家乐和局";
+      if($bettype434=="庄对" || $bettype434=="闲对")
+        $wanfa="百家乐对子";
       //   var_dump("265L wanfa:".$wanfa);
       $rows = \think\facade\Db::name('bet_types')->whereRaw("玩法='" . $wanfa . "'")->select();
       \think\facade\Log::info("262L rows count:" . count($rows));
@@ -354,7 +350,7 @@ class Game2msgHdlBjlCore {
         return $text = "没有达到最小下注:";
 
       if ($bet['amount'] < $type['Bet_Min']) {
-        return $text = "没有达到最小下注:" . $min / 100;
+        return $text = "没有达到最小下注:" . $type['Bet_Min'] / 100;
       }
 
       if ($bet['amount'] > $type['Bet_Max']) {
