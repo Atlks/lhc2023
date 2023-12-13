@@ -12,6 +12,7 @@ function main_processBjl() {
 
   $GLOBALS['qihao']="";
 
+ // throw  new \think\Exception("eee");
 
   require_once "startEvt.php";
   require_once "betEvt.php";

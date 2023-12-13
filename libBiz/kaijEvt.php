@@ -193,6 +193,9 @@ function getKaijRztBjl($gameNo) {
 
 
   $rzt = $seltedRow[0]['gameRecord'];
+
+  $rzt="";//模拟还没开奖，需要卡主
+  throw new Exception("no kaij rzt now ,gameno:".$gameNo);
   $a = explode("$", $rzt);
 
   if ($a[0] == 1)

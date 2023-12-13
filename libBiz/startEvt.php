@@ -85,10 +85,14 @@ function kaipanInfo()  {
    // try{
       $json=kaipanInfoCore();
       //if have rzt,already finish...next try
-      if($json['data'][0]['gameRecord'])
+    //if  gameRecord is empty,,now new ju
+    // if gamerec hav val,,last ju..
+      if($json['data'][0]['gameRecord'] && $json['data'][0]['gameRecord']!="")
       {
+        //have val .last ju..
 
-        echo " !!!  kaipanInfoL106 gameRecord now new ju..contyine retry\r\n";
+       // if($json['data'][0]['gameRecord']="")
+        echo " !!!  kaipanInfoL106 gameRecord no has new ju..contyine retry\r\n";
         var_dump($json['data'][0]);
 
         sleep(2);
@@ -96,7 +100,10 @@ function kaipanInfo()  {
       }
 
       else
+      {//  no rezt,,new ju
         return $json;
+      }
+
 //    }catch(\Exception $e)
 //    {
 //       var_dump($e);

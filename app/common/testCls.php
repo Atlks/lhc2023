@@ -53,8 +53,12 @@ class testCls extends Command {
 
     $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
     $GLOBALS['chat_id'] = 4038077884;
+    require_once __DIR__ . "/../../libBiz/startEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
-
+    \getKaijRztBjl_retryX(158289);
+   // kaipanInfo() ;
+        die();
 
 
     $GLOBALS['qihao'] = 141919;
