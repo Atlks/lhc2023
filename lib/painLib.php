@@ -87,7 +87,7 @@ function renderElementRow(array $row140, $img) {
 
 
 //dep
-function   renderElementRowV2(array $row140, $img, $outputPic) {
+function renderElementRowV2(array $row140, $img, $outputPic) {
   $posX = $row140["left"];
 
   $posY = $row140["top"];
@@ -99,16 +99,16 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
   }
 
 
-  $idx = 0; $cellIdx=0;
+  $idx = 0;
+  $cellIdx = 0;
   foreach ($cells as $k => $v_cell) {
     $cellIdx++;
-   // echo "cellIdx:".$cellIdx."\r\n";
-    if($cellIdx==1)
-    {
-     // echo 11;
+    // echo "cellIdx:".$cellIdx."\r\n";
+    if ($cellIdx == 1) {
+      // echo 11;
     }
 
-    $blktxt =array_key('txt',$v_cell);
+    $blktxt = array_key('txt', $v_cell);
     //  if($idx>0)
     //   $posX = $posX + $v_cell['width'];
 
@@ -123,7 +123,7 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
 
         $pos_x_eclps = $posX + $v_cell['width'] / 2;
         $pos_y_eclps = $posY + $v_cell['width'] / 2;
-       $ballwidth= array_key("ballwidth",$v_cell);
+        $ballwidth = array_key("ballwidth", $v_cell);
         imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
 
       } else {
@@ -133,6 +133,40 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
       }
 
 
+    }
+        $GLOBALS['smallBallOffset']=4;
+    $GLOBALS['smallBallWd']=15;
+    //------duiz
+    if ((array_key("lfttpClr",$v_cell) == "red")) {
+//-----------$lefttop
+      $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
+      $center_x_ball=$pos_x_eclps;
+      $center_y_ball=$pos_y_eclps;
+      $rds=$ballwidth/2;
+      $smallBallX_lftTop = $center_x_ball - $rds / 2 - $offset;
+      $smallBallY_lfttop = $center_y_ball - $rds / 2 - $offset;
+
+      imagefilledellipse($img, $smallBallX_lftTop, $smallBallY_lfttop,  $GLOBALS['smallBallWd'],  $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr",$v_cell), $img));
+
+
+      imagepng($img, $outputPic);
+    }
+
+    if ((array_key("rtBtmClr",$v_cell) == "blue")) {
+//-----------$lefttop
+      $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
+      $center_x_ball=$pos_x_eclps;
+      $center_y_ball=$pos_y_eclps;
+      $rds=$ballwidth/2;
+
+      $smallBallX_rtBtm=$center_x_ball+$rds/2+$offset;
+      $smallBallY_rtBtm=$center_y_ball+$rds/2+$offset;
+
+      imagefilledellipse($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr",$v_cell), $img));
+
+
+
+      imagepng($img, $outputPic);
     }
 
 
@@ -155,7 +189,7 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
 
       imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
     }
-    if (array_key("th_row",$row140) == "true") {
+    if (array_key("th_row", $row140) == "true") {
       //竖线。。。
       //todo th implt
       //if th then pain shuxian
@@ -165,7 +199,6 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
     }
 
 
-
     imagepng($img, $outputPic);
     $idx++;
     $posX = $posX + $v_cell['width'];
@@ -173,11 +206,10 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
   //foreach row end
 
 
-
   //----------------hr line bottom
   $posY = $row140["top"] + $row140["height"];
   //title baes line
-  $clr=array_key_df("row_btm_lineClr",$row140,"black");
+  $clr = array_key_df("row_btm_lineClr", $row140, "black");
 
   renderElmtLine(array("top" => $posY, "color" => $clr, "elmtType" => "line"), $img);
   imagepng($img, $outputPic);
@@ -186,17 +218,18 @@ function   renderElementRowV2(array $row140, $img, $outputPic) {
 }
 
 
-function array_key_df(string $string, $v_cell,$dfval) {
-  if(!array_key_exists($string,$v_cell))
+function array_key_df(string $string, $v_cell, $dfval) {
+  if (!array_key_exists($string, $v_cell))
     return $dfval;
 
-  return  $v_cell[$string];
+  return $v_cell[$string];
 }
+
 function array_key(string $string, $v_cell) {
-  if(!array_key_exists($string,$v_cell))
+  if (!array_key_exists($string, $v_cell))
     return "";
 
-  return  $v_cell[$string];
+  return $v_cell[$string];
 }
 
 
@@ -241,6 +274,8 @@ function renderElementCanvas(array $elemt) {
 
   $img = imagecreatetruecolor($elemt['width'], $elemt['height']);
 
+  // Switch antialiasing on for one image
+  imageantialias($img, true);
 
   $color = \getColor($elemt['bkgrd'], $img);
 
@@ -261,8 +296,8 @@ function getColor($clrname, $img) {
 
   // 表面颜色（浅灰）
   $grayColorHalf = imagecolorallocate($img, 200, 200, 200);
-  $grayColor = imagecolorallocate($img, 235, 242, 255);
-  $clrArr = array('grayHalf'=>$grayColor,'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  $grayColor = imagecolorallocate($img, 125, 125, 125);
+  $clrArr = array('闲对'=>$blue_color,'庄对'=>$red_color,'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
   if (!array_key_exists($clrname, $clrArr))
     return $clrArr["black"];
 

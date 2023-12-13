@@ -1,3 +1,3 @@
 <?php
 
-$GLOBALS['kaijSrcUseLocal']=false;
+$GLOBALS['kaijSrcUseLocal']=true;

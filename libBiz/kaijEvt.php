@@ -39,7 +39,7 @@ function kaij_draw_evt_bjl() {
   $gmLgcSSc = new   \app\common\GameLogicSsc();  //comm/gamelogc
   // $gl->lottery_no = $lottery_no;
 
-  //--------------------show kaj rzt
+  //--------------------show kaj rzt ,here onlyu gene kaij rzt pic
   try {
     $lottery_no = $GLOBALS['qihao'];
     $data['hash_no'] = $lottery_no;
@@ -59,10 +59,19 @@ function kaij_draw_evt_bjl() {
   }
 
 //------------------ gene pic rzt
-  //  开奖结果图 与走势图
+  //  开奖结果图
   SendPicRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
 
-  //---中奖结果图发送
+ // 与走势图
+  try {
+    sendTrendPic();
+  } catch (\Throwable $e) {
+    var_dump("L116");
+    var_dump($e);
+
+  }
+
+  //---中奖结果图发送  betRztlist
   $cfile = new \CURLFile(__DIR__ . "/../public/betRztlist.jpg");
   $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
   $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
@@ -98,13 +107,7 @@ function SendPicRztV2($qihao, $rzt): void {
   }
 
 
-  try {
-    sendTrendPic();
-  } catch (\Throwable $e) {
-    var_dump("L116");
-    var_dump($e);
 
-  }
 
 
 }
@@ -132,7 +135,7 @@ function getKaijRztBjl_retryX($qihao) {
 
 
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
-  var_dump($qihao);
+  var_dump("qihao:".$qihao);
   $log_txt = __METHOD__ . json_encode(func_get_args());
 
   \think\facade\Log::info($log_txt);
@@ -194,8 +197,10 @@ function getKaijRztBjl($gameNo) {
 
   $rzt = $seltedRow[0]['gameRecord'];
 
-  $rzt="";//模拟还没开奖，需要卡主
-  throw new Exception("no kaij rzt now ,gameno:".$gameNo);
+ // $rzt="";//模拟还没开奖，需要卡主
+  if($rzt=="")
+    throw new Exception("no kaij rzt now ,gameno:".$gameNo);
+
   $a = explode("$", $rzt);
 
   if ($a[0] == 1)
@@ -323,13 +328,15 @@ function createTrendImageV2($records) {
   //--------render row each
   //max row 6
   for ($rowIdx = 0; $rowIdx < $perColRowsCnt; $rowIdx++) {
-    $row614 = array("left" => 0, "row_btm_lineClr" => "grayHalf", "padBtm" => 0, "top" => $pos_y, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
+    $row614 = array("left" => 0, "row_btm_lineClr" => "gray", "padBtm" => 0, "top" => $pos_y, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
     $row614["childs"] = [];
 
     if ($rowIdx == 4) {
       echo 2;
     }
 
+
+    //gene row
     $colIdx = 1;
     foreach ($colss as $k => $col) {
       if ($rowIdx == 4 && $colIdx == 5)
@@ -341,10 +348,22 @@ function createTrendImageV2($records) {
       if (!$cell)
         break;
 
-      list($win, $curClrTxt) = calcTxtNclr($cell['gameRecord']);
+      list($win, $curClrTxt,$duiz) = calcTxtNclr($cell['gameRecord']);
 
       $cell['txt'] = $win;
       $cell['color'] = "white";
+      $cell['duiz']=$duiz;
+      if($duiz=="庄对")
+       $cell['lfttpClr']="red";
+      if($duiz=="闲对")
+        $cell['rtBtmClr']="blue";
+      if($duiz=="庄闲对")
+      {
+        $cell['rtBtmClr']="blue";
+        $cell['lfttpClr']="red";
+
+      }
+
 
       $cell['bkgrd'] = $curClrTxt;
       $cell['shape'] = 'ball';
@@ -365,6 +384,9 @@ function createTrendImageV2($records) {
 
   }
   //end foreach row
+
+
+  //-------------end--------------
   imagepng($img, __DIR__ . "/../public/trend.jpg");
   echo "";
 }
@@ -476,14 +498,21 @@ function createTrendImageV2($records) {
 
 
 /**
- * @param $rzt
- * @param $red_color
- * @param $green_color
- * @param $blue_color
- * @return string[]
+//A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+//  B:0无对 1 庄对 2 闲对 3 庄闲对
  */
-function calcTxtNclr($rzt): array {
+function calcTxtNclr($rzt) {
+
+
   $a = explode("$", $rzt);
+
+  $win="";
+  $curClrTxtBkgrd="";
+  $duiz="无对";
+
+  $a = explode("$", $rzt);
+  if($rzt=="")
+    return array($win, $curClrTxtBkgrd,$duiz);
 
   if ($a[0] == 1) {
     $win = "庄";
@@ -504,7 +533,165 @@ function calcTxtNclr($rzt): array {
 
     $curClrTxtBkgrd = "blue";
   }
-  return array($win, $curClrTxtBkgrd);
+
+  if ($a[1] == 1) {
+    $duiz="庄对";
+  }
+  if ($a[1] == 2) {
+    $duiz="闲对";
+  }
+  if ($a[1] == 3) {
+    $duiz="庄闲对";
+  }
+
+  return array($win, $curClrTxtBkgrd,$duiz);
+}
+
+
+
+// show jonjyo list 中奖名单  gene zhongj lst pic
+  function calcIncomeGrpby($lotteryno) {
+  require_once __DIR__ . "/../lib/painLib.php";
+  $outFile=__DIR__ . "/../public/betRztlist.jpg";
+  delFile($outFile);
+  try {
+    $a = [];
+    //  //    select sum(bet),sum(payout),sum(bet)-sum(payout) as income
+//  //    from betrecord where lotterno=xxx group by userid
+
+
+    $rows = \think\facade\Db::name('bet_record')->where('lotteryno', '=', $lotteryno)
+      ->field(' UserName,UserId,sum(bet) Bet,sum(payout) Payout,sum(bet)-sum(payout) as income')
+      ->group('userid,username')  //betNoAmt
+      ->select();
+
+
+
+    //-----------css配置
+    $css_lineHight = 40;
+    $canvas_height = $css_lineHight * (count($rows) + 2) + 9;
+    $font_size = 20;
+    $font = __DIR__ . "/../public/msyhbd.ttc";
+    $posX = 0;
+    $posY = 0;
+    $css_datawidth = 180;
+    $firstColWidth = 350;
+
+    # 开始画图
+    // 创建画布
+    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $firstColWidth+$css_datawidth*4, "height" => $canvas_height);
+
+    $img = renderElementCanvas($img_elmt);
+    //------   本局得分，剩余分，初始分，佣金
+
+    //--------------------title
+    //百家乐
+    $row614 = array("left" => 0,'bkgrd'=>'gray', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight );
+
+    $row614["childs"] = [
+
+      array('txt' => "百家乐",'tag'=>'th', 'bkgrd' => "red",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
+
+      array('txt' => '本局得分', 'tag'=>'th', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+      array('txt' => '剩余分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+      array('txt' => '初始分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+      array('txt' => '', 'tag'=>'th','color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
+
+
+    ];
+
+    renderElementRowV2($row614, $img,$outFile);
+    $posY = $posY + $row614['height'];
+
+
+
+    //------------show datas
+
+    $row_forCalc=[];
+    foreach ($rows as $row) {
+      $betamt = $row['Bet'] / 100;
+
+      var_dump($row['Payout'] / 100);
+      var_dump($betamt);
+      $payout = $row['Payout'];
+      var_dump($row['Payout'] / 100 - $betamt);
+      $income = $row['Payout'] / 100 - $betamt;
+      $uid = $row['UserId'];
+      $uname = $row['UserName'];
+
+      require_once "user.php";
+      $bls= getBlsByU($uid);
+      $row_cur=['本局得分'=>$income,'剩余分'=>$bls,'初始分'=>$bls-$income,'佣金'=>0];
+
+      $row_forCalc[]=$row_cur;
+
+      $txt = "$uname [$uid]  下注金额:$betamt 盈亏: $income \r\n";
+      var_dump($txt);
+
+      $row327 = array("left" => 0, "padBtm" => 0, "top" =>$posY, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight);
+
+      $row327["childs"] = [
+
+        array('txt' => $uname, 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
+
+        array('txt' => $income, 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+        array('txt' => $bls, 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+        array('txt' => $row_cur['初始分'], 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+
+        array('txt' => '', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
+
+
+      ];
+
+      renderElementRowV2($row327, $img,$outFile);
+      $posY = $posY + $row327['height'];
+
+
+      $a[] = $txt;
+    }
+
+    //---------show botrtom row
+    $row = array('elmtType' => 'tr', 'bkgrd' => "red",'font_size' => $font_size,'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
+
+    $row['childs'] = [
+      array('txt' => '总计' . count($rows) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
+      array('txt' => array_sum_col_inpainlib('本局得分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('剩余分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+      array('txt' => array_sum_col_inpainlib('初始分', $row_forCalc), 'bkgrd' => "", 'width' => $css_datawidth),
+
+      array('txt' => '', 'bkgrd' => "", 'width' => $css_datawidth),
+
+    ];
+
+
+    renderElementRowV2($row, $img,$outFile);
+    // $posY = $posY + $row['height'];
+
+    imagepng($img, $outFile);
+
+
+
+    return join("", $a);
+  } catch (\Throwable $exception) {
+    try {
+      $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
+      \think\facade\Log::error("----------------errrrr5---------------------------");
+      \think\facade\Log::error("file_linenum:" . $exception->getFile() . ":" . $exception->getLine());
+      \think\facade\Log::error("errmsg:" . $exception->getMessage());
+      \think\facade\Log::error("errtraceStr:" . $exception->getTraceAsString());
+      var_dump($exception);
+      return "";
+    } catch (\Throwable $exception) {
+      return "";
+    }
+
+    // throw $exception; // for test
+  }
 }
 
 

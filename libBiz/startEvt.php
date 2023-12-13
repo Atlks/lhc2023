@@ -92,8 +92,13 @@ function kaipanInfo()  {
         //have val .last ju..
 
        // if($json['data'][0]['gameRecord']="")
-        echo " !!!  kaipanInfoL106 gameRecord no has new ju..contyine retry\r\n";
+        $str = " !!!  kaipanInfoL106 gameRecord no has new ju..contyine retry\r\n";
+        echo $str;
+        require_once __DIR__."/../lib/logx.php";
+        logV3(__METHOD__,$str,"kaipe");
         var_dump($json['data'][0]);
+        logV3(__METHOD__,json_encode($json['data'][0]),"kaipe");
+
 
         sleep(2);
         continue;

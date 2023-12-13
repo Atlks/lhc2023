@@ -92,7 +92,7 @@ function fenpan_betrLst() {
     $cell_plyrDui = array('txt' => '闲对', 'tag' => 'th', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
     $cell_he = array('txt' => '和', 'tag' => 'th', 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_luck = array('txt' => '幸运6', 'tag' => 'th', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+    $cell_luck = array('txt' => '', 'tag' => 'th', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
     $row327["childs"] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
@@ -146,7 +146,7 @@ function fenpan_betrLst() {
         $cell_plyrDui = array('txt' => $row114['闲对'], 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
         $cell_he = array('txt' => $row114['和'], 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-        $cell_luck = array('txt' => $row114['幸运6'], 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
+        $cell_luck = array('txt' => '', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
         $row140['childs'] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
 
@@ -188,7 +188,7 @@ function fenpan_betrLst() {
       array('txt' => array_sum_col_inpainlib('庄对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
       array('txt' => array_sum_col_inpainlib('闲对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
       array('txt' => array_sum_col_inpainlib('和', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => array_sum_col_inpainlib('幸运', $arr), 'bkgrd' => "", 'width' => $css_datawidth)
+      array('txt' => '', 'bkgrd' => "", 'width' => $css_datawidth)
 
     ];
 

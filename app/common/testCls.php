@@ -56,9 +56,19 @@ class testCls extends Command {
     require_once __DIR__ . "/../../libBiz/startEvt.php";
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
+
+    \getKaijRztBjl_retryX(158290);
+    die();
+
+
+
+      kaipanInfo() ;
+    die();
+
+
+
     \getKaijRztBjl_retryX(158289);
-   // kaipanInfo() ;
-        die();
+
 
 
     $GLOBALS['qihao'] = 141919;
