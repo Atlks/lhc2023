@@ -13,7 +13,7 @@ const {exec, execSync} = require('child_process');
 while (true) {
 
     try {
-        let s = "php " + __dirname + "/../think cmdBjlx";
+        let s = "php " + __dirname + "/../think MainBjlTpcmd";
         console.log(s)
         //size 10M
         let message = execSync(s, {"maxBuffer": 10 * 1024 * 1024 * 1024});

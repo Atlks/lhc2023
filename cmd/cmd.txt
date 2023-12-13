@@ -18,3 +18,7 @@ node  tool/clrlog.js
 
 auto 自动sheofen
 php app/common/async_timer_starter.php
+
+
+composer
+php composer.phar require mpdf/mpdf

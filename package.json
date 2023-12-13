@@ -34,6 +34,7 @@
     "node-telegram-bot-api": "^0.61.0",
     "node-xlsx": "^0.23.0",
     "pouchdb": "^8.0.1",
+    "puppeteer": "^21.6.0",
     "request": "^2.88.2",
     "silly-datetime": "^0.1.2",
     "sync-request": "^6.1.0",
