@@ -1,12 +1,665 @@
 {
     "data": [
         {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "",
+            "addTime": "2023-12-14 21:21:03",
+            "countdownSeconds": 30,
+            "gameNo": "212103"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-14 21:20:18",
+            "countdownSeconds": 30,
+            "gameNo": "212018"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
+            "addTime": "2023-12-14 21:19:33",
+            "countdownSeconds": 30,
+            "gameNo": "211933"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:18:48",
+            "countdownSeconds": 30,
+            "gameNo": "211848"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-14 21:18:03",
+            "countdownSeconds": 30,
+            "gameNo": "211803"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
+            "addTime": "2023-12-14 21:17:18",
+            "countdownSeconds": 30,
+            "gameNo": "211718"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:16:33",
+            "countdownSeconds": 30,
+            "gameNo": "211633"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:15:48",
+            "countdownSeconds": 30,
+            "gameNo": "211548"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:15:03",
+            "countdownSeconds": 30,
+            "gameNo": "211503"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:14:18",
+            "countdownSeconds": 30,
+            "gameNo": "211418"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 21:13:33",
+            "countdownSeconds": 30,
+            "gameNo": "211333"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-14 21:12:48",
+            "countdownSeconds": 30,
+            "gameNo": "211248"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:12:03",
+            "countdownSeconds": 30,
+            "gameNo": "211203"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:11:18",
+            "countdownSeconds": 30,
+            "gameNo": "211118"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:10:33",
+            "countdownSeconds": 30,
+            "gameNo": "211033"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:09:48",
+            "countdownSeconds": 30,
+            "gameNo": "210948"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 21:09:03",
+            "countdownSeconds": 30,
+            "gameNo": "210903"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$0",
+            "addTime": "2023-12-14 21:08:18",
+            "countdownSeconds": 30,
+            "gameNo": "210818"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 21:07:33",
+            "countdownSeconds": 30,
+            "gameNo": "210733"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 21:06:48",
+            "countdownSeconds": 30,
+            "gameNo": "210648"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:06:03",
+            "countdownSeconds": 30,
+            "gameNo": "210603"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 21:05:18",
+            "countdownSeconds": 30,
+            "gameNo": "210518"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 21:04:33",
+            "countdownSeconds": 30,
+            "gameNo": "210433"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-14 21:03:48",
+            "countdownSeconds": 30,
+            "gameNo": "210348"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:03:03",
+            "countdownSeconds": 30,
+            "gameNo": "210303"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:02:18",
+            "countdownSeconds": 30,
+            "gameNo": "210218"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-14 21:01:33",
+            "countdownSeconds": 30,
+            "gameNo": "210133"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 21:00:48",
+            "countdownSeconds": 30,
+            "gameNo": "210048"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 21:00:03",
+            "countdownSeconds": 30,
+            "gameNo": "210003"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:59:18",
+            "countdownSeconds": 30,
+            "gameNo": "205918"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:58:33",
+            "countdownSeconds": 30,
+            "gameNo": "205833"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-14 20:57:48",
+            "countdownSeconds": 30,
+            "gameNo": "205748"
+        },
+        {
+            "gameRecord": "",
+            "addTime": "2023-12-14 20:57:19",
+            "countdownSeconds": 30,
+            "gameNo": "205719"
+        },
+        {
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 20:56:34",
+            "countdownSeconds": 30,
+            "gameNo": "205634"
+        },
+        {
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:55:49",
+            "countdownSeconds": 30,
+            "gameNo": "205549"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:55:04",
+            "countdownSeconds": 30,
+            "gameNo": "205504"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:54:19",
+            "countdownSeconds": 30,
+            "gameNo": "205419"
+        },
+        {
+            "gameRecord": "2$1",
+            "addTime": "2023-12-14 20:53:34",
+            "countdownSeconds": 30,
+            "gameNo": "205334"
+        },
+        {
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 20:52:49",
+            "countdownSeconds": 30,
+            "gameNo": "205249"
+        },
+        {
+            "gameRecord": "2$0",
+            "addTime": "2023-12-14 20:52:04",
+            "countdownSeconds": 30,
+            "gameNo": "205204"
+        },
+        {
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:51:19",
+            "countdownSeconds": 30,
+            "gameNo": "205119"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:50:34",
+            "countdownSeconds": 30,
+            "gameNo": "205034"
+        },
+        {
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:49:49",
+            "countdownSeconds": 30,
+            "gameNo": "204949"
+        },
+        {
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:49:04",
+            "countdownSeconds": 30,
+            "gameNo": "204904"
+        },
+        {
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 20:48:19",
+            "countdownSeconds": 30,
+            "gameNo": "204819"
+        },
+        {
+            "gameRecord": "2$0",
+            "addTime": "2023-12-14 20:47:34",
+            "countdownSeconds": 30,
+            "gameNo": "204734"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:46:49",
+            "countdownSeconds": 30,
+            "gameNo": "204649"
+        },
+        {
+            "gameRecord": "2$2",
+            "addTime": "2023-12-14 20:46:04",
+            "countdownSeconds": 30,
+            "gameNo": "204604"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:45:19",
+            "countdownSeconds": 30,
+            "gameNo": "204519"
+        },
+        {
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:44:34",
+            "countdownSeconds": 30,
+            "gameNo": "204434"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:43:49",
+            "countdownSeconds": 30,
+            "gameNo": "204349"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:43:04",
+            "countdownSeconds": 30,
+            "gameNo": "204304"
+        },
+        {
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:42:19",
+            "countdownSeconds": 30,
+            "gameNo": "204219"
+        },
+        {
+            "gameRecord": "2$2",
+            "addTime": "2023-12-14 20:41:34",
+            "countdownSeconds": 30,
+            "gameNo": "204134"
+        },
+        {
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 20:40:49",
+            "countdownSeconds": 30,
+            "gameNo": "204049"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:40:04",
+            "countdownSeconds": 30,
+            "gameNo": "204004"
+        },
+        {
+            "gameRecord": "1$0",
+            "addTime": "2023-12-14 20:39:19",
+            "countdownSeconds": 30,
+            "gameNo": "203919"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:38:34",
+            "countdownSeconds": 30,
+            "gameNo": "203834"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:37:49",
+            "countdownSeconds": 30,
+            "gameNo": "203749"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:37:04",
+            "countdownSeconds": 30,
+            "gameNo": "203704"
+        },
+        {
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 20:36:19",
+            "countdownSeconds": 30,
+            "gameNo": "203619"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:35:34",
+            "countdownSeconds": 30,
+            "gameNo": "203534"
+        },
+        {
+            "gameRecord": "2$2",
+            "addTime": "2023-12-14 20:34:49",
+            "countdownSeconds": 30,
+            "gameNo": "203449"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:34:04",
+            "countdownSeconds": 30,
+            "gameNo": "203404"
+        },
+        {
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:33:19",
+            "countdownSeconds": 30,
+            "gameNo": "203319"
+        },
+        {
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:32:34",
+            "countdownSeconds": 30,
+            "gameNo": "203234"
+        },
+        {
+            "gameRecord": "2$1",
+            "addTime": "2023-12-14 20:31:49",
+            "countdownSeconds": 30,
+            "gameNo": "203149"
+        },
+        {
+            "gameRecord": "1$1",
+            "addTime": "2023-12-14 20:31:04",
+            "countdownSeconds": 30,
+            "gameNo": "203104"
+        },
+        {
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:30:19",
+            "countdownSeconds": 30,
+            "gameNo": "203019"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:29:34",
+            "countdownSeconds": 30,
+            "gameNo": "202934"
+        },
+        {
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 20:28:49",
+            "countdownSeconds": 30,
+            "gameNo": "202849"
+        },
+        {
+            "gameRecord": "1$1",
+            "addTime": "2023-12-14 20:28:04",
+            "countdownSeconds": 30,
+            "gameNo": "202804"
+        },
+        {
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:27:19",
+            "countdownSeconds": 30,
+            "gameNo": "202719"
+        },
+        {
+            "gameRecord": "3$2",
+            "addTime": "2023-12-14 20:26:34",
+            "countdownSeconds": 30,
+            "gameNo": "202634"
+        },
+        {
+            "gameRecord": "3$1",
+            "addTime": "2023-12-14 20:25:49",
+            "countdownSeconds": 30,
+            "gameNo": "202549"
+        },
+        {
+            "gameRecord": "1$0",
+            "addTime": "2023-12-14 20:25:04",
+            "countdownSeconds": 30,
+            "gameNo": "202504"
+        },
+        {
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 20:24:19",
+            "countdownSeconds": 30,
+            "gameNo": "202419"
+        },
+        {
+            "gameRecord": "1$1",
+            "addTime": "2023-12-14 20:23:34",
+            "countdownSeconds": 30,
+            "gameNo": "202334"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:22:49",
+            "countdownSeconds": 30,
+            "gameNo": "202249"
+        },
+        {
+            "gameRecord": "2$0",
+            "addTime": "2023-12-14 20:22:04",
+            "countdownSeconds": 30,
+            "gameNo": "202204"
+        },
+        {
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 20:21:19",
+            "countdownSeconds": 30,
+            "gameNo": "202119"
+        },
+        {
+            "gameRecord": "1$0",
+            "addTime": "2023-12-14 20:20:34",
+            "countdownSeconds": 30,
+            "gameNo": "202034"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:19:49",
+            "countdownSeconds": 30,
+            "gameNo": "201949"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:19:04",
+            "countdownSeconds": 30,
+            "gameNo": "201904"
+        },
+        {
+            "gameRecord": "2$3",
+            "addTime": "2023-12-14 20:18:19",
+            "countdownSeconds": 30,
+            "gameNo": "201819"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:17:34",
+            "countdownSeconds": 30,
+            "gameNo": "201734"
+        },
+        {
+            "gameRecord": "2$1",
+            "addTime": "2023-12-14 20:16:49",
+            "countdownSeconds": 30,
+            "gameNo": "201649"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:16:04",
+            "countdownSeconds": 30,
+            "gameNo": "201604"
+        },
+        {
+            "gameRecord": "3$0",
+            "addTime": "2023-12-14 20:15:19",
+            "countdownSeconds": 30,
+            "gameNo": "201519"
+        },
+        {
+            "gameRecord": "1$2",
+            "addTime": "2023-12-14 20:14:34",
+            "countdownSeconds": 30,
+            "gameNo": "201434"
+        },
+        {
+            "gameRecord": "2$0",
+            "addTime": "2023-12-14 20:13:49",
+            "countdownSeconds": 30,
+            "gameNo": "201349"
+        },
+        {
+            "gameRecord": "1$3",
+            "addTime": "2023-12-14 20:13:04",
+            "countdownSeconds": 30,
+            "gameNo": "201304"
+        },
+        {
+            "gameRecord": "3$3",
+            "addTime": "2023-12-14 20:12:19",
+            "countdownSeconds": 30,
+            "gameNo": "201219"
+        },
+        {
             "gameRecord": "1$1",
             "addTime": "2023-12-14 16:54:43",
             "countdownSeconds": 30,
             "gameNo": "163645"
         },
-
         {
             "gameRecord": "1$1",
             "addTime": "2023-12-14 16:50:43",
@@ -48,576 +701,6 @@
             "addTime": "2023-12-14 16:32:58",
             "countdownSeconds": 30,
             "gameNo": "163258"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 16:32:13",
-            "countdownSeconds": 30,
-            "gameNo": "163213"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 16:31:28",
-            "countdownSeconds": 30,
-            "gameNo": "163128"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 16:30:43",
-            "countdownSeconds": 30,
-            "gameNo": "163043"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 16:29:58",
-            "countdownSeconds": 30,
-            "gameNo": "162958"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 16:29:13",
-            "countdownSeconds": 30,
-            "gameNo": "162913"
-        },
-        {
-            "gameRecord": "1$3",
-            "addTime": "2023-12-14 16:28:28",
-            "countdownSeconds": 30,
-            "gameNo": "162828"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 16:27:43",
-            "countdownSeconds": 30,
-            "gameNo": "162743"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 16:26:58",
-            "countdownSeconds": 30,
-            "gameNo": "162658"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 16:26:13",
-            "countdownSeconds": 30,
-            "gameNo": "162613"
-        },
-        {
-            "gameRecord": "3$1",
-            "addTime": "2023-12-14 16:25:28",
-            "countdownSeconds": 30,
-            "gameNo": "162528"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 16:24:43",
-            "countdownSeconds": 30,
-            "gameNo": "162443"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 16:23:58",
-            "countdownSeconds": 30,
-            "gameNo": "162358"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 16:23:13",
-            "countdownSeconds": 30,
-            "gameNo": "162313"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 16:22:28",
-            "countdownSeconds": 30,
-            "gameNo": "162228"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 16:21:43",
-            "countdownSeconds": 30,
-            "gameNo": "162143"
-        },
-        {
-            "gameRecord": "3$1",
-            "addTime": "2023-12-14 16:20:58",
-            "countdownSeconds": 30,
-            "gameNo": "162058"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 16:20:13",
-            "countdownSeconds": 30,
-            "gameNo": "162013"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 16:19:28",
-            "countdownSeconds": 30,
-            "gameNo": "161928"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 16:18:43",
-            "countdownSeconds": 30,
-            "gameNo": "161843"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 16:17:58",
-            "countdownSeconds": 30,
-            "gameNo": "161758"
-        },
-        {
-            "gameRecord": "3$1",
-            "addTime": "2023-12-14 16:17:13",
-            "countdownSeconds": 30,
-            "gameNo": "161713"
-        },
-        {
-            "gameRecord": "1$3",
-            "addTime": "2023-12-14 16:16:28",
-            "countdownSeconds": 30,
-            "gameNo": "161628"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 16:15:43",
-            "countdownSeconds": 30,
-            "gameNo": "161543"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 16:14:58",
-            "countdownSeconds": 30,
-            "gameNo": "161458"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 16:14:13",
-            "countdownSeconds": 30,
-            "gameNo": "161413"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 16:13:28",
-            "countdownSeconds": 30,
-            "gameNo": "161328"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 16:12:43",
-            "countdownSeconds": 30,
-            "gameNo": "161243"
-        },
-        {
-            "gameRecord": "1$3",
-            "addTime": "2023-12-14 16:11:58",
-            "countdownSeconds": 30,
-            "gameNo": "161158"
-        },
-        {
-            "gameRecord": "3$1",
-            "addTime": "2023-12-14 16:11:13",
-            "countdownSeconds": 30,
-            "gameNo": "161113"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 16:10:28",
-            "countdownSeconds": 30,
-            "gameNo": "161028"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 16:09:43",
-            "countdownSeconds": 30,
-            "gameNo": "160943"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 16:08:58",
-            "countdownSeconds": 30,
-            "gameNo": "160858"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 16:08:13",
-            "countdownSeconds": 30,
-            "gameNo": "160813"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 16:07:28",
-            "countdownSeconds": 30,
-            "gameNo": "160728"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 16:06:43",
-            "countdownSeconds": 30,
-            "gameNo": "160643"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 16:05:58",
-            "countdownSeconds": 30,
-            "gameNo": "160558"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 16:05:13",
-            "countdownSeconds": 30,
-            "gameNo": "160513"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 16:04:28",
-            "countdownSeconds": 30,
-            "gameNo": "160428"
-        },
-        {
-            "gameRecord": "1$3",
-            "addTime": "2023-12-14 16:03:43",
-            "countdownSeconds": 30,
-            "gameNo": "160343"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 16:02:58",
-            "countdownSeconds": 30,
-            "gameNo": "160258"
-        },
-        {
-            "gameRecord": "3$1",
-            "addTime": "2023-12-14 16:02:13",
-            "countdownSeconds": 30,
-            "gameNo": "160213"
-        },
-        {
-            "gameRecord": "1$3",
-            "addTime": "2023-12-14 16:01:28",
-            "countdownSeconds": 30,
-            "gameNo": "160128"
-        },
-        {
-            "gameRecord": "1$3",
-            "addTime": "2023-12-14 16:00:43",
-            "countdownSeconds": 30,
-            "gameNo": "160043"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 15:59:58",
-            "countdownSeconds": 30,
-            "gameNo": "155958"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:59:13",
-            "countdownSeconds": 30,
-            "gameNo": "155913"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:58:28",
-            "countdownSeconds": 30,
-            "gameNo": "155828"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 15:57:43",
-            "countdownSeconds": 30,
-            "gameNo": "155743"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:56:58",
-            "countdownSeconds": 30,
-            "gameNo": "155658"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:56:13",
-            "countdownSeconds": 30,
-            "gameNo": "155613"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 15:55:28",
-            "countdownSeconds": 30,
-            "gameNo": "155528"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 15:54:43",
-            "countdownSeconds": 30,
-            "gameNo": "155443"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:53:58",
-            "countdownSeconds": 30,
-            "gameNo": "155358"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:53:13",
-            "countdownSeconds": 30,
-            "gameNo": "155313"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 15:52:28",
-            "countdownSeconds": 30,
-            "gameNo": "155228"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 15:51:43",
-            "countdownSeconds": 30,
-            "gameNo": "155143"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 15:50:58",
-            "countdownSeconds": 30,
-            "gameNo": "155058"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 15:50:13",
-            "countdownSeconds": 30,
-            "gameNo": "155013"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:49:28",
-            "countdownSeconds": 30,
-            "gameNo": "154928"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 15:48:43",
-            "countdownSeconds": 30,
-            "gameNo": "154843"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:47:58",
-            "countdownSeconds": 30,
-            "gameNo": "154758"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 15:47:13",
-            "countdownSeconds": 30,
-            "gameNo": "154713"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 15:46:27",
-            "countdownSeconds": 30,
-            "gameNo": "154627"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 15:45:42",
-            "countdownSeconds": 30,
-            "gameNo": "154542"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 15:44:57",
-            "countdownSeconds": 30,
-            "gameNo": "154457"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 15:44:12",
-            "countdownSeconds": 30,
-            "gameNo": "154412"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:43:27",
-            "countdownSeconds": 30,
-            "gameNo": "154327"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:42:42",
-            "countdownSeconds": 30,
-            "gameNo": "154242"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 15:41:57",
-            "countdownSeconds": 30,
-            "gameNo": "154157"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 15:41:12",
-            "countdownSeconds": 30,
-            "gameNo": "154112"
-        },
-        {
-            "gameRecord": "3$1",
-            "addTime": "2023-12-14 15:40:27",
-            "countdownSeconds": 30,
-            "gameNo": "154027"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 15:39:42",
-            "countdownSeconds": 30,
-            "gameNo": "153942"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:38:57",
-            "countdownSeconds": 30,
-            "gameNo": "153857"
-        },
-        {
-            "gameRecord": "3$2",
-            "addTime": "2023-12-14 15:38:12",
-            "countdownSeconds": 30,
-            "gameNo": "153812"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 15:37:27",
-            "countdownSeconds": 30,
-            "gameNo": "153727"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 15:36:42",
-            "countdownSeconds": 30,
-            "gameNo": "153642"
-        },
-        {
-            "gameRecord": "3$0",
-            "addTime": "2023-12-14 15:35:57",
-            "countdownSeconds": 30,
-            "gameNo": "153557"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 15:35:12",
-            "countdownSeconds": 30,
-            "gameNo": "153512"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:34:27",
-            "countdownSeconds": 30,
-            "gameNo": "153427"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 15:33:42",
-            "countdownSeconds": 30,
-            "gameNo": "153342"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:32:57",
-            "countdownSeconds": 30,
-            "gameNo": "153257"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:32:12",
-            "countdownSeconds": 30,
-            "gameNo": "153212"
-        },
-        {
-            "gameRecord": "2$0",
-            "addTime": "2023-12-14 15:31:27",
-            "countdownSeconds": 30,
-            "gameNo": "153127"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:30:42",
-            "countdownSeconds": 30,
-            "gameNo": "153042"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:29:57",
-            "countdownSeconds": 30,
-            "gameNo": "152957"
-        },
-        {
-            "gameRecord": "2$3",
-            "addTime": "2023-12-14 15:29:12",
-            "countdownSeconds": 30,
-            "gameNo": "152912"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:28:27",
-            "countdownSeconds": 30,
-            "gameNo": "152827"
-        },
-        {
-            "gameRecord": "1$0",
-            "addTime": "2023-12-14 15:27:42",
-            "countdownSeconds": 30,
-            "gameNo": "152742"
-        },
-        {
-            "gameRecord": "1$2",
-            "addTime": "2023-12-14 15:26:57",
-            "countdownSeconds": 30,
-            "gameNo": "152657"
-        },
-        {
-            "gameRecord": "2$2",
-            "addTime": "2023-12-14 15:26:12",
-            "countdownSeconds": 30,
-            "gameNo": "152612"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 15:25:27",
-            "countdownSeconds": 30,
-            "gameNo": "152527"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:24:42",
-            "countdownSeconds": 30,
-            "gameNo": "152442"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:23:57",
-            "countdownSeconds": 30,
-            "gameNo": "152357"
-        },
-        {
-            "gameRecord": "2$1",
-            "addTime": "2023-12-14 15:23:12",
-            "countdownSeconds": 30,
-            "gameNo": "152312"
-        },
-        {
-            "gameRecord": "1$1",
-            "addTime": "2023-12-14 15:22:27",
-            "countdownSeconds": 30,
-            "gameNo": "152227"
-        },
-        {
-            "gameRecord": "3$3",
-            "addTime": "2023-12-14 15:21:42",
-            "countdownSeconds": 30,
-            "gameNo": "152142"
         }
     ]
 }

@@ -42,7 +42,13 @@ class Logs
         if(empty($log))
         {
 
+
+//          $GLOBALS['tableNo'] =array_key713('tableNo',$curRec) ;
+//          $GLOBALS['juNo'] =array_key713('juNo',$curRec) ;
+//          $GLOBALS['shoeNo'] =array_key713('shoeNo',$curRec) ;
+
           $data = ['Date' => $date,
+            'TableNo'=>array_key713('tableNo',$GLOBALS)."台@".array_key713('shoeNo',$GLOBALS)."靴".array_key713('juNo',$GLOBALS)."局",
             'No' => $lottery_no,
             'Hash' => $hash_no];
           \think\facade\Db::name('lottery_log')->save($data);

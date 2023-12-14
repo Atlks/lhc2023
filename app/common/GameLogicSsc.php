@@ -1266,7 +1266,7 @@ class GameLogicSsc {
     // updt  LotteryLog
     var_dump($total_payout);
     // Attempt to assign property "Payouts" on null     result_text jsut kaijnum
-    Logs::addlotteryResult($gameNo, $result_text, $total_payout);
+    Logs::addlotteryResult($gameNo, json_encode($result_text,JSON_UNESCAPED_UNICODE), $total_payout);
     ////======-------------=================#回显榜单
 
     $kaij_num_fly_echo = "";

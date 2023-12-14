@@ -70,13 +70,9 @@ function fenpan_betrLst() {
     $posX = 0;
     $posY = 0;
     $css_datawidth = 120;
-    $firstColWidth = 350;
+    $firstColWidth = 500;
 
-    # 开始画图
-    // 创建画布
-    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $firstColWidth + $css_datawidth * 6, "height" => $canvas_height);
 
-    $img = renderElementCanvas($img_elmt);
 
 
     //imageline($img, 0, 3, 500, 3, $red_color);
@@ -85,17 +81,24 @@ function fenpan_betrLst() {
     //--------------------title
     //百家乐
     $row327 = array("left" => 0, 'bkgrd' => 'gray', "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
-    $cell1 = array('txt' => "百家乐NO." . $GLOBALS['qihao'], 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
+    $cell1 = array('txt' => "百家乐" . $GLOBALS['qihao']." ".$GLOBALS['tableNo']."台@".$GLOBALS['shoeNo']."靴".$GLOBALS['juNo']."局", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
     $cell_bank = array('txt' => '庄', 'tag' => 'th', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyr = array('txt' => '闲', 'tag' => 'th', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_bankDui = array('txt' => '庄对', 'tag' => 'th', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyrDui = array('txt' => '闲对', 'tag' => 'th', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
     $cell_he = array('txt' => '和', 'tag' => 'th', 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-    $cell_luck = array('txt' => '', 'tag' => 'th', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-    $row327["childs"] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
+    $row327["childs"] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he];
+    $row327['width']=calcRowWd($row327);
 
+
+
+    # 开始画图
+    // 创建画布
+    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" =>   $row327['width'], "height" => $canvas_height);
+
+    $img = renderElementCanvas($img_elmt);
     renderElementRowV2($row327, $img, $outputPic);
     $posY = $posY + $row327['height'];
     //----------show row
@@ -105,6 +108,7 @@ function fenpan_betrLst() {
     $posX = 0;
     $sum = 0;
     $arr = [];
+    $lastRow=$row327;
     foreach ($records as $k => $v) {
 
       try {
@@ -137,7 +141,7 @@ function fenpan_betrLst() {
         $sum += $v['Bet'];
 
 
-        $row140 = array('elmtType' => 'tr', "padBtm" => 3, 'font' => $font, 'font_size' => $font_size, "left" => 0, "top" => $posY, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
+        $row140 = array("top" => $lastRow['top']+ $lastRow['height'],'elmtType' => 'tr', "padBtm" => 3, 'font' => $font, 'font_size' => $font_size, "left" => 0,   'font_size' => $font_size, 'height' => $css_lineHight );
 
         $cell1 = array('id' => 'cell1', 'txt' => $v['UserName'], 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "", 'width' => $firstColWidth, 'height' => $css_lineHight);
         $cell_bank = array('txt' => $row114['庄'], 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
@@ -146,19 +150,14 @@ function fenpan_betrLst() {
         $cell_plyrDui = array('txt' => $row114['闲对'], 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
         $cell_he = array('txt' => $row114['和'], 'color' => "green", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
-        $cell_luck = array('txt' => '', 'color' => "pink", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
 
-        $row140['childs'] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he, $cell_luck];
-
+        $row140['childs'] = [$cell1, $cell_bank, $cell_plyr, $cell_bankDui, $cell_plyrDui, $cell_he];
+        $row140['width']=calcRowWd($row140);
 
         //----------show row
-        renderElementRowV2($row140, $img, $outputPic);
-        $posY = $posY + $row140['height'];
+        renderElementRowV3($row140, $img, $outputPic);
+        $lastRow=$row140;
 
-        //title baes line
-        $line_posY = $posY + 5;
-        //  appendElemt(array("top"=>$posY,"color" => "black", "elmtType" => "line"), $row140, $img);
-        //  imageline($img, 0, $line_posY, $img_width, $line_posY, $red_color);
 
 
       } catch (\Throwable $e) {
@@ -179,7 +178,7 @@ function fenpan_betrLst() {
     \think\facade\Log::info($msg);
 
     //-----------------bottom
-    $row = array('elmtType' => 'tr', 'bkgrd' => 'red', 'font_size' => $font_size, 'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
+    $row = array("top" => $lastRow['top']+ $lastRow['height'],'elmtType' => 'tr', 'bkgrd' => 'red', 'font_size' => $font_size, 'font' => $font, "left" => 0,   'height' => $css_lineHight);
 
     $row['childs'] = [
       array('txt' => '总计' . count($arr) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
@@ -188,11 +187,10 @@ function fenpan_betrLst() {
       array('txt' => array_sum_col_inpainlib('庄对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
       array('txt' => array_sum_col_inpainlib('闲对', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
       array('txt' => array_sum_col_inpainlib('和', $arr), 'bkgrd' => "", 'width' => $css_datawidth),
-      array('txt' => '', 'bkgrd' => "", 'width' => $css_datawidth)
 
     ];
-
-    renderElementRowV2($row, $img, $outputPic);
+    $row['width']=calcRowWd($row);
+    renderElementRowV3($row, $img, $outputPic);
     // $posY = $posY + $row['height'];
 
     imagepng($img, $outputPic);

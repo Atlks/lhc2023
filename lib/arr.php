@@ -1,6 +1,11 @@
 <?php
 
+function array_key713(string $string, $v_cell) {
+  if (!array_key_exists($string, $v_cell))
+    return "";
 
+  return $v_cell[$string];
+}
 function array_sum_col($colName,array $a) {
   $records=  array_column($a, colName);
   return array_sum($records);

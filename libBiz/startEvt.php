@@ -15,7 +15,14 @@ function startBetEvtBjl() {
   global $lottery_no;
 
   $qiohao_data =kaipanInfo();
-  var_dump($qiohao_data['data'][0]);
+  $curRec = $qiohao_data['data'][0];
+  var_dump($curRec);
+  require_once __DIR__."/../lib/arr.php";
+
+   $GLOBALS['tableNo'] =array_key713('tableNo',$curRec) ;
+  $GLOBALS['juNo'] =array_key713('juNo',$curRec) ;
+  $GLOBALS['shoeNo'] =array_key713('shoeNo',$curRec) ;
+
   $lottery_no = $qiohao_data['lottery_no'];
   $GLOBALS['qihao'] =$lottery_no;
 if($GLOBALS['qihao']=="")

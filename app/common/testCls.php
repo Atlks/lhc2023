@@ -57,6 +57,25 @@ class testCls extends Command {
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
 
+    $GLOBALS['qihao'] = 163645;
+    $gmLgcSSc = new    \app\common\GameLogicSsc();
+    $data['hash_no'] =$GLOBALS['qihao'] ;
+    $data['lottery_no'] = $GLOBALS['qihao'];
+    $gmLgcSSc->lottery->setData($data);
+    $gmLgcSSc->hash_no =$GLOBALS['qihao'];
+    $gmLgcSSc->lottery_no =$GLOBALS['qihao'];
+
+
+
+    var_dump($gmLgcSSc->DrawLotteryBjl( $GLOBALS['qihao']));
+    die();
+
+
+
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    kaij_draw_evt_bjl();
+    die();
+
     \getKaijRztBjl_retryX(158290);
     die();
 
@@ -94,7 +113,7 @@ class testCls extends Command {
     //---------------------开奖流程
     $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
     $GLOBALS['chat_id'] = 4038077884;
-    $GLOBALS['qihao'] = 141919;
+    $GLOBALS['qihao'] = 163645;
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
     kaij_draw_evt_bjl();
     die();

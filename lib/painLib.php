@@ -84,7 +84,15 @@ function renderElementRow(array $row140, $img) {
   renderElmtLine(array("top" => $posY, "color" => "red", "elmtType" => "line"), $img);
 
 }
+function calcRowWd(array $row327) {
 
+  $wd=0;
+  $a= $row327["childs"];
+  foreach ($a as $k => $v_cell) {
+    $wd=$wd+$v_cell['width'];
+  }
+  return $wd;
+}
 
 // 生成 Style 树
 //生成布局树，，then pain
@@ -218,31 +226,36 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
 
 }
 
-
+// 生成 Style 树
+//生成布局树，，then pain
 function renderElementRowV3(array $row140, $img, $outputPic) {
-  $posX = $row140["left"];
 
-  $posY = $row140["top"];
   $cells = $row140['childs'];
 
-  if (array_key_exists('bkgrd', $row140)) {
+  if ( hasAttr('bkgrd', $row140) ){
+
     $surface_color_row = getColor($row140['bkgrd'], $img);
-    imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
+    imagefilledrectangle($img, $row140["left"], $row140["top"], $row140["left"] + $row140['width'], $row140["top"] + $row140['height'], $surface_color_row);
   }
 
 
-  $idx = 0;
-  $cellIdx = 0;
+
+  $cellIdx_dbg = 0;
+  $lastCell=["left"=>0,"width"=>0,"top"=>$row140["top"]];
   foreach ($cells as $k => $v_cell) {
-    $cellIdx++;
+    $cellIdx_dbg++;
     // echo "cellIdx:".$cellIdx."\r\n";
-    if ($cellIdx == 1) {
+    if ($cellIdx_dbg == 1) {
       // echo 11;
     }
 
-    $v_cell = renderCell($v_cell, $img, $posX, $posY, $outputPic, $row140);
-    $idx++;
-    $posX = $posX + $v_cell['width'];
+    $v_cell['left']=$lastCell['left']+$lastCell['width'];
+    echo json_encode($v_cell).PHP_EOL;
+    $v_cell['top']=$row140["top"];
+    //render cell font n th_line need row seting
+    renderCell($v_cell, $img, $outputPic, $row140);
+
+    $lastCell=$v_cell;
   }
   //foreach row end
 
@@ -259,41 +272,115 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
 }
 
 /**
+ *
+ *   //render cell font n th_line need row seting
  * @param $v_cell
  * @param $img
- * @param $posX
- * @param $posY
+
  * @param $outputPic
  * @param array $row140
  * @return mixed
  */
-function renderCell($v_cell, $img, $posX, $posY, $outputPic, array $row140) {
+function renderCell($v_cell, $img,  $outputPic, array $row140) {
   $blktxt = array_key('txt', $v_cell);
   //  if($idx>0)
   //   $posX = $posX + $v_cell['width'];
+  $posX=$v_cell['left'];
+  $posY=$v_cell['top'];
 
+  imagepng($img, $outputPic);
 
+  if(  $GLOBALS['dbg']==1)
+    echo 1;
   //-------------bkgrd ---- imagefilledrectangle
 
-  if (array_key_exists('bkgrd', $v_cell) && $v_cell['bkgrd'] != "") {
+  if (hasAttr('bkgrd', $v_cell)){
 
     $curClr = getColor($v_cell['bkgrd'], $img);
 
-    if (array_key_exists('shape', $v_cell) && $v_cell['shape'] == 'ball') {
+    if ( Attr('shape', $v_cell)=="ball"){
 
-      $pos_x_eclps = $posX + $v_cell['width'] / 2;
-      $pos_y_eclps = $posY + $v_cell['width'] / 2;
+      $pos_x_eclps = $v_cell['left'] + $v_cell['width'] / 2;
+      $pos_y_eclps = $v_cell['top'] + $v_cell['height'] / 2;
       $ballwidth = array_key("ballwidth", $v_cell);
       imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
+      renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, $outputPic);
 
     } else {
       //df rect
-      imagefilledrectangle($img, $posX, $posY, $posX + $v_cell['width'], $posY + $v_cell['height'], $curClr);
+      imagefilledrectangle($img, $v_cell['left'],  $v_cell['top'], $posX + $v_cell['width'], $posY + $v_cell['height'], $curClr);
 
     }
 
-
+    imagepng($img, $outputPic);
   }
+
+
+//—-------td txt
+
+  $font_baseline_y = $posY + $row140['height'] - ($row140['height'] - $row140["font_size"]) / 2;
+
+  $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
+  $font = $row140['font'];
+  if (!array_key_exists('color', $v_cell))
+    $v_cell['color'] = "black";
+  imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
+  imagepng($img, $outputPic);
+
+  //-------------titlew line rit
+  if (getCellTagName($v_cell) == "th") {
+    //竖线。。。
+    //todo th implt
+    //if th then pain shuxian
+    $line_posx = $posX + $v_cell['width'];
+
+    imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
+  }
+  if (array_key("th_row", $row140) == "true") {
+    //竖线。。。
+    //todo th implt
+    //if th then pain shuxian
+    $line_posx = $posX + $v_cell['width'];
+
+    imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
+  }
+
+
+  imagepng($img, $outputPic);
+  return $v_cell;
+}
+
+function Attr($att, $v_cell) {
+  if(hasAttr($att,$v_cell))
+    return $v_cell[$att];
+  else
+    return "";
+}
+
+
+function hasAttr(  $att, $v_cell) {
+
+  if (array_key_exists($att, $v_cell)) {
+    if ($v_cell[$att] == "")
+      return false;
+    else
+      return true;
+  } else {
+    return false;
+  }
+
+}
+
+/**
+ * @param $v_cell
+ * @param $pos_x_eclps
+ * @param $pos_y_eclps
+ * @param $ballwidth
+ * @param $img
+ * @param $outputPic
+ * @return void
+ */
+function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, $outputPic): void {
   $GLOBALS['smallBallOffset'] = 4;
   $GLOBALS['smallBallWd'] = 15;
   //------duiz
@@ -327,39 +414,6 @@ function renderCell($v_cell, $img, $posX, $posY, $outputPic, array $row140) {
 
     imagepng($img, $outputPic);
   }
-
-
-  //—-------td txt
-
-  $font_baseline_y = $posY + $row140['height'] - ($row140['height'] - $row140["font_size"]) / 2;
-
-  $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
-  $font = $row140['font'];
-  if (!array_key_exists('color', $v_cell))
-    $v_cell['color'] = "black";
-  imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
-
-
-  if (getCellTagName($v_cell) == "th") {
-    //竖线。。。
-    //todo th implt
-    //if th then pain shuxian
-    $line_posx = $posX + $v_cell['width'];
-
-    imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
-  }
-  if (array_key("th_row", $row140) == "true") {
-    //竖线。。。
-    //todo th implt
-    //if th then pain shuxian
-    $line_posx = $posX + $v_cell['width'];
-
-    imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
-  }
-
-
-  imagepng($img, $outputPic);
-  return $v_cell;
 }
 
 function array_key_df(string $string, $v_cell, $dfval) {
