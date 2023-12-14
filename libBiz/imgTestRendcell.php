@@ -42,12 +42,12 @@ $img = renderElementCanvas($img_elmt);
 renderElementRowV3($row327, $img, $outputPic);
 
 
-//----------------------百家乐 datarow1-----------
-$lastRow=$row327;
+//----------------------  datarow1-----------
+$lastBlockElmt=$row327;
 
 for($i=0;$i<5;$i++)
 {
-  $row614 = array("top" => $lastRow['top']+ $lastRow['height'],"th_row" => "false", "left" => 0, 'bkgrd' => '', "padBtm" => 0,  'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight);
+  $row614 = array("top" => $lastBlockElmt['top']+ $lastBlockElmt['height'],"th_row" => "false", "left" => 0, 'bkgrd' => '', "padBtm" => 0,  'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight);
   $row614["childs"] = [
 
     array('txt' => "庄".$i, 'ballwidth' => 40, 'color' => "gray", 'shape' => 'ball',  'bkgrd' => "red", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => 350, 'height' => $css_lineHight),
@@ -56,7 +56,7 @@ for($i=0;$i<5;$i++)
   $row614['width']=calcRowWd($row614);
   $GLOBALS['dbg']=1;
   renderElementRowV3($row614, $img, $outputPic);
-  $lastRow=$row614;
+  $lastBlockElmt=$row614;
 }
 
 

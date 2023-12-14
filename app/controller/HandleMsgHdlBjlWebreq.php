@@ -542,6 +542,7 @@ class HandleMsgHdlBjlWebreq {
       return;
     }
     // is have replyb text  then ret
+    // if hstroy msg ,,then send thrend
     if ($game->sendTrend()) :
       \think\facade\Log::info("game->sendTrend");
       $cfile = new \CURLFile(app()->getRootPath() . "public/trend.jpg");
@@ -553,6 +554,7 @@ class HandleMsgHdlBjlWebreq {
     //$resp =  $this->apiRequestWebhook("sendPhoto", $params);
     //$resp->contentType("multipart/form-data");
     else :
+      //--------------add kbb btn
       \think\facade\Log::info("game->sendTrend else");
       $keyboard = null;
       if ($game->action()) {

@@ -625,7 +625,7 @@ function calcTxtNclr($rzt) {
 
     $row614["childs"] = [
 
-      array('txt' => "百家乐",'tag'=>'th', 'bkgrd' => "red",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
+      array('txt' => "百家乐",'tag'=>'th', 'bkgrd' => "redHalf",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
 
       array('txt' => '本局得分', 'tag'=>'th', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
@@ -691,7 +691,7 @@ function calcTxtNclr($rzt) {
     }
 
     //---------show botrtom row
-    $row = array('elmtType' => 'tr', 'bkgrd' => "red",'font_size' => $font_size,'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
+    $row = array('elmtType' => 'tr', 'bkgrd' => "redHalf",'font_size' => $font_size,'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
 
     $row['childs'] = [
       array('txt' => '总计' . count($rows) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),

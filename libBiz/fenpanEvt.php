@@ -64,7 +64,7 @@ function fenpan_betrLst() {
 
     // 图片高度（标题高度 + 每行高度 + 每行内边距）
     $css_lineHight = 40;
-    $canvas_height = $css_lineHight * (count($records) + 2) + 9;
+    $canvas_height = $css_lineHight * (count($records) + 2) + 0;
     $font_size = 20;
     $font = __DIR__ . "/../public/msyhbd.ttc";
     $posX = 0;
@@ -81,7 +81,7 @@ function fenpan_betrLst() {
     //--------------------title
     //百家乐
     $row327 = array("left" => 0, 'bkgrd' => 'gray', "padBtm" => 3, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight + 3);
-    $cell1 = array('txt' => "百家乐" . $GLOBALS['qihao']." ".$GLOBALS['tableNo']."台@".$GLOBALS['shoeNo']."靴".$GLOBALS['juNo']."局", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "red", 'width' => $firstColWidth, 'height' => $css_lineHight);
+    $cell1 = array('txt' => "百家乐" . $GLOBALS['qihao']." ".$GLOBALS['tableNo']."台@".$GLOBALS['shoeNo']."靴".$GLOBALS['juNo']."局", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "redHalf", 'width' => $firstColWidth, 'height' => $css_lineHight);
     $cell_bank = array('txt' => '庄', 'tag' => 'th', 'align' => 'center', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_plyr = array('txt' => '闲', 'tag' => 'th', 'color' => "blue", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
     $cell_bankDui = array('txt' => '庄对', 'tag' => 'th', 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
@@ -108,7 +108,7 @@ function fenpan_betrLst() {
     $posX = 0;
     $sum = 0;
     $arr = [];
-    $lastRow=$row327;
+    $lastBlockElemt=$row327;
     foreach ($records as $k => $v) {
 
       try {
@@ -141,7 +141,7 @@ function fenpan_betrLst() {
         $sum += $v['Bet'];
 
 
-        $row140 = array("top" => $lastRow['top']+ $lastRow['height'],'elmtType' => 'tr', "padBtm" => 3, 'font' => $font, 'font_size' => $font_size, "left" => 0,   'font_size' => $font_size, 'height' => $css_lineHight );
+        $row140 = array("top" => $lastBlockElemt['top']+ $lastBlockElemt['height'],'elmtType' => 'tr', "padBtm" => 3, 'font' => $font, 'font_size' => $font_size, "left" => 0,   'font_size' => $font_size, 'height' => $css_lineHight );
 
         $cell1 = array('id' => 'cell1', 'txt' => $v['UserName'], 'align' => 'left', 'padLeft' => 10, 'bkgrd' => "", 'width' => $firstColWidth, 'height' => $css_lineHight);
         $cell_bank = array('txt' => $row114['庄'], 'color' => "red", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight);
@@ -156,7 +156,7 @@ function fenpan_betrLst() {
 
         //----------show row
         renderElementRowV3($row140, $img, $outputPic);
-        $lastRow=$row140;
+        $lastBlockElemt=$row140;
 
 
 
@@ -178,7 +178,7 @@ function fenpan_betrLst() {
     \think\facade\Log::info($msg);
 
     //-----------------bottom
-    $row = array("top" => $lastRow['top']+ $lastRow['height'],'elmtType' => 'tr', 'bkgrd' => 'red', 'font_size' => $font_size, 'font' => $font, "left" => 0,   'height' => $css_lineHight);
+    $row = array("top" => $lastBlockElemt['top']+ $lastBlockElemt['height'],'elmtType' => 'tr', 'bkgrd' => 'redHalf', 'font_size' => $font_size, 'font' => $font, "left" => 0,   'height' => $css_lineHight);
 
     $row['childs'] = [
       array('txt' => '总计' . count($arr) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),

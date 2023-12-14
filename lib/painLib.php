@@ -241,7 +241,7 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
 
 
   $cellIdx_dbg = 0;
-  $lastCell=["left"=>0,"width"=>0,"top"=>$row140["top"]];
+  $lastInlineElmt=["left"=>0,"width"=>0,"top"=>$row140["top"]];
   foreach ($cells as $k => $v_cell) {
     $cellIdx_dbg++;
     // echo "cellIdx:".$cellIdx."\r\n";
@@ -249,13 +249,13 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
       // echo 11;
     }
 
-    $v_cell['left']=$lastCell['left']+$lastCell['width'];
+    $v_cell['left']=$lastInlineElmt['left']+$lastInlineElmt['width'];
     echo json_encode($v_cell).PHP_EOL;
     $v_cell['top']=$row140["top"];
     //render cell font n th_line need row seting
     renderCell($v_cell, $img, $outputPic, $row140);
 
-    $lastCell=$v_cell;
+    $lastInlineElmt=$v_cell;
   }
   //foreach row end
 
@@ -490,12 +490,13 @@ function getColor($clrname, $img) {
   $red_color = imagecolorallocate($img, 255, 0, 0);
   $green_color = imagecolorallocate($img, 0, 255, 0);
   $blue_color = imagecolorallocate($img, 10, 10, 255);
+  $red_hlf = imagecolorallocate($img, 255, 127, 113);
 
 
   // 表面颜色（浅灰）
   $grayColorHalf = imagecolorallocate($img, 200, 200, 200);
   $grayColor = imagecolorallocate($img, 125, 125, 125);
-  $clrArr = array('闲对'=>$blue_color,'庄对'=>$red_color,'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  $clrArr = array('redHalf'=>$red_hlf,'庄对'=>$red_color,'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
   if (!array_key_exists($clrname, $clrArr))
     return $clrArr["black"];
 
