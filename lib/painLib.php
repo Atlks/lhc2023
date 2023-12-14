@@ -86,7 +86,8 @@ function renderElementRow(array $row140, $img) {
 }
 
 
-//dep
+// 生成 Style 树
+//生成布局树，，then pain
 function renderElementRowV2(array $row140, $img, $outputPic) {
   $posX = $row140["left"];
 
@@ -217,6 +218,149 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
 
 }
 
+
+function renderElementRowV3(array $row140, $img, $outputPic) {
+  $posX = $row140["left"];
+
+  $posY = $row140["top"];
+  $cells = $row140['childs'];
+
+  if (array_key_exists('bkgrd', $row140)) {
+    $surface_color_row = getColor($row140['bkgrd'], $img);
+    imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
+  }
+
+
+  $idx = 0;
+  $cellIdx = 0;
+  foreach ($cells as $k => $v_cell) {
+    $cellIdx++;
+    // echo "cellIdx:".$cellIdx."\r\n";
+    if ($cellIdx == 1) {
+      // echo 11;
+    }
+
+    $v_cell = renderCell($v_cell, $img, $posX, $posY, $outputPic, $row140);
+    $idx++;
+    $posX = $posX + $v_cell['width'];
+  }
+  //foreach row end
+
+
+  //----------------hr line bottom
+  $posY = $row140["top"] + $row140["height"];
+  //title baes line
+  $clr = array_key_df("row_btm_lineClr", $row140, "black");
+
+  renderElmtLine(array("top" => $posY, "color" => $clr, "elmtType" => "line"), $img);
+  imagepng($img, $outputPic);
+  //end  renderElementRowV2
+
+}
+
+/**
+ * @param $v_cell
+ * @param $img
+ * @param $posX
+ * @param $posY
+ * @param $outputPic
+ * @param array $row140
+ * @return mixed
+ */
+function renderCell($v_cell, $img, $posX, $posY, $outputPic, array $row140) {
+  $blktxt = array_key('txt', $v_cell);
+  //  if($idx>0)
+  //   $posX = $posX + $v_cell['width'];
+
+
+  //-------------bkgrd ---- imagefilledrectangle
+
+  if (array_key_exists('bkgrd', $v_cell) && $v_cell['bkgrd'] != "") {
+
+    $curClr = getColor($v_cell['bkgrd'], $img);
+
+    if (array_key_exists('shape', $v_cell) && $v_cell['shape'] == 'ball') {
+
+      $pos_x_eclps = $posX + $v_cell['width'] / 2;
+      $pos_y_eclps = $posY + $v_cell['width'] / 2;
+      $ballwidth = array_key("ballwidth", $v_cell);
+      imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
+
+    } else {
+      //df rect
+      imagefilledrectangle($img, $posX, $posY, $posX + $v_cell['width'], $posY + $v_cell['height'], $curClr);
+
+    }
+
+
+  }
+  $GLOBALS['smallBallOffset'] = 4;
+  $GLOBALS['smallBallWd'] = 15;
+  //------duiz
+  if ((array_key("lfttpClr", $v_cell) == "red")) {
+//-----------$lefttop
+    $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
+    $center_x_ball = $pos_x_eclps;
+    $center_y_ball = $pos_y_eclps;
+    $rds = $ballwidth / 2;
+    $smallBallX_lftTop = $center_x_ball - $rds / 2 - $offset;
+    $smallBallY_lfttop = $center_y_ball - $rds / 2 - $offset;
+
+    imagefilledellipse($img, $smallBallX_lftTop, $smallBallY_lfttop, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
+
+
+    imagepng($img, $outputPic);
+  }
+
+  if ((array_key("rtBtmClr", $v_cell) == "blue")) {
+//-----------$lefttop
+    $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
+    $center_x_ball = $pos_x_eclps;
+    $center_y_ball = $pos_y_eclps;
+    $rds = $ballwidth / 2;
+
+    $smallBallX_rtBtm = $center_x_ball + $rds / 2 + $offset;
+    $smallBallY_rtBtm = $center_y_ball + $rds / 2 + $offset;
+
+    imagefilledellipse($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr", $v_cell), $img));
+
+
+    imagepng($img, $outputPic);
+  }
+
+
+  //—-------td txt
+
+  $font_baseline_y = $posY + $row140['height'] - ($row140['height'] - $row140["font_size"]) / 2;
+
+  $font_x = calcFontX($v_cell, $posX, $row140["font_size"]);
+  $font = $row140['font'];
+  if (!array_key_exists('color', $v_cell))
+    $v_cell['color'] = "black";
+  imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
+
+
+  if (getCellTagName($v_cell) == "th") {
+    //竖线。。。
+    //todo th implt
+    //if th then pain shuxian
+    $line_posx = $posX + $v_cell['width'];
+
+    imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
+  }
+  if (array_key("th_row", $row140) == "true") {
+    //竖线。。。
+    //todo th implt
+    //if th then pain shuxian
+    $line_posx = $posX + $v_cell['width'];
+
+    imageline($img, $line_posx, 0, $line_posx, 2000, getColor("black", $img));
+  }
+
+
+  imagepng($img, $outputPic);
+  return $v_cell;
+}
 
 function array_key_df(string $string, $v_cell, $dfval) {
   if (!array_key_exists($string, $v_cell))

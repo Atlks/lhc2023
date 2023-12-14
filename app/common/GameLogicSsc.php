@@ -21,6 +21,7 @@ use \imagettfbbox as imagettfbbox;
 use app\common\LotteryHash28 as Hash28;
 use app\common\LotteryPC28 as PC28;
 use Nette\Utils\Arrays;
+use function libspc\log_err;
 
 class GameLogicSsc {
   public $lottery_no = 2;
@@ -1195,7 +1196,7 @@ class GameLogicSsc {
 
 
         $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
-        $logtxt = " dwijyo() betnumL:" . $betContext . "  kaijnum:" . $result_text . $lineNumStr;
+        $logtxt = " dwijyo() betnumL:" . $betContext . "  kaijnum:" .json_encode($result_text)  . $lineNumStr;
         var_dump($logtxt);
         \think\facade\Log::info($lineNumStr);
         \think\facade\Log::info($logtxt);
@@ -1253,7 +1254,9 @@ class GameLogicSsc {
 
       } catch (\Throwable $e) {
 
+           log_err($e,__METHOD__);
       }
+    //end try
 
     endforeach;
     //  结束对讲
@@ -1270,7 +1273,7 @@ class GameLogicSsc {
 
 
     //-------------show 开奖结果 和中奖名单
-    $text = "开奖结果 ".$result_text."\r\n";
+    $text = "开奖结果 ".json_encode($result_text) ."\r\n";
     $text = $text
       // .  betstrX__convert_kaij_echo_ex($result_text) . PHP_EOL
       . "=====本期中奖名单======" . "\r\n";

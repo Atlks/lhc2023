@@ -21,7 +21,7 @@ while (true) {
         // $tlghr_msg_hdl = " C:\\w\\jbbot\\tlgrmHdl_temacyo.php ";
         $filename = __DIR__ . "/../think";
         //$filename = __DIR__ . "/ech.php";
-        $cmd = $phpexe . " " . $filename . " cmdBjlx";  //$prm
+        $cmd = $phpexe . " " . $filename . " MainBjlTpcmd";  //$prm
         var_dump($cmd);
       //  exec($cmd);
         log23::zdbg11(__METHOD__,"cmd",$cmd);

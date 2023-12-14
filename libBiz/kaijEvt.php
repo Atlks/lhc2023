@@ -98,7 +98,7 @@ function SendPicRztV2($qihao, $rzt): void {
   //$rzt= getKaijRztBjl($qihao);
   try {
     // -----------------闲赢---生成图片
-    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_" . $rzt . ".jpg");
+    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_" . $rzt[0] . ".jpg");
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Throwable $e) {
@@ -143,8 +143,15 @@ function getKaijRztBjl_retryX($qihao) {
     try {
       require_once "startEvt.php";
       $kaipanInfo = getKaijRztBjl($qihao);
+      if($kaipanInfo)
+        return $kaipanInfo;
+      else
+      {
+        sleep(1);
+        continue;
+      }
 
-      return $kaipanInfo;
+
     } catch (\Throwable $e) {
       $exception = $e;
       $lineNumStr = "  " . __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
@@ -198,22 +205,50 @@ function getKaijRztBjl($gameNo) {
   $rzt = $seltedRow[0]['gameRecord'];
 
  // $rzt="";//模拟还没开奖，需要卡主
-  if($rzt=="")
-    throw new Exception("no kaij rzt now ,gameno:".$gameNo);
+  if($rzt=="") {
+    $str = "!!! no kaij rzt now ,gameno:" . $gameNo;
+    echo $str;
+    logV3(__METHOD__,$str,"kaij");
+    return  null;
+  }
 
   $a = explode("$", $rzt);
+  $kaijARr=[];
 
   if ($a[0] == 1)
-    $win = "庄赢";
+  {
+    $kaijARr[]="庄赢";
+  }
+
 
   if ($a[0] == 2)
-    $win = "和";
+  {
+    $kaijARr[]="和";
+  }
+
 
 
   if ($a[0] == 3)
-    $win = "闲赢";
+    $kaijARr[]="闲赢";  //闲赢
 
-  return $win;
+
+
+
+
+  if ($a[1] == 1) {
+    $kaijARr[]='庄对';
+
+  }
+  if ($a[1] == 2) {
+    $kaijARr[]="闲对";
+
+  }
+  if ($a[1] == 3) {
+    $kaijARr[]='庄对';
+    $kaijARr[]="闲对";
+  }
+
+  return $kaijARr;
 
 //  lewis, [08/12/2023 2:27 pm]
 //A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
