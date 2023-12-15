@@ -604,7 +604,7 @@ function calcTxtNclr($rzt) {
 
     //-----------css配置
     $css_lineHight = 40;
-    $canvas_height = $css_lineHight * (count($rows) + 2) + 9;
+    $canvas_height = $css_lineHight * (count($rows) + 2) +2;
     $font_size = 20;
     $font = __DIR__ . "/../public/msyhbd.ttc";
     $posX = 0;
