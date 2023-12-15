@@ -300,6 +300,7 @@ function createTrendImageV2($records) {
   $css_datawidth = $withMain;
 
   $outFile = __DIR__ . "/../public/trend.jpg";
+  delFile($outFile);
   //----------------------百家乐 hd-----------
   $row614 = array("th_row" => "true", "left" => 0, 'bkgrd' => 'black', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
 
@@ -362,60 +363,17 @@ function createTrendImageV2($records) {
 
   //--------render row each
   //max row 6
+  $lastBlkElmt=$row614;
   for ($rowIdx = 0; $rowIdx < $perColRowsCnt; $rowIdx++) {
-    $row614 = array("left" => 0, "row_btm_lineClr" => "gray", "padBtm" => 0, "top" => $pos_y, 'font' => $font, 'font_size' => $font_size, 'height' => $withMain);
-    $row614["childs"] = [];
-
-    if ($rowIdx == 4) {
-      echo 2;
-    }
-
-
-    //gene row
-    $colIdx = 1;
-    foreach ($colss as $k => $col) {
-      if ($rowIdx == 4 && $colIdx == 5)
-        echo 3;
-    //  echo "rowIdx" . $rowIdx . " colIdx" . $colIdx . "\r\n";
-      if ($rowIdx >= count($col))
-        break;
-      $cell = $col[$rowIdx];
-      if (!$cell)
-        break;
-
-      list($win, $curClrTxt,$duiz) = calcTxtNclr($cell['gameRecord']);
-
-      $cell['txt'] = $win;
-      $cell['color'] = "white";
-      $cell['duiz']=$duiz;
-      if($duiz=="庄对")
-       $cell['lfttpClr']="red";
-      if($duiz=="闲对")
-        $cell['rtBtmClr']="blue";
-      if($duiz=="庄闲对")
-      {
-        $cell['rtBtmClr']="blue";
-        $cell['lfttpClr']="red";
-
-      }
-
-
-      $cell['bkgrd'] = $curClrTxt;
-      $cell['shape'] = 'ball';
-      $cell['ballwidth'] = 40;
-      $cell['width'] = 50;
-      $cell['height'] = $cell['width'];
-      array_push($row614["childs"], $cell);
-      $colIdx++;
-    }
-
-    if (count($row614["childs"]) == 4) {
-      echo 1;
-    }
-
-
-    renderElementRowV2($row614, $img, $outFile);
-    $pos_y = $pos_y + $row614['height'];
+   // $row614['height']=$css_lineHight;
+    $row615 = getRow(  $rowIdx, $colss);
+    $row615['top']  = $lastBlkElmt['top']+$lastBlkElmt['height'];
+    $row615['height']= $css_lineHight ;
+    $row615['font']=$font;
+    $row615['font_size']=$font_size;
+    renderElementRowV3($row615, $img, $outFile);
+  //  imagepng($img, $outFile);
+    $lastBlkElmt=$row615;
 
   }
   //end foreach row
@@ -424,6 +382,70 @@ function createTrendImageV2($records) {
   //-------------end--------------
   imagepng($img, __DIR__ . "/../public/trend.jpg");
   echo "";
+}
+
+/**
+ * @param $pos_y
+ * @param string $font
+ * @param int $font_size
+ * @param int $
+ * @param array $row614
+ * @param int $rowIdx
+ * @param array $colss
+ * @return array
+ */
+function getRow(   int $rowIdx, array $colss): array {
+  $row614 = array("left" => 0, "row_btm_lineClr" => "gray", "padBtm" => 0);
+  $row614["childs"] = [];
+
+  if ($rowIdx == 4) {
+    echo 2;
+  }
+
+
+  //gene row
+  $colIdx = 1;
+  foreach ($colss as $k => $col) {
+    if ($rowIdx == 4 && $colIdx == 5)
+      echo 3;
+    //  echo "rowIdx" . $rowIdx . " colIdx" . $colIdx . "\r\n";
+    if ($rowIdx >= count($col))
+      break;
+    $cell = $col[$rowIdx];
+    if (!$cell)
+      break;
+
+    list($win, $curClrTxt, $duiz) = calcTxtNclr($cell['gameRecord']);
+
+    $cell['txt'] = $win;
+    $cell['color'] = "white";
+    $cell['duiz'] = $duiz;
+    if ($duiz == "庄对")
+      $cell['lfttpClr'] = "red";
+    if ($duiz == "闲对")
+      $cell['rtBtmClr'] = "blue";
+    if ($duiz == "庄闲对") {
+      $cell['rtBtmClr'] = "blue";
+      $cell['lfttpClr'] = "red";
+
+    }
+
+
+    $cell['bkgrd'] = $curClrTxt;
+    $cell['shape'] = 'ball';
+    $cell['ballwidth'] = 40;
+    $cell['width'] = 50;
+    $cell['height'] = $cell['width'];
+    array_push($row614["childs"], $cell);
+    $colIdx++;
+  }
+
+  if (count($row614["childs"]) == 4) {
+    echo 1;
+  }
+
+  $row614['width'] = calcRowWd($row614);
+  return $row614;
 }
 
 

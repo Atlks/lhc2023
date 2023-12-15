@@ -158,7 +158,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
       imagefilledellipseX($img, $smallBallX_lftTop, $smallBallY_lfttop,  $GLOBALS['smallBallWd'],  $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr",$v_cell), $img));
 
 
-      imagepng($img, $outputPic);
+     // imagepng($img, $outputPic);
     }
 
     if ((array_key("rtBtmClr",$v_cell) == "blue")) {
@@ -175,7 +175,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
 
 
 
-      imagepng($img, $outputPic);
+    //  imagepng($img, $outputPic);
     }
 
 
@@ -208,7 +208,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
     }
 
 
-    imagepng($img, $outputPic);
+   // imagepng($img, $outputPic);
     $idx++;
     $posX = $posX + $v_cell['width'];
   }
@@ -289,9 +289,9 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
   $posX=$v_cell['left'];
   $posY=$v_cell['top'];
 
-  imagepng($img, $outputPic);
+ // imagepng($img, $outputPic);
 
-  if(  $GLOBALS['dbg']==1)
+  if( array_key('dbg',$GLOBALS) ==1)
     echo 1;
   //-------------bkgrd ---- imagefilledrectangle
 
@@ -304,7 +304,7 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
       $pos_x_eclps = $v_cell['left'] + $v_cell['width'] / 2;
       $pos_y_eclps = $v_cell['top'] + $v_cell['height'] / 2;
       $ballwidth = array_key("ballwidth", $v_cell);
-      imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
+      imagefilledellipseX($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
       renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, $outputPic);
 
     } else {
@@ -326,7 +326,7 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
   if (!array_key_exists('color', $v_cell))
     $v_cell['color'] = "black";
   imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
-  imagepng($img, $outputPic);
+ // imagepng($img, $outputPic);
 
   //-------------titlew line rit
   if (getCellTagName($v_cell) == "th") {
@@ -347,7 +347,7 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
   }
 
 
-  imagepng($img, $outputPic);
+  //imagepng($img, $outputPic);
   return $v_cell;
 }
 
@@ -383,9 +383,10 @@ function hasAttr(  $att, $v_cell) {
  */
 function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, $outputPic): void {
   $GLOBALS['smallBallOffset'] = 4;
-  $GLOBALS['smallBallWd'] = 15;
+  $GLOBALS['smallBallWd'] = 13;
   //------duiz
-  if ((array_key("lfttpClr", $v_cell) == "red")) {
+  $smallballBgPad = 3;
+  if (hasAttr("lfttpClr", $v_cell)) {
 //-----------$lefttop
     $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
     $center_x_ball = $pos_x_eclps;
@@ -394,10 +395,14 @@ function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, 
     $smallBall_Lfttp_X = $center_x_ball - $rds / 2 - $offset;
     $smallBall_lfttp_Y = $center_y_ball - $rds / 2 - $offset;
 
-    imagefilledellipse($img, $smallBall_Lfttp_X, $smallBall_lfttp_Y, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
+
+    $widthSmallballBg = $GLOBALS['smallBallWd'] + $smallballBgPad;
+    imagefilledellipseX($img, $smallBall_Lfttp_X, $smallBall_lfttp_Y, $widthSmallballBg, $widthSmallballBg, \getColor('white', $img));
+
+    imagefilledellipseX($img, $smallBall_Lfttp_X, $smallBall_lfttp_Y, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
 
 
-    imagepng($img, $outputPic);
+   // imagepng($img, $outputPic);
   }
 
   if ((array_key("rtBtmClr", $v_cell) == "blue")) {
@@ -410,10 +415,16 @@ function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, 
     $smallBallX_rtBtm = $center_x_ball + $rds / 2 + $offset;
     $smallBallY_rtBtm = $center_y_ball + $rds / 2 + $offset;
 
-    imagefilledellipse($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr", $v_cell), $img));
+
+    $widthSmallballBg = $GLOBALS['smallBallWd'] + $smallballBgPad;
+    imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $widthSmallballBg, $widthSmallballBg, \getColor('white', $img));
 
 
-    imagepng($img, $outputPic);
+
+    imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr", $v_cell), $img));
+
+
+   // imagepng($img, $outputPic);
   }
 }
 
