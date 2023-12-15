@@ -56,6 +56,13 @@ class testCls extends Command {
     require_once __DIR__ . "/../../libBiz/startEvt.php";
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
+    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    sendTrendPic();
+    die();
+
+
+
+
 
     $GLOBALS['qihao'] = 163645;
     $gmLgcSSc = new    \app\common\GameLogicSsc();

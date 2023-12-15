@@ -595,7 +595,9 @@ function calcTxtNclr($rzt) {
 //  //    from betrecord where lotterno=xxx group by userid
 
 
-    $rows = \think\facade\Db::name('bet_record')->where('lotteryno', '=', $lotteryno)
+    $rows = \think\facade\Db::name('bet_record')
+      ->where('lotteryno', '=', $lotteryno)
+      ->where('status', '=', 0)
       ->field(' UserName,UserId,sum(bet) Bet,sum(payout) Payout,sum(bet)-sum(payout) as income')
       ->group('userid,username')  //betNoAmt
       ->select();
@@ -604,7 +606,7 @@ function calcTxtNclr($rzt) {
 
     //-----------css配置
     $css_lineHight = 40;
-    $canvas_height = $css_lineHight * (count($rows) + 2) +2;
+    $canvas_height = $css_lineHight * (count($rows) + 2) +0;
     $font_size = 20;
     $font = __DIR__ . "/../public/msyhbd.ttc";
     $posX = 0;
@@ -621,20 +623,15 @@ function calcTxtNclr($rzt) {
 
     //--------------------title
     //百家乐
-    $row614 = array("left" => 0,'bkgrd'=>'gray', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight );
+    $row614 = array("left" => 0,'bkgrd'=>'gray217', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight );
 
     $row614["childs"] = [
 
-      array('txt' => "百家乐",'tag'=>'th', 'bkgrd' => "redHalf",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
-
+      array('txt' => "百家乐".array_key("tabNo_str",$GLOBALS),'tag'=>'th', 'bkgrd' => "redHalf",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
       array('txt' => '本局得分', 'tag'=>'th', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
-
       array('txt' => '剩余分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
-
       array('txt' => '初始分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
-
       array('txt' => '', 'tag'=>'th','color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
-
 
     ];
 

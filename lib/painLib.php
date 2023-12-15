@@ -103,7 +103,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
   $cells = $row140['childs'];
 
   if (array_key_exists('bkgrd', $row140)) {
-    $surface_color_row = getColor($row140['bkgrd'], $img);
+    $surface_color_row = getColorV2($row140['bkgrd'], $img,"white");
     imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
   }
 
@@ -133,7 +133,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
         $pos_x_eclps = $posX + $v_cell['width'] / 2;
         $pos_y_eclps = $posY + $v_cell['width'] / 2;
         $ballwidth = array_key("ballwidth", $v_cell);
-        imagefilledellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
+        imagefilledellipseX($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
 
       } else {
         //df rect
@@ -155,7 +155,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
       $smallBallX_lftTop = $center_x_ball - $rds / 2 - $offset;
       $smallBallY_lfttop = $center_y_ball - $rds / 2 - $offset;
 
-      imagefilledellipse($img, $smallBallX_lftTop, $smallBallY_lfttop,  $GLOBALS['smallBallWd'],  $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr",$v_cell), $img));
+      imagefilledellipseX($img, $smallBallX_lftTop, $smallBallY_lfttop,  $GLOBALS['smallBallWd'],  $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr",$v_cell), $img));
 
 
       imagepng($img, $outputPic);
@@ -171,7 +171,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
       $smallBallX_rtBtm=$center_x_ball+$rds/2+$offset;
       $smallBallY_rtBtm=$center_y_ball+$rds/2+$offset;
 
-      imagefilledellipse($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr",$v_cell), $img));
+      imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr",$v_cell), $img));
 
 
 
@@ -234,7 +234,8 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
 
   if ( hasAttr('bkgrd', $row140) ){
 
-    $surface_color_row = getColor($row140['bkgrd'], $img);
+    $surface_color_row = getColorV2($row140['bkgrd'], $img,"white");
+
     imagefilledrectangle($img, $row140["left"], $row140["top"], $row140["left"] + $row140['width'], $row140["top"] + $row140['height'], $surface_color_row);
   }
 
@@ -390,10 +391,10 @@ function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, 
     $center_x_ball = $pos_x_eclps;
     $center_y_ball = $pos_y_eclps;
     $rds = $ballwidth / 2;
-    $smallBallX_lftTop = $center_x_ball - $rds / 2 - $offset;
-    $smallBallY_lfttop = $center_y_ball - $rds / 2 - $offset;
+    $smallBall_Lfttp_X = $center_x_ball - $rds / 2 - $offset;
+    $smallBall_lfttp_Y = $center_y_ball - $rds / 2 - $offset;
 
-    imagefilledellipse($img, $smallBallX_lftTop, $smallBallY_lfttop, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
+    imagefilledellipse($img, $smallBall_Lfttp_X, $smallBall_lfttp_Y, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
 
 
     imagepng($img, $outputPic);
@@ -473,12 +474,52 @@ function renderElementCanvas(array $elemt) {
   $img = imagecreatetruecolor($elemt['width'], $elemt['height']);
 
   // Switch antialiasing on for one image
-  imageantialias($img, true);
+  imageantialias($img, true);//nt work in cycle
 
   $color = \getColor($elemt['bkgrd'], $img);
 
   imagefill($img, 0, 0, $color); //这里的 "0, 0"是指坐标, 使用体验就类似 Windows 系统"画图"软件的"颜料桶", 点一下之后, 在整个封闭区间内填充颜色
   return $img;
+}
+
+
+
+/**
+ *
+ * //为了快速而肮脏的抗锯齿，请将图像设为所需尺寸的两倍，然后将采样缩小到所需尺寸。
+ * @param $imageX2
+ * @param int $width
+ * @param $color
+ * @return false|GdImage|resource
+ */
+function imagefilledellipseX($img, $center_x, $center_y, int $width,$height, $color) {
+
+
+  $bg_tomin = imagecolorallocatealpha($img, 0, 0, 0, 127);
+
+  $bigPicWd = $width * 2 + 1;//msut add 1 offset,,beir not full
+  $imageX2 = imagecreatetruecolor($bigPicWd, $bigPicWd);
+  imagefill($imageX2, 0, 0, $bg_tomin); //这里的 "0, 0"是指坐标, 使用体验就类似 Windows 系统"画图"软件的"颜料桶", 点一下之后, 在整个封闭区间内填充颜色
+
+//  $bg_clr = imagecolorallocate($imageX2, 0, 0, 0);
+
+  $colr_red = imagecolorallocate($imageX2, 204, 0, 0);
+
+
+  imagefilledellipse($imageX2, $width, $width, $width * 2, $width * 2, $color);
+ // imagepng($imageX2, __DIR__ . "/../public/trend_resmp_bgCyk.jpg");
+//-----------------
+  // $imageOut = imagecreatetruecolor($width, $width);
+  imagecopyresampled($img, $imageX2, $center_x-($width/2), $center_y-($width/2), 0, 0, $width, $width, $bigPicWd, $bigPicWd);
+
+}
+function getColorV2($clrname, $img,$dfClr) {
+  if($clrname=="")
+    return getColor($dfClr,$img);
+  else{
+    return getColor($clrname,$img);
+  }
+
 }
 
 function getColor($clrname, $img) {
@@ -491,12 +532,13 @@ function getColor($clrname, $img) {
   $green_color = imagecolorallocate($img, 0, 255, 0);
   $blue_color = imagecolorallocate($img, 10, 10, 255);
   $red_hlf = imagecolorallocate($img, 255, 127, 113);
+  $gray217 = imagecolorallocate($img, 217, 217, 217);
 
 
   // 表面颜色（浅灰）
   $grayColorHalf = imagecolorallocate($img, 200, 200, 200);
   $grayColor = imagecolorallocate($img, 125, 125, 125);
-  $clrArr = array('redHalf'=>$red_hlf,'庄对'=>$red_color,'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  $clrArr = array('gray217'=>$gray217,'redHalf'=>$red_hlf,'庄对'=>$red_color,'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
   if (!array_key_exists($clrname, $clrArr))
     return $clrArr["black"];
 
