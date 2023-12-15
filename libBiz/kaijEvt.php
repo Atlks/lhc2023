@@ -341,24 +341,12 @@ function createTrendImageV2($records) {
   $rowIdx = 0;
   $colIdx = 0;
 
-  $maxLen = count($records);
+ // $maxLen = count($records);
   //todo  列转行 算法：  arr_cut 每次，gene col,push arr,然后循环row num,。。
   //---------tag  row col idx
-
-  $records = array_reverse($records);
-
-  $colss = [];
-  $perColRowsCnt = 6;
-
-  while (true) {
-    $curCol = array_slice($records, 0, $perColRowsCnt);
-    if (count($curCol) == 0)
-      break;
-    array_push($colss, $curCol);
-    require_once __DIR__ . "/../lib/queue.php";
-    array_removeElmt($records, 0, $perColRowsCnt);
-
-  }
+  $perColRowsCnt=6;
+  require_once __DIR__."/../lib/arr.php";
+  $colss= spltToCols($records,$perColRowsCnt);
 
 
   //--------render row each
@@ -366,7 +354,7 @@ function createTrendImageV2($records) {
   $lastBlkElmt=$row614;
   for ($rowIdx = 0; $rowIdx < $perColRowsCnt; $rowIdx++) {
    // $row614['height']=$css_lineHight;
-    $row615 = getRow(  $rowIdx, $colss);
+    $row615 = getRow(  $rowIdx, $colss, $withMain );
     $row615['top']  = $lastBlkElmt['top']+$lastBlkElmt['height'];
     $row615['height']= $css_lineHight ;
     $row615['font']=$font;
@@ -384,6 +372,8 @@ function createTrendImageV2($records) {
   echo "";
 }
 
+
+
 /**
  * @param $pos_y
  * @param string $font
@@ -394,7 +384,7 @@ function createTrendImageV2($records) {
  * @param array $colss
  * @return array
  */
-function getRow(   int $rowIdx, array $colss): array {
+function getRow(int $rowIdx, array $colss, $elmtWd ): array {
   $row614 = array("left" => 0, "row_btm_lineClr" => "gray", "padBtm" => 0);
   $row614["childs"] = [];
 
@@ -415,6 +405,9 @@ function getRow(   int $rowIdx, array $colss): array {
     if (!$cell)
       break;
 
+    //todo biz code
+   // $cell=$f($cell);
+
     list($win, $curClrTxt, $duiz) = calcTxtNclr($cell['gameRecord']);
 
     $cell['txt'] = $win;
@@ -429,13 +422,15 @@ function getRow(   int $rowIdx, array $colss): array {
       $cell['lfttpClr'] = "red";
 
     }
-
-
     $cell['bkgrd'] = $curClrTxt;
     $cell['shape'] = 'ball';
-    $cell['ballwidth'] = 40;
-    $cell['width'] = 50;
+    $cell['ballwidth'] = $elmtWd-10;
+    $cell['width'] = $elmtWd;  //50
     $cell['height'] = $cell['width'];
+
+
+
+
     array_push($row614["childs"], $cell);
     $colIdx++;
   }

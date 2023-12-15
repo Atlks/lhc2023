@@ -5,6 +5,411 @@
             "shoeNo": 1,
             "juNo": 2,
             "gameRecord": "",
+            "addTime": "2023-12-15 22:12:25",
+            "countdownSeconds": 30,
+            "gameNo": "221225"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$3",
+            "addTime": "2023-12-15 22:11:40",
+            "countdownSeconds": 30,
+            "gameNo": "221140"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-15 22:10:55",
+            "countdownSeconds": 30,
+            "gameNo": "221055"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-15 22:10:10",
+            "countdownSeconds": 30,
+            "gameNo": "221010"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-15 22:09:25",
+            "countdownSeconds": 30,
+            "gameNo": "220925"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-15 22:08:40",
+            "countdownSeconds": 30,
+            "gameNo": "220840"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-15 22:07:55",
+            "countdownSeconds": 30,
+            "gameNo": "220755"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$0",
+            "addTime": "2023-12-15 22:07:10",
+            "countdownSeconds": 30,
+            "gameNo": "220710"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$0",
+            "addTime": "2023-12-15 22:06:25",
+            "countdownSeconds": 30,
+            "gameNo": "220625"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$0",
+            "addTime": "2023-12-15 22:05:40",
+            "countdownSeconds": 30,
+            "gameNo": "220540"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$0",
+            "addTime": "2023-12-15 22:04:55",
+            "countdownSeconds": 30,
+            "gameNo": "220455"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
+            "addTime": "2023-12-15 22:04:10",
+            "countdownSeconds": 30,
+            "gameNo": "220410"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$2",
+            "addTime": "2023-12-15 22:03:25",
+            "countdownSeconds": 30,
+            "gameNo": "220325"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$1",
+            "addTime": "2023-12-15 22:02:40",
+            "countdownSeconds": 30,
+            "gameNo": "220240"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$3",
+            "addTime": "2023-12-15 22:01:55",
+            "countdownSeconds": 30,
+            "gameNo": "220155"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$2",
+            "addTime": "2023-12-15 22:01:10",
+            "countdownSeconds": 30,
+            "gameNo": "220110"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-15 22:00:25",
+            "countdownSeconds": 30,
+            "gameNo": "220025"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-15 21:59:40",
+            "countdownSeconds": 30,
+            "gameNo": "215940"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-15 21:58:55",
+            "countdownSeconds": 30,
+            "gameNo": "215855"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-15 21:58:10",
+            "countdownSeconds": 30,
+            "gameNo": "215810"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$2",
+            "addTime": "2023-12-15 21:57:25",
+            "countdownSeconds": 30,
+            "gameNo": "215725"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
+            "addTime": "2023-12-15 21:56:40",
+            "countdownSeconds": 30,
+            "gameNo": "215640"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
+            "addTime": "2023-12-15 21:55:55",
+            "countdownSeconds": 30,
+            "gameNo": "215555"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$3",
+            "addTime": "2023-12-15 21:55:10",
+            "countdownSeconds": 30,
+            "gameNo": "215510"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-15 21:54:25",
+            "countdownSeconds": 30,
+            "gameNo": "215425"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-15 21:53:40",
+            "countdownSeconds": 30,
+            "gameNo": "215340"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$3",
+            "addTime": "2023-12-15 21:52:55",
+            "countdownSeconds": 30,
+            "gameNo": "215255"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$0",
+            "addTime": "2023-12-15 21:52:10",
+            "countdownSeconds": 30,
+            "gameNo": "215210"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$3",
+            "addTime": "2023-12-15 21:51:25",
+            "countdownSeconds": 30,
+            "gameNo": "215125"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-15 21:50:40",
+            "countdownSeconds": 30,
+            "gameNo": "215040"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-15 21:49:55",
+            "countdownSeconds": 30,
+            "gameNo": "214955"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
+            "addTime": "2023-12-15 21:49:10",
+            "countdownSeconds": 30,
+            "gameNo": "214910"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$3",
+            "addTime": "2023-12-15 21:48:25",
+            "countdownSeconds": 30,
+            "gameNo": "214825"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$0",
+            "addTime": "2023-12-15 21:47:40",
+            "countdownSeconds": 30,
+            "gameNo": "214740"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$0",
+            "addTime": "2023-12-15 21:46:55",
+            "countdownSeconds": 30,
+            "gameNo": "214655"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
+            "addTime": "2023-12-15 21:46:09",
+            "countdownSeconds": 30,
+            "gameNo": "214609"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$2",
+            "addTime": "2023-12-15 21:45:24",
+            "countdownSeconds": 30,
+            "gameNo": "214524"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-15 21:44:39",
+            "countdownSeconds": 30,
+            "gameNo": "214439"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
+            "addTime": "2023-12-15 21:43:54",
+            "countdownSeconds": 30,
+            "gameNo": "214354"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$1",
+            "addTime": "2023-12-15 21:43:09",
+            "countdownSeconds": 30,
+            "gameNo": "214309"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
+            "addTime": "2023-12-15 21:42:24",
+            "countdownSeconds": 30,
+            "gameNo": "214224"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$1",
+            "addTime": "2023-12-15 21:41:39",
+            "countdownSeconds": 30,
+            "gameNo": "214139"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "2$0",
+            "addTime": "2023-12-15 21:40:54",
+            "countdownSeconds": 30,
+            "gameNo": "214054"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$1",
+            "addTime": "2023-12-15 21:40:09",
+            "countdownSeconds": 30,
+            "gameNo": "214009"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$3",
+            "addTime": "2023-12-15 21:39:24",
+            "countdownSeconds": 30,
+            "gameNo": "213924"
+        },
+        {
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "1$0",
             "addTime": "2023-12-15 21:38:39",
             "countdownSeconds": 30,
             "gameNo": "213839"
@@ -503,411 +908,6 @@
             "addTime": "2023-12-15 20:57:24",
             "countdownSeconds": 30,
             "gameNo": "205724"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$1",
-            "addTime": "2023-12-15 20:56:39",
-            "countdownSeconds": 30,
-            "gameNo": "205639"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:55:54",
-            "countdownSeconds": 30,
-            "gameNo": "205554"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$3",
-            "addTime": "2023-12-15 20:55:09",
-            "countdownSeconds": 30,
-            "gameNo": "205509"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$2",
-            "addTime": "2023-12-15 20:54:24",
-            "countdownSeconds": 30,
-            "gameNo": "205424"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$3",
-            "addTime": "2023-12-15 20:53:39",
-            "countdownSeconds": 30,
-            "gameNo": "205339"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$0",
-            "addTime": "2023-12-15 20:52:54",
-            "countdownSeconds": 30,
-            "gameNo": "205254"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$1",
-            "addTime": "2023-12-15 20:52:09",
-            "countdownSeconds": 30,
-            "gameNo": "205209"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$0",
-            "addTime": "2023-12-15 20:51:24",
-            "countdownSeconds": 30,
-            "gameNo": "205124"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$2",
-            "addTime": "2023-12-15 20:50:39",
-            "countdownSeconds": 30,
-            "gameNo": "205039"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$3",
-            "addTime": "2023-12-15 20:49:54",
-            "countdownSeconds": 30,
-            "gameNo": "204954"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$3",
-            "addTime": "2023-12-15 20:49:09",
-            "countdownSeconds": 30,
-            "gameNo": "204909"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$2",
-            "addTime": "2023-12-15 20:48:24",
-            "countdownSeconds": 30,
-            "gameNo": "204824"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:47:39",
-            "countdownSeconds": 30,
-            "gameNo": "204739"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$1",
-            "addTime": "2023-12-15 20:46:54",
-            "countdownSeconds": 30,
-            "gameNo": "204654"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$1",
-            "addTime": "2023-12-15 20:46:09",
-            "countdownSeconds": 30,
-            "gameNo": "204609"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$0",
-            "addTime": "2023-12-15 20:45:24",
-            "countdownSeconds": 30,
-            "gameNo": "204524"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$1",
-            "addTime": "2023-12-15 20:44:39",
-            "countdownSeconds": 30,
-            "gameNo": "204439"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$2",
-            "addTime": "2023-12-15 20:43:54",
-            "countdownSeconds": 30,
-            "gameNo": "204354"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:43:09",
-            "countdownSeconds": 30,
-            "gameNo": "204309"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$1",
-            "addTime": "2023-12-15 20:42:24",
-            "countdownSeconds": 30,
-            "gameNo": "204224"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$0",
-            "addTime": "2023-12-15 20:41:39",
-            "countdownSeconds": 30,
-            "gameNo": "204139"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$1",
-            "addTime": "2023-12-15 20:40:54",
-            "countdownSeconds": 30,
-            "gameNo": "204054"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$0",
-            "addTime": "2023-12-15 20:40:09",
-            "countdownSeconds": 30,
-            "gameNo": "204009"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$3",
-            "addTime": "2023-12-15 20:39:24",
-            "countdownSeconds": 30,
-            "gameNo": "203924"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:38:38",
-            "countdownSeconds": 30,
-            "gameNo": "203838"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:37:53",
-            "countdownSeconds": 30,
-            "gameNo": "203753"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$0",
-            "addTime": "2023-12-15 20:37:08",
-            "countdownSeconds": 30,
-            "gameNo": "203708"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:36:23",
-            "countdownSeconds": 30,
-            "gameNo": "203623"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:35:38",
-            "countdownSeconds": 30,
-            "gameNo": "203538"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$0",
-            "addTime": "2023-12-15 20:34:53",
-            "countdownSeconds": 30,
-            "gameNo": "203453"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$3",
-            "addTime": "2023-12-15 20:34:08",
-            "countdownSeconds": 30,
-            "gameNo": "203408"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$3",
-            "addTime": "2023-12-15 20:33:23",
-            "countdownSeconds": 30,
-            "gameNo": "203323"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$3",
-            "addTime": "2023-12-15 20:32:38",
-            "countdownSeconds": 30,
-            "gameNo": "203238"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$0",
-            "addTime": "2023-12-15 20:31:53",
-            "countdownSeconds": 30,
-            "gameNo": "203153"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$1",
-            "addTime": "2023-12-15 20:31:08",
-            "countdownSeconds": 30,
-            "gameNo": "203108"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$2",
-            "addTime": "2023-12-15 20:30:23",
-            "countdownSeconds": 30,
-            "gameNo": "203023"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$1",
-            "addTime": "2023-12-15 20:29:38",
-            "countdownSeconds": 30,
-            "gameNo": "202938"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$3",
-            "addTime": "2023-12-15 20:28:53",
-            "countdownSeconds": 30,
-            "gameNo": "202853"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$0",
-            "addTime": "2023-12-15 20:28:08",
-            "countdownSeconds": 30,
-            "gameNo": "202808"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$0",
-            "addTime": "2023-12-15 20:27:23",
-            "countdownSeconds": 30,
-            "gameNo": "202723"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$0",
-            "addTime": "2023-12-15 20:26:38",
-            "countdownSeconds": 30,
-            "gameNo": "202638"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$2",
-            "addTime": "2023-12-15 20:25:53",
-            "countdownSeconds": 30,
-            "gameNo": "202553"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$0",
-            "addTime": "2023-12-15 20:25:08",
-            "countdownSeconds": 30,
-            "gameNo": "202508"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "3$3",
-            "addTime": "2023-12-15 20:24:23",
-            "countdownSeconds": 30,
-            "gameNo": "202423"
-        },
-        {
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "2$3",
-            "addTime": "2023-12-15 20:23:38",
-            "countdownSeconds": 30,
-            "gameNo": "202338"
         }
     ]
 }

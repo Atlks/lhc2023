@@ -1,5 +1,63 @@
 <?php
 
+function getRowCells(int $rowIdx, array $colss, $f ): array {
+  $a = [];
+
+  if ($rowIdx == 4) {
+    echo 2;
+  }
+
+
+  //gene row
+  $colIdx = 1;
+  foreach ($colss as $k => $col) {
+    if ($rowIdx == 4 && $colIdx == 5)
+      echo 3;
+    //  echo "rowIdx" . $rowIdx . " colIdx" . $colIdx . "\r\n";
+    if ($rowIdx >= count($col))
+      break;
+    $cell = $col[$rowIdx];
+    if (!$cell)
+      break;
+
+    //todo biz code
+    // $cell=$f($cell);
+
+    $cell=$f($cell);
+
+
+
+    array_push($a, $cell);
+    $colIdx++;
+  }
+
+
+  return $a;
+}
+
+
+
+/**
+ * @param $records
+ * @return array
+ */
+function spltToCols($records,$perColRowsCnt): array {
+  $records = array_reverse($records);
+
+  $colss = [];
+  // $perColRowsCnt = 6;
+
+  while (true) {
+    $curCol = array_slice($records, 0, $perColRowsCnt);
+    if (count($curCol) == 0)
+      break;
+    array_push($colss, $curCol);
+    require_once __DIR__ . "/../lib/queue.php";
+    array_removeElmt($records, 0, $perColRowsCnt);
+
+  }
+  return $colss;
+}
 function array_key713(string $string, $v_cell) {
   if (!array_key_exists($string, $v_cell))
     return "";

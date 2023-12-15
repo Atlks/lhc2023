@@ -251,7 +251,7 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
     }
 
     $v_cell['left']=$lastInlineElmt['left']+$lastInlineElmt['width'];
-    echo json_encode($v_cell).PHP_EOL;
+   // echo json_encode($v_cell).PHP_EOL;
     $v_cell['top']=$row140["top"];
     //render cell font n th_line need row seting
     renderCell($v_cell, $img, $outputPic, $row140);
