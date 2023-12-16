@@ -42,7 +42,7 @@ function getRowCells(int $rowIdx, array $colss, $f ): array {
  * @return array
  */
 function spltToCols($records,$perColRowsCnt): array {
-  $records = array_reverse($records);
+
 
   $colss = [];
   // $perColRowsCnt = 6;

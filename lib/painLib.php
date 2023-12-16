@@ -84,12 +84,13 @@ function renderElementRow(array $row140, $img) {
   renderElmtLine(array("top" => $posY, "color" => "red", "elmtType" => "line"), $img);
 
 }
+
 function calcRowWd(array $row327) {
 
-  $wd=0;
-  $a= $row327["childs"];
+  $wd = 0;
+  $a = $row327["childs"];
   foreach ($a as $k => $v_cell) {
-    $wd=$wd+$v_cell['width'];
+    $wd = $wd + $v_cell['width'];
   }
   return $wd;
 }
@@ -103,7 +104,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
   $cells = $row140['childs'];
 
   if (array_key_exists('bkgrd', $row140)) {
-    $surface_color_row = getColorV2($row140['bkgrd'], $img,"white");
+    $surface_color_row = getColorV2($row140['bkgrd'], $img, "white");
     imagefilledrectangle($img, $posX, $posY, 2000, $posY + $row140['height'], $surface_color_row);
   }
 
@@ -143,39 +144,38 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
 
 
     }
-        $GLOBALS['smallBallOffset']=4;
-    $GLOBALS['smallBallWd']=15;
+    $GLOBALS['smallBallOffset'] = 4;
+    $GLOBALS['smallBallWd'] = 15;
     //------duiz
-    if ((array_key("lfttpClr",$v_cell) == "red")) {
+    if ((array_key("lfttpClr", $v_cell) == "red")) {
 //-----------$lefttop
       $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
-      $center_x_ball=$pos_x_eclps;
-      $center_y_ball=$pos_y_eclps;
-      $rds=$ballwidth/2;
+      $center_x_ball = $pos_x_eclps;
+      $center_y_ball = $pos_y_eclps;
+      $rds = $ballwidth / 2;
       $smallBallX_lftTop = $center_x_ball - $rds / 2 - $offset;
       $smallBallY_lfttop = $center_y_ball - $rds / 2 - $offset;
 
-      imagefilledellipseX($img, $smallBallX_lftTop, $smallBallY_lfttop,  $GLOBALS['smallBallWd'],  $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr",$v_cell), $img));
+      imagefilledellipseX($img, $smallBallX_lftTop, $smallBallY_lfttop, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
 
 
-     // imagepng($img, $outputPic);
+      // imagepng($img, $outputPic);
     }
 
-    if ((array_key("rtBtmClr",$v_cell) == "blue")) {
+    if ((array_key("rtBtmClr", $v_cell) == "blue")) {
 //-----------$lefttop
       $offset = $GLOBALS['smallBallOffset'];  //$duiz_ball_wd size not tkefk..
-      $center_x_ball=$pos_x_eclps;
-      $center_y_ball=$pos_y_eclps;
-      $rds=$ballwidth/2;
+      $center_x_ball = $pos_x_eclps;
+      $center_y_ball = $pos_y_eclps;
+      $rds = $ballwidth / 2;
 
-      $smallBallX_rtBtm=$center_x_ball+$rds/2+$offset;
-      $smallBallY_rtBtm=$center_y_ball+$rds/2+$offset;
+      $smallBallX_rtBtm = $center_x_ball + $rds / 2 + $offset;
+      $smallBallY_rtBtm = $center_y_ball + $rds / 2 + $offset;
 
-      imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr",$v_cell), $img));
+      imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr", $v_cell), $img));
 
 
-
-    //  imagepng($img, $outputPic);
+      //  imagepng($img, $outputPic);
     }
 
 
@@ -208,7 +208,7 @@ function renderElementRowV2(array $row140, $img, $outputPic) {
     }
 
 
-   // imagepng($img, $outputPic);
+    // imagepng($img, $outputPic);
     $idx++;
     $posX = $posX + $v_cell['width'];
   }
@@ -232,17 +232,16 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
 
   $cells = $row140['childs'];
 
-  if ( hasAttr('bkgrd', $row140) ){
+  if (hasAttr('bkgrd', $row140)) {
 
-    $surface_color_row = getColorV2($row140['bkgrd'], $img,"white");
+    $surface_color_row = getColorV2($row140['bkgrd'], $img, "white");
 
     imagefilledrectangle($img, $row140["left"], $row140["top"], $row140["left"] + $row140['width'], $row140["top"] + $row140['height'], $surface_color_row);
   }
 
 
-
   $cellIdx_dbg = 0;
-  $lastInlineElmt=["left"=>0,"width"=>0,"top"=>$row140["top"]];
+  $lastInlineElmt = ["left" => 0, "width" => 0, "top" => $row140["top"]];
   foreach ($cells as $k => $v_cell) {
     $cellIdx_dbg++;
     // echo "cellIdx:".$cellIdx."\r\n";
@@ -250,13 +249,13 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
       // echo 11;
     }
 
-    $v_cell['left']=$lastInlineElmt['left']+$lastInlineElmt['width'];
-   // echo json_encode($v_cell).PHP_EOL;
-    $v_cell['top']=$row140["top"];
+    $v_cell['left'] = $lastInlineElmt['left'] + $lastInlineElmt['width'];
+    // echo json_encode($v_cell).PHP_EOL;
+    $v_cell['top'] = $row140["top"];
     //render cell font n th_line need row seting
     renderCell($v_cell, $img, $outputPic, $row140);
 
-    $lastInlineElmt=$v_cell;
+    $lastInlineElmt = $v_cell;
   }
   //foreach row end
 
@@ -277,29 +276,28 @@ function renderElementRowV3(array $row140, $img, $outputPic) {
  *   //render cell font n th_line need row seting
  * @param $v_cell
  * @param $img
-
  * @param $outputPic
  * @param array $row140
  * @return mixed
  */
-function renderCell($v_cell, $img,  $outputPic, array $row140) {
+function renderCell($v_cell, $img, $outputPic, array $row140) {
   $blktxt = array_key('txt', $v_cell);
   //  if($idx>0)
   //   $posX = $posX + $v_cell['width'];
-  $posX=$v_cell['left'];
-  $posY=$v_cell['top'];
+  $posX = $v_cell['left'];
+  $posY = $v_cell['top'];
 
- // imagepng($img, $outputPic);
+  // imagepng($img, $outputPic);
 
-  if( array_key('dbg',$GLOBALS) ==1)
+  if (array_key('dbg', $GLOBALS) == 1)
     echo 1;
   //-------------bkgrd ---- imagefilledrectangle
 
-  if (hasAttr('bkgrd', $v_cell)){
+  if (hasAttr('bkgrd', $v_cell)) {
 
     $curClr = getColor($v_cell['bkgrd'], $img);
 
-    if ( Attr('shape', $v_cell)=="ball"){
+    if (Attr('shape', $v_cell) == "ball") {
 
       $pos_x_eclps = $v_cell['left'] + $v_cell['width'] / 2;
       $pos_y_eclps = $v_cell['top'] + $v_cell['height'] / 2;
@@ -307,13 +305,26 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
       imagefilledellipseX($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
       renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, $outputPic);
 
+    } else if (Attr('shape', $v_cell) == "eklps") {
+
+      $pos_x_eclps = $v_cell['left'] + $v_cell['width'] / 2;
+      $pos_y_eclps = $v_cell['top'] + $v_cell['height'] / 2;
+      $ballwidth = array_key("ballwidth", $v_cell);
+      imageellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth, $ballwidth, $curClr);
+      for($i=8;$i>0;$i--)
+      {
+        imageellipse($img, $pos_x_eclps, $pos_y_eclps, $ballwidth-$i, $ballwidth-$i, $curClr);
+      }
+
+      renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, $outputPic);
+
     } else {
       //df rect
-      imagefilledrectangle($img, $v_cell['left'],  $v_cell['top'], $posX + $v_cell['width'], $posY + $v_cell['height'], $curClr);
+      imagefilledrectangle($img, $v_cell['left'], $v_cell['top'], $posX + $v_cell['width'], $posY + $v_cell['height'], $curClr);
 
     }
 
-    imagepng($img, $outputPic);
+    // imagepng($img, $outputPic);
   }
 
 
@@ -326,7 +337,7 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
   if (!array_key_exists('color', $v_cell))
     $v_cell['color'] = "black";
   imagettftext($img, $row140["font_size"], 0, $font_x, $font_baseline_y, getColor($v_cell['color'], $img), $font, $blktxt);
- // imagepng($img, $outputPic);
+  // imagepng($img, $outputPic);
 
   //-------------titlew line rit
   if (getCellTagName($v_cell) == "th") {
@@ -352,14 +363,14 @@ function renderCell($v_cell, $img,  $outputPic, array $row140) {
 }
 
 function Attr($att, $v_cell) {
-  if(hasAttr($att,$v_cell))
+  if (hasAttr($att, $v_cell))
     return $v_cell[$att];
   else
     return "";
 }
 
 
-function hasAttr(  $att, $v_cell) {
+function hasAttr($att, $v_cell) {
 
   if (array_key_exists($att, $v_cell)) {
     if ($v_cell[$att] == "")
@@ -402,7 +413,7 @@ function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, 
     imagefilledellipseX($img, $smallBall_Lfttp_X, $smallBall_lfttp_Y, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("lfttpClr", $v_cell), $img));
 
 
-   // imagepng($img, $outputPic);
+    // imagepng($img, $outputPic);
   }
 
   if ((array_key("rtBtmClr", $v_cell) == "blue")) {
@@ -420,11 +431,10 @@ function renderSmallball($v_cell, $pos_x_eclps, $pos_y_eclps, $ballwidth, $img, 
     imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $widthSmallballBg, $widthSmallballBg, \getColor('white', $img));
 
 
-
     imagefilledellipseX($img, $smallBallX_rtBtm, $smallBallY_rtBtm, $GLOBALS['smallBallWd'], $GLOBALS['smallBallWd'], \getColor(array_key("rtBtmClr", $v_cell), $img));
 
 
-   // imagepng($img, $outputPic);
+    // imagepng($img, $outputPic);
   }
 }
 
@@ -494,7 +504,6 @@ function renderElementCanvas(array $elemt) {
 }
 
 
-
 /**
  *
  * //为了快速而肮脏的抗锯齿，请将图像设为所需尺寸的两倍，然后将采样缩小到所需尺寸。
@@ -503,7 +512,7 @@ function renderElementCanvas(array $elemt) {
  * @param $color
  * @return false|GdImage|resource
  */
-function imagefilledellipseX($img, $center_x, $center_y, int $width,$height, $color) {
+function imagefilledellipseX($img, $center_x, $center_y, int $width, $height, $color) {
 
 
   $bg_tomin = imagecolorallocatealpha($img, 0, 0, 0, 127);
@@ -518,17 +527,18 @@ function imagefilledellipseX($img, $center_x, $center_y, int $width,$height, $co
 
 
   imagefilledellipse($imageX2, $width, $width, $width * 2, $width * 2, $color);
- // imagepng($imageX2, __DIR__ . "/../public/trend_resmp_bgCyk.jpg");
+  // imagepng($imageX2, __DIR__ . "/../public/trend_resmp_bgCyk.jpg");
 //-----------------
   // $imageOut = imagecreatetruecolor($width, $width);
-  imagecopyresampled($img, $imageX2, $center_x-($width/2), $center_y-($width/2), 0, 0, $width, $width, $bigPicWd, $bigPicWd);
+  imagecopyresampled($img, $imageX2, $center_x - ($width / 2), $center_y - ($width / 2), 0, 0, $width, $width, $bigPicWd, $bigPicWd);
 
 }
-function getColorV2($clrname, $img,$dfClr) {
-  if($clrname=="")
-    return getColor($dfClr,$img);
-  else{
-    return getColor($clrname,$img);
+
+function getColorV2($clrname, $img, $dfClr) {
+  if ($clrname == "")
+    return getColor($dfClr, $img);
+  else {
+    return getColor($clrname, $img);
   }
 
 }
@@ -549,7 +559,7 @@ function getColor($clrname, $img) {
   // 表面颜色（浅灰）
   $grayColorHalf = imagecolorallocate($img, 200, 200, 200);
   $grayColor = imagecolorallocate($img, 125, 125, 125);
-  $clrArr = array('gray217'=>$gray217,'redHalf'=>$red_hlf,'庄对'=>$red_color,'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
+  $clrArr = array('gray217' => $gray217, 'redHalf' => $red_hlf, '庄对' => $red_color, 'grayHalf' => $grayColor, 'pink' => $pink, "red" => $red_color, "white" => $white_color, "black" => $text_color_black, "green" => $green_color, "blue" => $blue_color, "gray" => $grayColor);
   if (!array_key_exists($clrname, $clrArr))
     return $clrArr["black"];
 

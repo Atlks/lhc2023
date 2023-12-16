@@ -62,7 +62,7 @@ function kaij_draw_evt_bjl() {
   //  开奖结果图
   SendPicRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
 
- // 与走势图
+  // 与走势图
   try {
     sendTrendPic();
   } catch (\Throwable $e) {
@@ -107,9 +107,6 @@ function SendPicRztV2($qihao, $rzt): void {
   }
 
 
-
-
-
 }
 
 /**
@@ -118,15 +115,32 @@ function SendPicRztV2($qihao, $rzt): void {
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
 function sendTrendPic(): void {
-//  require_once __DIR__ . "/../../libTpscrt/kaij.php";
-  require_once __DIR__ . "/../libBiz/startEvt.php";
-  \createTrendImageV2(\kaipanInfoCore());
-  $f549 = __DIR__ . "/../public/trend.jpg";
-  //  $f549 = app()->getRootPath() . "public/trend.jpg";
-  var_dump($f549);
-  $cfile = new \CURLFile($f549);
-  $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-  $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+  require_once __DIR__."/../lib/logx.php";
+  try {
+    //  require_once __DIR__ . "/../../libTpscrt/kaij.php";
+    require_once __DIR__ . "/../libBiz/startEvt.php";
+    \createTrendImageV2(\kaipanInfoCore());
+    $f549 = __DIR__ . "/../public/trend.jpg";
+    //  $f549 = app()->getRootPath() . "public/trend.jpg";
+    var_dump($f549);
+    $cfile = new \CURLFile($f549);
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+  } catch (\Exception $e) {
+    
+    log_err($e,__METHOD__);
+
+  }
+
+  try {
+
+    $outf = __DIR__ . "/../public/trend_dalu.jpg";
+    $cfile = new \CURLFile($outf);
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+  } catch (\Exception $e) {
+    log_err($e,__METHOD__);
+  }
 }
 
 
@@ -135,7 +149,7 @@ function getKaijRztBjl_retryX($qihao) {
 
 
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
-  var_dump("qihao:".$qihao);
+  var_dump("qihao:" . $qihao);
   $log_txt = __METHOD__ . json_encode(func_get_args());
 
   \think\facade\Log::info($log_txt);
@@ -143,10 +157,9 @@ function getKaijRztBjl_retryX($qihao) {
     try {
       require_once "startEvt.php";
       $kaipanInfo = getKaijRztBjl($qihao);
-      if($kaipanInfo)
+      if ($kaipanInfo)
         return $kaipanInfo;
-      else
-      {
+      else {
         sleep(1);
         continue;
       }
@@ -204,48 +217,42 @@ function getKaijRztBjl($gameNo) {
 
   $rzt = $seltedRow[0]['gameRecord'];
 
- // $rzt="";//模拟还没开奖，需要卡主
-  if($rzt=="") {
+  // $rzt="";//模拟还没开奖，需要卡主
+  if ($rzt == "") {
     $str = "!!! no kaij rzt now ,gameno:" . $gameNo;
     echo $str;
-    logV3(__METHOD__,$str,"kaij");
-    return  null;
+    logV3(__METHOD__, $str, "kaij");
+    return null;
   }
 
   $a = explode("$", $rzt);
-  $kaijARr=[];
+  $kaijARr = [];
 
-  if ($a[0] == 1)
-  {
-    $kaijARr[]="庄赢";
+  if ($a[0] == 1) {
+    $kaijARr[] = "庄赢";
   }
 
 
-  if ($a[0] == 2)
-  {
-    $kaijARr[]="和";
+  if ($a[0] == 2) {
+    $kaijARr[] = "和";
   }
-
 
 
   if ($a[0] == 3)
-    $kaijARr[]="闲赢";  //闲赢
-
-
-
+    $kaijARr[] = "闲赢";  //闲赢
 
 
   if ($a[1] == 1) {
-    $kaijARr[]='庄对';
+    $kaijARr[] = '庄对';
 
   }
   if ($a[1] == 2) {
-    $kaijARr[]="闲对";
+    $kaijARr[] = "闲对";
 
   }
   if ($a[1] == 3) {
-    $kaijARr[]='庄对';
-    $kaijARr[]="闲对";
+    $kaijARr[] = '庄对';
+    $kaijARr[] = "闲对";
   }
 
   return $kaijARr;
@@ -284,11 +291,12 @@ function createTrendImageV2($records) {
 
 
   //--------------------- 创建画布
-  $img_height = 370;
+  $img_height = 350;
   $img_width = 800;
 
   $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $img_width, "height" => $img_height);
   require_once __DIR__ . "/../lib/painLib.php";
+  //\imagefilledellipseX()
   $img = renderElementCanvas($img_elmt);
 
 
@@ -341,27 +349,29 @@ function createTrendImageV2($records) {
   $rowIdx = 0;
   $colIdx = 0;
 
- // $maxLen = count($records);
+  // $maxLen = count($records);
   //todo  列转行 算法：  arr_cut 每次，gene col,push arr,然后循环row num,。。
   //---------tag  row col idx
-  $perColRowsCnt=6;
-  require_once __DIR__."/../lib/arr.php";
-  $colss= spltToCols($records,$perColRowsCnt);
+  $perColRowsCnt = 6;
+  require_once __DIR__ . "/../lib/arr.php";
+  $records = array_reverse($records);
+  $records = array_slice($records, 0, 60);//meige paisywe zuida 60ge road map
+  $colss = spltToCols($records, $perColRowsCnt);
 
 
   //--------render row each
   //max row 6
-  $lastBlkElmt=$row614;
+  $lastBlkElmt = $row614;
   for ($rowIdx = 0; $rowIdx < $perColRowsCnt; $rowIdx++) {
-   // $row614['height']=$css_lineHight;
-    $row615 = getRow(  $rowIdx, $colss, $withMain );
-    $row615['top']  = $lastBlkElmt['top']+$lastBlkElmt['height'];
-    $row615['height']= $css_lineHight ;
-    $row615['font']=$font;
-    $row615['font_size']=$font_size;
+    // $row614['height']=$css_lineHight;
+    $row615 = getRow($rowIdx, $colss, $withMain);
+    $row615['top'] = $lastBlkElmt['top'] + $lastBlkElmt['height'];
+    $row615['height'] = $css_lineHight;
+    $row615['font'] = $font;
+    $row615['font_size'] = $font_size;
     renderElementRowV3($row615, $img, $outFile);
-  //  imagepng($img, $outFile);
-    $lastBlkElmt=$row615;
+    //  imagepng($img, $outFile);
+    $lastBlkElmt = $row615;
 
   }
   //end foreach row
@@ -370,21 +380,92 @@ function createTrendImageV2($records) {
   //-------------end--------------
   imagepng($img, __DIR__ . "/../public/trend.jpg");
   echo "";
+
+
+  //---------------------------------
+
+
+  //-------------syaselu
+  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 1200, "height" => 10 * 50);
+  require_once __DIR__ . "/../lib/painLib.php";
+  $img = renderElementCanvas($img_elmt);
+
+  $outf = __DIR__ . "/../public/trend_dalu.jpg";
+  $colss = spltToCols_dalu($records);
+
+  //--------render row each
+  $perColRowsCnt = 15;
+  $lastBlkElmt = ['top' => 0, 'left' => 0, 'height' => 0];
+  for ($rowIdx = 0; $rowIdx < $perColRowsCnt; $rowIdx++) {
+    // $row614['height']=$css_lineHight;
+    $row615 = getRow_dalu($rowIdx, $colss, $withMain);
+    $row615['top'] = $lastBlkElmt['top'] + $lastBlkElmt['height'];
+    $row615['height'] = $css_lineHight;
+    $row615['font'] = $font;
+    $row615['font_size'] = $font_size;
+    renderElementRowV3($row615, $img, $outf);
+    //  imagepng($img, $outFile);
+    $lastBlkElmt = $row615;
+
+  }
+  imagepng($img, $outf);
+  echo "";
+
 }
 
 
+//A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+//  B:0无对 1 庄对 2 闲对 3 庄闲对
+//比如这个3$0 就是 闲，0表示无对子
+function spltToCols_dalu(array $records) {
+  $colss = [];
 
-/**
- * @param $pos_y
- * @param string $font
- * @param int $font_size
- * @param int $
- * @param array $row614
- * @param int $rowIdx
- * @param array $colss
- * @return array
- */
-function getRow(int $rowIdx, array $colss, $elmtWd ): array {
+  $last = "庄";
+  $curCol = [];
+  foreach ($records as $rec) {
+
+    //  $curCol = [];
+    $rztGame = cvt_hz_rzt($rec);
+    if ($rztGame == "和")
+      continue;
+
+    if ($rztGame == $last) {
+      array_push($curCol, $rec);
+
+    } else if ($rztGame != $last) {
+      //now col add to col arr
+      if (count($curCol) > 0)
+        array_push($colss, $curCol);
+      //new col  rest col
+      $curCol = [];
+      array_push($curCol, $rec);
+    }
+
+    $last = $rztGame;
+
+
+  }
+
+
+  if (count($curCol) > 0)
+    array_push($colss, $curCol);
+  return $colss;
+}
+
+
+//  lewis, [08/12/2023 2:27 pm]
+//A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+// B:0无对 1 庄对 2 闲对 3 庄闲对
+
+//比如这个3$0 就是 闲，0表示无对子
+function cvt_hz_rzt($rec) {
+  $rzt_Int = explode("$", $rec['gameRecord'])[0];
+  $arr = [1 => "庄", 2 => "和", 3 => "闲"];
+  return $arr[$rzt_Int];
+}
+
+
+function getRow(int $rowIdx, array $colss, $elmtWd): array {
   $row614 = array("left" => 0, "row_btm_lineClr" => "gray", "padBtm" => 0);
   $row614["childs"] = [];
 
@@ -406,7 +487,7 @@ function getRow(int $rowIdx, array $colss, $elmtWd ): array {
       break;
 
     //todo biz code
-   // $cell=$f($cell);
+    // $cell=$f($cell);
 
     list($win, $curClrTxt, $duiz) = calcTxtNclr($cell['gameRecord']);
 
@@ -424,11 +505,9 @@ function getRow(int $rowIdx, array $colss, $elmtWd ): array {
     }
     $cell['bkgrd'] = $curClrTxt;
     $cell['shape'] = 'ball';
-    $cell['ballwidth'] = $elmtWd-10;
+    $cell['ballwidth'] = $elmtWd - 10;
     $cell['width'] = $elmtWd;  //50
     $cell['height'] = $cell['width'];
-
-
 
 
     array_push($row614["childs"], $cell);
@@ -438,6 +517,81 @@ function getRow(int $rowIdx, array $colss, $elmtWd ): array {
   if (count($row614["childs"]) == 4) {
     echo 1;
   }
+
+  $row614['width'] = calcRowWd($row614);
+  return $row614;
+}
+
+
+/**
+ * @param $pos_y
+ * @param string $font
+ * @param int $font_size
+ * @param int $
+ * @param array $row614
+ * @param int $rowIdx
+ * @param array $colss
+ * @return array
+ */
+function getRow_dalu(int $rowIdx, array $colss, $elmtWd): array {
+  $row614 = array("left" => 0, "row_btm_lineClr" => "gray", "padBtm" => 0);
+  $row614["childs"] = [];
+
+  if ($rowIdx == 4) {
+    echo 2;
+  }
+
+
+  //gene row
+  $colIdx = 1;
+  foreach ($colss as $k => $col) {
+    if ($rowIdx == 4 && $colIdx == 5)
+      echo 3;
+    //  echo "rowIdx" . $rowIdx . " colIdx" . $colIdx . "\r\n";
+    if ($rowIdx >= count($col)) {
+      $cell = [];
+      $cell['txt'] = "";
+      $cell['width'] = $elmtWd;  //50
+      $cell['height'] = $cell['width'];
+
+    } else {
+      //todo biz code
+      // $cell=$f($cell);
+      $cell = $col[$rowIdx];
+      if (!$cell)
+        break;
+
+      list($win, $curClrTxt, $duiz) = calcTxtNclr($cell['gameRecord']);
+
+      $cell['txt'] = "";
+      $cell['color'] = "white";
+      $cell['duiz'] = $duiz;
+
+      if ($duiz == "庄对")
+        $cell['lfttpClr'] = "red";
+      if ($duiz == "闲对")
+        $cell['rtBtmClr'] = "blue";
+      if ($duiz == "庄闲对") {
+        $cell['rtBtmClr'] = "blue";
+        $cell['lfttpClr'] = "red";
+      }
+      $cell['bkgrd'] = $curClrTxt;
+      $cell['shape'] = 'eklps';
+      $cell['ballwidth'] = $elmtWd - 10;
+      $cell['width'] = $elmtWd;  //50
+      $cell['height'] = $cell['width'];
+    }
+
+
+    array_push($row614["childs"], $cell);
+    $colIdx++;
+
+  }
+
+
+//  if (count($row614["childs"]) == 4) {
+//    echo 1;
+//  }
 
   $row614['width'] = calcRowWd($row614);
   return $row614;
@@ -550,21 +704,21 @@ function getRow(int $rowIdx, array $colss, $elmtWd ): array {
 
 
 /**
-//A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
-//  B:0无对 1 庄对 2 闲对 3 庄闲对
+ * //A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+ * //  B:0无对 1 庄对 2 闲对 3 庄闲对
  */
 function calcTxtNclr($rzt) {
 
 
   $a = explode("$", $rzt);
 
-  $win="";
-  $curClrTxtBkgrd="";
-  $duiz="无对";
+  $win = "";
+  $curClrTxtBkgrd = "";
+  $duiz = "无对";
 
   $a = explode("$", $rzt);
-  if($rzt=="")
-    return array($win, $curClrTxtBkgrd,$duiz);
+  if ($rzt == "")
+    return array($win, $curClrTxtBkgrd, $duiz);
 
   if ($a[0] == 1) {
     $win = "庄";
@@ -587,24 +741,23 @@ function calcTxtNclr($rzt) {
   }
 
   if ($a[1] == 1) {
-    $duiz="庄对";
+    $duiz = "庄对";
   }
   if ($a[1] == 2) {
-    $duiz="闲对";
+    $duiz = "闲对";
   }
   if ($a[1] == 3) {
-    $duiz="庄闲对";
+    $duiz = "庄闲对";
   }
 
-  return array($win, $curClrTxtBkgrd,$duiz);
+  return array($win, $curClrTxtBkgrd, $duiz);
 }
 
 
-
 // show jonjyo list 中奖名单  gene zhongj lst pic
-  function calcIncomeGrpby($lotteryno) {
+function calcIncomeGrpby($lotteryno) {
   require_once __DIR__ . "/../lib/painLib.php";
-  $outFile=__DIR__ . "/../public/betRztlist.jpg";
+  $outFile = __DIR__ . "/../public/betRztlist.jpg";
   delFile($outFile);
   try {
     $a = [];
@@ -620,10 +773,9 @@ function calcTxtNclr($rzt) {
       ->select();
 
 
-
     //-----------css配置
     $css_lineHight = 40;
-    $canvas_height = $css_lineHight * (count($rows) + 2) +0;
+    $canvas_height = $css_lineHight * (count($rows) + 2) + 0;
     $font_size = 20;
     $font = __DIR__ . "/../public/msyhbd.ttc";
     $posX = 0;
@@ -633,33 +785,32 @@ function calcTxtNclr($rzt) {
 
     # 开始画图
     // 创建画布
-    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $firstColWidth+$css_datawidth*4, "height" => $canvas_height);
+    $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => $firstColWidth + $css_datawidth * 4, "height" => $canvas_height);
 
     $img = renderElementCanvas($img_elmt);
     //------   本局得分，剩余分，初始分，佣金
 
     //--------------------title
     //百家乐
-    $row614 = array("left" => 0,'bkgrd'=>'gray217', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight );
+    $row614 = array("left" => 0, 'bkgrd' => 'gray217', "padBtm" => 0, "top" => 0, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight);
 
     $row614["childs"] = [
 
-      array('txt' => "百家乐".array_key("tabNo_str",$GLOBALS),'tag'=>'th', 'bkgrd' => "redHalf",'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
-      array('txt' => '本局得分', 'tag'=>'th', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
-      array('txt' => '剩余分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
-      array('txt' => '初始分','tag'=>'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
-      array('txt' => '', 'tag'=>'th','color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
+      array('txt' => "百家乐" . array_key("tabNo_str", $GLOBALS), 'tag' => 'th', 'bkgrd' => "redHalf", 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $firstColWidth, 'height' => $css_lineHight),
+      array('txt' => '本局得分', 'tag' => 'th', 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+      array('txt' => '剩余分', 'tag' => 'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+      array('txt' => '初始分', 'tag' => 'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
+      array('txt' => '', 'tag' => 'th', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight)
 
     ];
 
-    renderElementRowV2($row614, $img,$outFile);
+    renderElementRowV2($row614, $img, $outFile);
     $posY = $posY + $row614['height'];
-
 
 
     //------------show datas
 
-    $row_forCalc=[];
+    $row_forCalc = [];
     foreach ($rows as $row) {
       $betamt = $row['Bet'] / 100;
 
@@ -672,19 +823,19 @@ function calcTxtNclr($rzt) {
       $uname = $row['UserName'];
 
       require_once "user.php";
-      $bls= getBlsByU($uid);
-      $row_cur=['本局得分'=>$income,'剩余分'=>$bls,'初始分'=>$bls-$income,'佣金'=>0];
+      $bls = getBlsByU($uid);
+      $row_cur = ['本局得分' => $income, '剩余分' => $bls, '初始分' => $bls - $income, '佣金' => 0];
 
-      $row_forCalc[]=$row_cur;
+      $row_forCalc[] = $row_cur;
 
       $txt = "$uname [$uid]  下注金额:$betamt 盈亏: $income \r\n";
       var_dump($txt);
 
-      $row327 = array("left" => 0, "padBtm" => 0, "top" =>$posY, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight);
+      $row327 = array("left" => 0, "padBtm" => 0, "top" => $posY, 'font' => $font, 'font_size' => $font_size, 'height' => $css_lineHight);
 
       $row327["childs"] = [
 
-        array('txt' => $uname, 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10,  'width' => $firstColWidth, 'height' => $css_lineHight),
+        array('txt' => $uname, 'id' => 'cell1', 'align' => 'left', 'padLeft' => 10, 'width' => $firstColWidth, 'height' => $css_lineHight),
 
         array('txt' => $income, 'align' => 'center', 'color' => "black", 'bkgrd' => "", 'width' => $css_datawidth, 'height' => $css_lineHight),
 
@@ -697,7 +848,7 @@ function calcTxtNclr($rzt) {
 
       ];
 
-      renderElementRowV2($row327, $img,$outFile);
+      renderElementRowV2($row327, $img, $outFile);
       $posY = $posY + $row327['height'];
 
 
@@ -705,7 +856,7 @@ function calcTxtNclr($rzt) {
     }
 
     //---------show botrtom row
-    $row = array('elmtType' => 'tr', 'bkgrd' => "redHalf",'font_size' => $font_size,'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
+    $row = array('elmtType' => 'tr', 'bkgrd' => "redHalf", 'font_size' => $font_size, 'font' => $font, "left" => 0, "top" => $posY, 'height' => $css_lineHight);
 
     $row['childs'] = [
       array('txt' => '总计' . count($rows) . '人', 'align' => 'center', 'height' => $css_lineHight, 'bkgrd' => "", 'width' => $firstColWidth),
@@ -718,11 +869,10 @@ function calcTxtNclr($rzt) {
     ];
 
 
-    renderElementRowV2($row, $img,$outFile);
+    renderElementRowV2($row, $img, $outFile);
     // $posY = $posY + $row['height'];
 
     imagepng($img, $outFile);
-
 
 
     return join("", $a);
