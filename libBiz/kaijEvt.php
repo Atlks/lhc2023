@@ -59,7 +59,7 @@ function kaij_draw_evt_bjl() {
   }
 
 //------------------ gene pic rzt
-  //  开奖结果图
+  //  开奖结果图  zhuangyin syeyin
   SendPicRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
 
   // 与走势图
@@ -133,8 +133,24 @@ function sendTrendPic(): void {
   }
 
   try {
-
+//---------------------------trend dalu
     $outf = __DIR__ . "/../public/trend_dalu.jpg";
+    $cfile = new \CURLFile($outf);
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+  } catch (\Exception $e) {
+    log_err($e,__METHOD__);
+  }
+
+
+//--------------scr sht
+  try {
+
+    $cmd=__DIR__."/../lib/nircmd.exe";
+    $outf=__DIR__."/../public/scrsht.png";
+  //  exec ( $cmd." savescreenshot ".$outf);
+    $urlimg=file_get_contents("http://46.137.239.204/scr");
+   file_put_contents($outf, $urlimg);
     $cfile = new \CURLFile($outf);
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
@@ -408,6 +424,20 @@ function createTrendImageV2($records) {
     $lastBlkElmt = $row615;
 
   }
+
+
+//----th line
+  $row614 = array("th_row" => "true", "left" => 0, 'bkgrd' => '', "padBtm" => 0, "top" => $lastBlkElmt['top'], 'font' => $font, 'font_size' => $font_size, 'height' => 1);
+
+  $row614["childs"] = [];
+  for($i=0;$i<30;$i++){
+
+    $row614["childs"][]=  array('txt' => "" ,  'width' => $withMain, 'height' => 1);
+  }
+  $row614['height']=1;
+  $row614['width'] = calcRowWd($row614);
+  renderElementRowV3($row614, $img, $outf);
+
   imagepng($img, $outf);
   echo "";
 
