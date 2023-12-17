@@ -52,7 +52,7 @@ class testCls extends Command {
   protected function execute(Input $input, Output $output) {
 
     $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
-    $GLOBALS['chat_id'] = 4038077884;
+    $GLOBALS['chat_id'] = -4038077884;
     require_once __DIR__ . "/../../libBiz/startEvt.php";
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
