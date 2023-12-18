@@ -1,11 +1,20 @@
 {
     "data": [
         {
-            "addTime": "2023-12-18 21:52:43",
+            "addTime": "2023-12-18 21:53:28",
             "tableNo": "南海",
             "shoeNo": 1,
             "juNo": 2,
             "gameRecord": "",
+            "countdownSeconds": 30,
+            "gameNo": "215328"
+        },
+        {
+            "addTime": "2023-12-18 21:52:43",
+            "tableNo": "南海",
+            "shoeNo": 1,
+            "juNo": 2,
+            "gameRecord": "3$2",
             "countdownSeconds": 30,
             "gameNo": "215243"
         },
@@ -899,15 +908,6 @@
             "gameRecord": "2$2",
             "countdownSeconds": 30,
             "gameNo": "203827"
-        },
-        {
-            "addTime": "2023-12-18 20:37:42",
-            "tableNo": "南海",
-            "shoeNo": 1,
-            "juNo": 2,
-            "gameRecord": "1$3",
-            "countdownSeconds": 30,
-            "gameNo": "203742"
         }
     ]
 }
