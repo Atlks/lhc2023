@@ -1,6 +1,40 @@
 <?php
 
+function delFileV2(string $string) {
+  try {
+    unlink($string);
+  } catch (\Throwable $e) {
+    echo $e;
+    // var_dump($e);
+  }
+}
 
+
+function deldir($dir) {
+  //先删除目录下的文件：
+  $dh=opendir($dir);
+  while ($file=readdir($dh)) {
+
+    if($file!="." && $file!="..") {
+
+      $fullpath=$dir."/".$file;
+
+      if(!is_dir($fullpath)) {
+        unlink($fullpath);
+      } else {
+        deldir($fullpath);// 递归
+      }
+    }
+  }
+  closedir($dh);
+
+  // 删除空文件夹：递归
+  if(rmdir($dir)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function file_get_contents_Asjson($f) {
   $t=file_get_contents($f);

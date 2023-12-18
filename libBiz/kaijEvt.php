@@ -58,6 +58,23 @@ function kaij_draw_evt_bjl() {
     log_err($e, __METHOD__);
   }
 
+  //-------send kaij video
+  try {
+    $startTime = $GLOBALS['addTime'];
+    $endTime = date("Y-m-d H:i:s");
+    $vddir = __DIR__ . "/../vd";
+    require_once __DIR__ . "/../lib/vd_kaij.php";
+    $outf = (kaijVd($startTime, $endTime, $vddir));
+    $cfile = new \CURLFile($outf);
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    $bot->sendVideo($GLOBALS['chat_id'], $cfile);
+  } catch (\Throwable $e) {
+    log_err($e, __METHOD__);
+
+
+  }
+
+
 //------------------ gene pic rzt
   //  开奖结果图  zhuangyin syeyin
   SendPicRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
@@ -115,7 +132,7 @@ function SendPicRztV2($qihao, $rzt): void {
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
 function sendTrendPic(): void {
-  require_once __DIR__."/../lib/logx.php";
+  require_once __DIR__ . "/../lib/logx.php";
   try {
     //  require_once __DIR__ . "/../../libTpscrt/kaij.php";
     require_once __DIR__ . "/../libBiz/startEvt.php";
@@ -127,8 +144,8 @@ function sendTrendPic(): void {
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Exception $e) {
-    
-    log_err($e,__METHOD__);
+
+    log_err($e, __METHOD__);
 
   }
 
@@ -139,23 +156,23 @@ function sendTrendPic(): void {
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Exception $e) {
-    log_err($e,__METHOD__);
+    log_err($e, __METHOD__);
   }
 
 
 //--------------scr sht
   try {
 
-    $cmd=__DIR__."/../lib/nircmd.exe";
-    $outf=__DIR__."/../public/scrsht.png";
-  //  exec ( $cmd." savescreenshot ".$outf);
-    $urlimg=file_get_contents("http://46.137.239.204/scr");
-   file_put_contents($outf, $urlimg);
+    $cmd = __DIR__ . "/../lib/nircmd.exe";
+    $outf = __DIR__ . "/../public/scrsht.png";
+    //  exec ( $cmd." savescreenshot ".$outf);
+    $urlimg = file_get_contents("http://46.137.239.204/scr");
+    file_put_contents($outf, $urlimg);
     $cfile = new \CURLFile($outf);
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Exception $e) {
-    log_err($e,__METHOD__);
+    log_err($e, __METHOD__);
   }
 }
 
@@ -401,7 +418,7 @@ function createTrendImageV2($records) {
   //---------------------------------
 
 
-  //-------------syaselu
+  //-------------syaselu  dalu pic
   $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 1200, "height" => 10 * 50);
   require_once __DIR__ . "/../lib/painLib.php";
   $img = renderElementCanvas($img_elmt);
@@ -430,11 +447,11 @@ function createTrendImageV2($records) {
   $row614 = array("th_row" => "true", "left" => 0, 'bkgrd' => '', "padBtm" => 0, "top" => $lastBlkElmt['top'], 'font' => $font, 'font_size' => $font_size, 'height' => 1);
 
   $row614["childs"] = [];
-  for($i=0;$i<30;$i++){
+  for ($i = 0; $i < 30; $i++) {
 
-    $row614["childs"][]=  array('txt' => "" ,  'width' => $withMain, 'height' => 1);
+    $row614["childs"][] = array('txt' => "", 'width' => $withMain, 'height' => 1);
   }
-  $row614['height']=1;
+  $row614['height'] = 1;
   $row614['width'] = calcRowWd($row614);
   renderElementRowV3($row614, $img, $outf);
 
@@ -449,36 +466,51 @@ function createTrendImageV2($records) {
 //比如这个3$0 就是 闲，0表示无对子
 function spltToCols_dalu(array $records) {
   $colss = [];
+  $colss[] = [];// last ===colss[last][lst]
 
-  $last = "庄";
-  $curCol = [];
-  foreach ($records as $rec) {
+
+  foreach ($records as $rec) :
 
     //  $curCol = [];
-    $rztGame = cvt_hz_rzt($rec);
-    if ($rztGame == "和")
+    $rec['aftHe'] = 0;
+    $lastCol = &$colss[count($colss) - 1];
+    if( count($lastCol)==0)
+    {
+      //fisrt
+      array_push($lastCol, $rec);
+
       continue;
+    }
+    $lastBall = &$lastCol[count($lastCol) - 1];
 
-    if ($rztGame == $last) {
-      array_push($curCol, $rec);
 
-    } else if ($rztGame != $last) {
-      //now col add to col arr
-      if (count($curCol) > 0)
-        array_push($colss, $curCol);
-      //new col  rest col
-      $curCol = [];
-      array_push($curCol, $rec);
+
+    $rec = cvt_hz_rzt($rec);
+    if ($rec['rzt'] == "和") {
+
+      $lastBall['aftHe'] = $lastBall['aftHe'] + 1;
+
+      continue;
     }
 
-    $last = $rztGame;
 
 
-  }
+    if ($rec['rzt'] == $lastBall['rzt']) {
+      array_push($lastCol, $rec);
+
+    } else if ($rec['rzt'] != $lastBall['rzt']) {
+      //now col add to  cols arr
+
+      array_push($colss, []);
+      $lastCol = &$colss[count($colss) - 1];
+      $lastCol[] = $rec;
+
+    }
+
+   endforeach;
 
 
-  if (count($curCol) > 0)
-    array_push($colss, $curCol);
+
   return $colss;
 }
 
@@ -491,7 +523,18 @@ function spltToCols_dalu(array $records) {
 function cvt_hz_rzt($rec) {
   $rzt_Int = explode("$", $rec['gameRecord'])[0];
   $arr = [1 => "庄", 2 => "和", 3 => "闲"];
-  return $arr[$rzt_Int];
+  if(array_key_exists($rzt_Int,$arr))
+  {
+    $rec['rzt']=$arr[$rzt_Int];
+    return $rec;
+  }
+
+  else
+  {
+    $rec['rzt']="";
+    return $rec;
+  }
+
 }
 
 
@@ -593,8 +636,13 @@ function getRow_dalu(int $rowIdx, array $colss, $elmtWd): array {
 
       list($win, $curClrTxt, $duiz) = calcTxtNclr($cell['gameRecord']);
 
-      $cell['txt'] = "";
-      $cell['color'] = "white";
+
+
+      if ($cell['aftHe'] > 0)
+        $cell['txt'] = $cell['aftHe'];
+      else
+        $cell['txt'] = "";
+      $cell['color'] = "green";
       $cell['duiz'] = $duiz;
 
       if ($duiz == "庄对")

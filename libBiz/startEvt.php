@@ -15,6 +15,7 @@ function startBetEvtBjl() {
   global $lottery_no;
 
   $qiohao_data =kaipanInfo();
+  $GLOBALS['addTime']=$qiohao_data['data'][0]['addTime'];
   $curRec = $qiohao_data['data'][0];
   var_dump($curRec);
   require_once __DIR__."/../lib/arr.php";

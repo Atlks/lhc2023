@@ -7,7 +7,8 @@ $GLOBALS['chat_id'] = -4038077884;
 // 加载基础文件
 require __DIR__ . '/../vendor/autoload.php';
 
-$outf = "http://h1.66286662.net:8000/cg/cgvideo12_2.flv";
+//$outf = "http://h1.66286662.net:8000/cg/cgvideo12_2.flv";
+$outf="C:/0prj/lhc2023/lib/../vdNow/20231218_170835/z20sec.mp4";
 $cfile = new \CURLFile($outf);
 $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-$bot->sendVideo($GLOBALS['chat_id'], $cfile,20,"ttlx");
+$bot->sendVideo($GLOBALS['chat_id'], $cfile,20,"");

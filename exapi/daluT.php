@@ -1,46 +1,59 @@
 <?php
 
-$records=["庄","庄","庄","闲","庄","庄"];
-echo json_encode(spltToCols_dalu($records),JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+$records = [["rzt" => "庄","id"=>11], ["rzt" => "庄","id"=>22],
+  ["rzt" => "和"], ["rzt" => "闲"]];
+echo json_encode(spltToCols_dalu($records), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 function spltToCols_dalu(array $records) {
   $colss = [];
+  $colss[] = [];// last ===colss[last][lst]
 
-  $last = "庄";
-  $curCol = [];
   foreach ($records as $rec) {
+
+    $rec['aftHe']=0;
+    $lastCol = &$colss[count($colss) - 1];
+    if( count($lastCol)==0)
+    {
+      //fisrt
+      array_push($lastCol, $rec);
+
+      continue;
+    }
+    $lastBall = &$lastCol[count($lastCol) - 1];
+    if($lastBall==null)
+      echo 1;
 
 
     //  $curCol = [];
-    $rztGame = cvt_hz_rzt($rec);
-    if ($rztGame == "和")
+    $rec = cvt_hz_rzt($rec);
+    if ($rec['rzt'] == "和") {
+
+      $lastBall['aftHe'] = $lastBall['aftHe'] + 1;
+
       continue;
-
-    if ($rztGame == $last) {
-      array_push($curCol, $rec);
-
-    } else if ($rztGame != $last) {
-      //now col add to col arr
-      if (count($curCol) > 0)
-        array_push($colss, $curCol);
-
-      //new col  rest col
-      $curCol = [];
-      array_push($curCol, $rec);
     }
 
-    $last = $rztGame;
+
+    if ($rec['rzt'] == $lastBall['rzt']) {
+      array_push($lastCol, $rec);
+
+    } else if ($rec['rzt'] != $lastBall['rzt']) {
+      //now col add to  cols arr
+
+      array_push($colss, []);
+      $lastCol = &$colss[count($colss) - 1];
+      $lastCol[] = $rec;
+
+    }
 
 
   }
 
 
-  if (count($curCol) > 0)
-    array_push($colss, $curCol);
   return $colss;
 }
 
 
-function cvt_hz_rzt($rec)
-{
+function cvt_hz_rzt($rec) {
+ // $rec['aftHe']=0;
   return $rec;
 }

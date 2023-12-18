@@ -15,7 +15,7 @@ while(true)
  // $dataJsonCur=["data"=>[]];
   $dttm=date("Y-m-d H:i:s");
   $gameNo=date("His");
-  $newJu=["tableNo"=>"南海","shoeNo"=>1,"juNo"=>2,"gameRecord"=>"","addTime"=>$dttm,"countdownSeconds"=>30,"gameNo"=>$gameNo];
+  $newJu=["addTime"=>date("Y-m-d H:i:s"),"tableNo"=>"南海","shoeNo"=>1,"juNo"=>2,"gameRecord"=>"","addTime"=>$dttm,"countdownSeconds"=>30,"gameNo"=>$gameNo];
   array_insertHead($json['data'],$newJu);
   file_put_contents($f,json_encode($json,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
