@@ -63,11 +63,19 @@ function kaijVd($startTime,$endTime,$vddir)
 
   $outf = $nowQihaoPicDr . "z20sec.mp4";
   require_once __DIR__."/../lib/file.php";
-  if( file_exists($outf))
-    delFileV2($outf);
-  mltpic2vd($ffmpeg, $nowQihaoPicDr, $outf);
 
-  return $outf;
+  if( file_exists($outf))
+    return $outf;
+  else
+  {
+    mltpic2vd($ffmpeg, $nowQihaoPicDr, $outf);
+    return $outf;
+  }
+//  if( file_exists($outf))
+//    delFileV2($outf);
+//  mltpic2vd($ffmpeg, $nowQihaoPicDr, $outf);
+//
+//  return $outf;
 }
 
 function mkdirv2(string $d) {
