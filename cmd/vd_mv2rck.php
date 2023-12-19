@@ -20,7 +20,7 @@ foreach ($dirArr as $v) {
   $fullFil = $vddir . "/" . $v;
   $crtTime = fileCrtTime406($fullFil);
   if ($crtTime<$startTime  ) {
-    // var_dump($v);
+     var_dump($v);
     $Dst = __DIR__ . "/../vdRecyle/" . $v;
     rename($fullFil, $Dst);
     $n++;

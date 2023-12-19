@@ -8,6 +8,16 @@ function delFileV2(string $string) {
     // var_dump($e);
   }
 }
+
+function mkdirv3(string $d) {
+
+  try{
+    mkdir($d);
+  }catch (\Throwable $e){
+    var_dump($e);
+  }
+}
+
 function fileCrtTime406(string $fullFil) {
 
   $a = filectime($fullFil);

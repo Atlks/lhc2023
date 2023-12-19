@@ -59,24 +59,7 @@ function kaij_draw_evt_bjl() {
   }
 
   //-------send kaij video
-  try {
-    $startTime =date("Y-m-d H:i:s",strtotime("-20 seconds"));
-      //$GLOBALS['addTime'];
-    $endTime = date("Y-m-d H:i:s");
-    $vddir = __DIR__ . "/../vd";
-    require_once __DIR__ . "/../lib/vd_kaij.php";
-   // $outf = (kaijVd($startTime, $endTime, $vddir));
-    $outf= __DIR__ . "/../down/".date("Ymd_His").rand()."mp4";
-   $url="http://46.137.239.204/api.php?call=kaijVd 20 ";
-    $outf= download_fl($url,$outf);
-    $cfile = new \CURLFile($outf);
-    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-    $bot->sendVideo($GLOBALS['chat_id'], $cfile);
-  } catch (\Throwable $e) {
-    log_err($e, __METHOD__);
-
-
-  }
+   sendKaijVideo();
 
 
 //------------------ gene pic rzt
@@ -101,6 +84,39 @@ function kaij_draw_evt_bjl() {
   $show_str = "console:" . $lottery_no . "期开奖完毕==开始下注 \r\n";
   //  sendmessage841($show_str);
   // $gl->DrawLottery();
+}
+
+/**
+ * @return array
+ */
+function sendKaijVideo() {
+  try {
+    $startTime = date("Y-m-d H:i:s", strtotime("-20 seconds"));
+    //$GLOBALS['addTime'];
+    $endTime = date("Y-m-d H:i:s");
+    $vddir = __DIR__ . "/../vd";
+    require_once __DIR__ . "/../lib/vd_kaij.php";
+    // $outf = (kaijVd($startTime, $endTime, $vddir));
+    mkdirv2(__DIR__ . "/../down/");
+
+    $endTime = urlencode($endTime);
+    $sec = 20;
+    $url = "http://46.137.239.204/api.php?call=kaijVd_outputFile%20$sec,$endTime";
+     require_once __DIR__."/../lib/down.php";
+
+    $outf = __DIR__ . "/../down/" . date("md_His") ."_". rand() . ".mp4";
+    var_dump($outf);
+    $outf = download_fl($url, $outf);
+    $cfile = new \CURLFile($outf);
+    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+    //->setTimeOut(60)
+    $bot->sendVideo($GLOBALS['chat_id'], $cfile);
+  } catch (\Throwable $e) {
+    log_err($e, __METHOD__);
+
+
+  }
+
 }
 
 
@@ -392,6 +408,8 @@ function createTrendImageV2($records) {
   $perColRowsCnt = 6;
   require_once __DIR__ . "/../lib/arr.php";
   $records = array_reverse($records);
+  if(noKaijRztInLastRec($records))
+    array_pop($records);
   $records = array_slice($records, 0, 60);//meige paisywe zuida 60ge road map
   $colss = spltToCols($records, $perColRowsCnt);
 
@@ -462,6 +480,15 @@ function createTrendImageV2($records) {
   imagepng($img, $outf);
   echo "";
 
+}
+
+function noKaijRztInLastRec($records) {
+
+  $last=end($records);
+  if($last['gameRecode']=="")
+    return true;
+  else
+    return  false;
 }
 
 

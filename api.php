@@ -3,7 +3,7 @@
 
 //die("111");
 try{
-
+  ob_start();
 error_reporting(E_ALL ^ E_NOTICE);
 $endTime = date("Y-m-d H:i:s");
   $vddir = __DIR__ . "/../vd";
@@ -21,6 +21,9 @@ $url = "http://46.137.239.204/api.php?call=kaijVd_outputFile 20,$endTime";
 
   $args = getArgsFromCallStr($cmd);
   $fname = $cmdArr[0];
+
+  ob_end_clean();
+
   call_user_func_array($fname, $args);
 }catch (Throwable $e)
 {

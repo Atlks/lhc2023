@@ -13,35 +13,6 @@ use think\view\driver\Php;
 //TEST CMND START
 //   C:\phpstudy_pro\Extensions\php\php8.0.2nts\php.exe C:\modyfing\jbbot\think testx
 
-function testKaij() {
-  //   saD
-  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" . PHP_EOL;
-  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." . PHP_EOL;
-  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." . PHP_EOL;
-
-  $gmLgcSSc = new    \app\common\GameLogicSsc();
-
-  $data['hash_no'] = 17870669;
-  $data['lottery_no'] = 17870669;
-  $gmLgcSSc->lottery->setData($data);
-  $gmLgcSSc->hash_no = $data['hash_no'];
-  $gmLgcSSc->lottery_no = $data['hash_no'];
-
-  global $lottery_no;
-  $lottery_no = 17890257;
-  //kaij_draw_evt();
-  echo 999;
-
-  var_dump($gmLgcSSc->DrawLotteryBjl("158283"));
-}
-
-
-function painTest() {
-  $gmLgcSSc = new   \app\common\GameLogicSsc();
-  $gmLgcSSc->SendTrendImage(13);
-  //  imagepng($img, app()->getRootPath() . "public/trend.jpg");
-}
-
 class testCls extends Command {
   protected function configure() {
     // 指令配置
@@ -57,6 +28,9 @@ class testCls extends Command {
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+
+
+    sendKaijVideo();die();
     sendTrendPic();
     die();
 
@@ -244,4 +218,36 @@ class testCls extends Command {
 
     var_dump($a);
   }
+
+
+
+  function testKaij() {
+    //   saD
+    echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" . PHP_EOL;
+    echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." . PHP_EOL;
+    echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." . PHP_EOL;
+
+    $gmLgcSSc = new    \app\common\GameLogicSsc();
+
+    $data['hash_no'] = 17870669;
+    $data['lottery_no'] = 17870669;
+    $gmLgcSSc->lottery->setData($data);
+    $gmLgcSSc->hash_no = $data['hash_no'];
+    $gmLgcSSc->lottery_no = $data['hash_no'];
+
+    global $lottery_no;
+    $lottery_no = 17890257;
+    //kaij_draw_evt();
+    echo 999;
+
+    var_dump($gmLgcSSc->DrawLotteryBjl("158283"));
+  }
+
+
+  function painTest() {
+    $gmLgcSSc = new   \app\common\GameLogicSsc();
+    $gmLgcSSc->SendTrendImage(13);
+    //  imagepng($img, app()->getRootPath() . "public/trend.jpg");
+  }
+
 }

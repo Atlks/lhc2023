@@ -17,12 +17,19 @@ function kaijVd_outputFile($advsSecs,$endTime,$vddir=__DIR__ . "/../vd")
   ob_start();
   $startTime =date("Y-m-d H:i:s",strtotime("-$advsSecs seconds",strtotime($endTime)));
 
- // header("Content-type:video/mp4");
+
   $kaijVd_fil = kaijVd($startTime, $endTime, $vddir);
   ob_end_clean();
 
-  header('Content-Disposition:attachment; filename=a.mp4');
-  echo file_get_contents($kaijVd_fil);
+
+  header("Content-type:video/mp4");
+  header("Content-Length: ".filesize($kaijVd_fil));
+  //请求范围的度量单位
+  Header ( "Accept-Ranges: bytes" );
+//  header('Content-Disposition:attachment; filename=a.mp4');
+ // readfile()
+ // echo file_get_contents($kaijVd_fil
+  readfile($kaijVd_fil);
  // echo file_get_contents( 'C:\0prj\lhc2023\vdNow\20231219_145430\z20sec.mp4');
 }
 
@@ -68,7 +75,8 @@ function mkdirv2(string $d) {
   try{
     mkdir($d);
   }catch (\Throwable $e){
-    var_dump($e);
+  //  echo "----warning..";
+   // var_dump($e);
   }
 }
 

@@ -221,7 +221,7 @@ class BotApi
      * @throws HttpException
      * @throws InvalidJsonException
      */
-    public function call($method, array $data = null, $timeout = 10)
+    public function call($method, array $data = null, $timeout = 60)
     {
         $options = $this->proxySettings + [
             CURLOPT_URL => $this->getUrl().'/'.$method,
