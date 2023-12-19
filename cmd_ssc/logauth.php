@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__."/../lib/iniAutoload.php";
-require_once __DIR__."/../lib/cmd.php";
+require_once __DIR__ . "/../lib/iniAutoload.php";
+require_once __DIR__ . "/../lib/cmd.php";
 while(true)
 {
 

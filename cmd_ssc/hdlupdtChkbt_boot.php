@@ -12,7 +12,7 @@
 // +----------------------------------------------------------------------
 
 global $errdir;
-$errdir = __DIR__."/../runtime"; $GLOBALS['errdir']=$errdir;
+$errdir = __DIR__ . "/../runtime"; $GLOBALS['errdir']=$errdir;
 require_once __DIR__ . "/../lib/ex.php";
 require_once __DIR__ . "/../lib/iniAutoload.php";
 

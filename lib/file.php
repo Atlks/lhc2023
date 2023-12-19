@@ -8,7 +8,11 @@ function delFileV2(string $string) {
     // var_dump($e);
   }
 }
+function fileCrtTime406(string $fullFil) {
 
+  $a = filectime($fullFil);
+  return date("Y-m-d H:i:s", $a);
+}
 
 function deldir($dir) {
   //先删除目录下的文件：

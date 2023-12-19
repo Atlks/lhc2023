@@ -60,11 +60,15 @@ function kaij_draw_evt_bjl() {
 
   //-------send kaij video
   try {
-    $startTime = $GLOBALS['addTime'];
+    $startTime =date("Y-m-d H:i:s",strtotime("-20 seconds"));
+      //$GLOBALS['addTime'];
     $endTime = date("Y-m-d H:i:s");
     $vddir = __DIR__ . "/../vd";
     require_once __DIR__ . "/../lib/vd_kaij.php";
-    $outf = (kaijVd($startTime, $endTime, $vddir));
+   // $outf = (kaijVd($startTime, $endTime, $vddir));
+    $outf= __DIR__ . "/../down/".date("Ymd_His").rand()."mp4";
+   $url="http://46.137.239.204/api.php?call=kaijVd 20 ";
+    $outf= download_fl($url,$outf);
     $cfile = new \CURLFile($outf);
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendVideo($GLOBALS['chat_id'], $cfile);
@@ -161,19 +165,19 @@ function sendTrendPic(): void {
 
 
 //--------------scr sht
-  try {
-
-    $cmd = __DIR__ . "/../lib/nircmd.exe";
-    $outf = __DIR__ . "/../public/scrsht.png";
-    //  exec ( $cmd." savescreenshot ".$outf);
-    $urlimg = file_get_contents("http://46.137.239.204/scr");
-    file_put_contents($outf, $urlimg);
-    $cfile = new \CURLFile($outf);
-    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
-  } catch (\Exception $e) {
-    log_err($e, __METHOD__);
-  }
+//  try {
+//
+//    $cmd = __DIR__ . "/../lib/nircmd.exe";
+//    $outf = __DIR__ . "/../public/scrsht.png";
+//    //  exec ( $cmd." savescreenshot ".$outf);
+//    $urlimg = file_get_contents("http://46.137.239.204/scr");
+//    file_put_contents($outf, $urlimg);
+//    $cfile = new \CURLFile($outf);
+//    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+//    $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
+//  } catch (\Exception $e) {
+//    log_err($e, __METHOD__);
+//  }
 }
 
 

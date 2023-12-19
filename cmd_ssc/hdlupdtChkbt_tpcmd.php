@@ -17,10 +17,10 @@ namespace think;
 require __DIR__ . '/../vendor/autoload.php';
 
 $_GET['s']='HdlUpdtChkbot/index';
-$GLOBALS['testIpt']=file_get_contents(__DIR__."/../test/wbhk.json");
+$GLOBALS['testIpt']=file_get_contents(__DIR__ . "/../test/wbhk.json");
 
 global $errdir;
-$errdir=__DIR__."/../runtime/";
+$errdir= __DIR__ . "/../runtime/";
 
 // 执行HTTP应用并响应
 $http = (new App())->http;

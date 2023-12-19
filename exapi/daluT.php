@@ -1,5 +1,11 @@
 <?php
 
+
+
+echo date("Y-m-d H:i:s",strtotime("-20 seconds"));
+
+
+
 $records = [["rzt" => "庄","id"=>11], ["rzt" => "庄","id"=>22],
   ["rzt" => "和"], ["rzt" => "闲"]];
 echo json_encode(spltToCols_dalu($records), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
