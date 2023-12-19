@@ -135,7 +135,8 @@ function SendPicRztV2($qihao, $rzt): void {
   //$rzt= getKaijRztBjl($qihao);
   try {
     // -----------------闲赢---生成图片
-    $cfile = new \CURLFile(app()->getRootPath() . "res/rzt_" . $rzt[0] . ".jpg");
+    $picPath = app()->getRootPath() . "res/rzt_" . $rzt[0] . ".jpg";
+    $cfile = new \CURLFile($picPath);
     $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
     $bot->sendPhoto($GLOBALS['chat_id'], $cfile);
   } catch (\Throwable $e) {

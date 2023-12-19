@@ -3,6 +3,51 @@
 
 use function libspc\log_err;
 
+
+function sendVideoV2 ($chatId,$outf){
+
+  for($i=0;$i<3;$i++)
+  {
+    try{
+      $cfile = new \CURLFile($outf);
+      $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+
+      $rzt=  $bot->sendVideo($chatId, $cfile);
+      break;
+    }catch (Throwable $e)
+    {
+
+    }
+  }
+
+
+}
+
+function sendPhotoV2 (
+  $chatId,
+  $photo,
+  $caption = null,
+  $messageThreadId = null,
+  $replyToMessageId = null,
+  $replyMarkup = null,
+  $disableNotification = false,
+  $parseMode = null
+){
+
+  for($i=0;$i<3;$i++)
+  {
+    try{
+      $cfile = new \CURLFile($photo);
+      $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+      $rzt= $bot->sendPhoto($chatId, $cfile);
+       break;
+    }catch (Throwable $e)
+    {
+
+    }
+  }
+}
+
 function sendmessageBotNConsole($msg)
 {
   try {
