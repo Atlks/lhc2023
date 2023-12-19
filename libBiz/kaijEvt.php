@@ -106,11 +106,9 @@ function sendKaijVideo() {
 
     $outf = __DIR__ . "/../down/" . date("md_His") ."_". rand() . ".mp4";
     var_dump($outf);
-    $outf = download_fl($url, $outf);
-    $cfile = new \CURLFile($outf);
-    $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
-    //->setTimeOut(60)
-    $bot->sendVideo($GLOBALS['chat_id'], $cfile);
+    $outf = downld($url, $outf);
+    require_once __DIR__."/../lib/tlgrmV2.php";
+    sendVideoV2($GLOBALS['chat_id'], $outf);
   } catch (\Throwable $e) {
     log_err($e, __METHOD__);
 
@@ -442,7 +440,7 @@ function createTrendImageV2($records) {
 
 
   //-------------syaselu  dalu pic
-  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 1200, "height" => 10 * 50);
+  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 40*50, "height" => 10 * 50);
   require_once __DIR__ . "/../lib/painLib.php";
   $img = renderElementCanvas($img_elmt);
 
@@ -470,7 +468,7 @@ function createTrendImageV2($records) {
   $row614 = array("th_row" => "true", "left" => 0, 'bkgrd' => '', "padBtm" => 0, "top" => $lastBlkElmt['top'], 'font' => $font, 'font_size' => $font_size, 'height' => 1);
 
   $row614["childs"] = [];
-  for ($i = 0; $i < 30; $i++) {
+  for ($i = 0; $i < 40; $i++) {
 
     $row614["childs"][] = array('txt' => "", 'width' => $withMain, 'height' => 1);
   }

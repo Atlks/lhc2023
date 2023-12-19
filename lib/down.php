@@ -5,6 +5,24 @@ function download_copyMOde()
 }
 
 require_once __DIR__."/../lib/logx.php";
+
+
+
+function downld ($urlimg,$outf){
+
+  for($i=0;$i<3;$i++)
+  {
+    try{
+      return   download_fl($urlimg,$outf);
+      break;
+    }catch (Throwable $e)
+    {
+
+    }
+  }
+
+
+}
 function download_fl($urlimg,$outf)
 {
 //  $GLOBALS['']
