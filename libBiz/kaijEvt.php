@@ -514,7 +514,7 @@ function DaluPic(array $records, int $withMain,   int $css_lineHight ): void {
   echo "";
 }
 
-// DaluPicV2Test();
+  DaluPicV2Test();
 function DaluPicV2Test(){
 
   require_once __DIR__ . "/../libBiz/startEvt.php";
@@ -546,7 +546,7 @@ function DaluPicV2(array $records, int $withMain,   int $css_lineHight  ): void 
   $font_title_size = 16;
   $font_size = 20;
 
-  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 40 * 50, "height" => 10 * 50);
+  $img_elmt = array("element" => "canvas", "bkgrd" => "white", "width" => 40 * 50, "height" => 7 * 50);
   require_once __DIR__ . "/../lib/painLib.php";
   $img = renderElementCanvas($img_elmt);
 
@@ -661,6 +661,9 @@ function setXY_dalu(array $records) {
   $lastball['rowid']=0;
   $lastball['colid']=0;
   $lastball['idclr']=0;
+  $lastball['aftHe']=0;
+  $lastCol=[];
+  $lastCol['colid']=0;
   $arr911 = [];
 
 
@@ -675,7 +678,7 @@ function setXY_dalu(array $records) {
 
       $lastball['aftHe'] = $lastball['aftHe'] + 1;
       //replace
-    array_replace_lastone($arr911,$lastball);
+      array_replace_lastone($arr911,$lastball);
 
       continue;
     }
@@ -686,22 +689,45 @@ function setXY_dalu(array $records) {
       $rec['rowid']= $lastball['rowid']+1;  //per time next row
       $rec['colid']= $lastball['colid'] ;
 
+      //长龙处理
+      if(   $rec['rowid']>6)
+      {
+        $rec['rowid']=6;
+        $rec['colid']=$lastball['colid'] +1;
+      }
+
     }
 
     else
     {
       //another col new col
+
       $rec['rowid']= 1;  //per time next row
-      $rec['colid']= $lastball['colid']+1 ;
+      $rec['colid']= $lastCol['colid']+1 ;
+      $lastCol['colid']= $lastCol['colid']+1;
 
     }
     $lastball=$rec;
+
 
 
     array_push($arr911,$rec);
 
   }
 
+
+  //adjust for start is green c lr
+  $first=$arr911[0];
+  if($first['rowid']==0 &&  $first['aftHe']>0)
+  {
+    //array_shift — 将数组开头的单元移出数组
+    array_shift($arr911);
+    $trueElmt=$arr911[0];
+    $trueElmt['aftHe']= $trueElmt['aftHe']+$first['aftHe'];
+    //rpls first elmt
+    array_shift($arr911);
+    array_unshift($arr911,$trueElmt);
+  }
 
   return $arr911;
 
