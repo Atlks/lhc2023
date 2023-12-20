@@ -9,6 +9,9 @@ $cmd="$ffmpeg   -i $iptFlv -vcodec copy -acodec copy -t $cutSec $output_mp4";
 echo $cmd."\r\n";
 
 
+vd2picMlt("ffmpeg",$iptFlv,__DIR__."/../vdTst/");
+
+
 //vd2picMlt($ffmpeg,$iptFlv,__DIR__."/../vd/");
 
 //$pipes = getPipes($cmd, $pipes);
@@ -76,7 +79,7 @@ function vd2picMlt($ffmpeg,$iptFlv,$dr)
 //  $dr=__DIR__."/../vd/";
 // %03d  格式%d  3位数..  相当于001.JPG
  // $cmd="$ffmpeg   -t 600 -r 5 -i $iptFlv -f image2 -vframes 500 -y $dr%03d.jpg";
-  $cmd="$ffmpeg     -i $iptFlv -f image2 -vf fps=9 -y $dr%07d.jpg";
+  $cmd="$ffmpeg     -i $iptFlv -f image2 -vf fps=5 -y $dr%07d.jpg";
 
   echo $cmd."\r\n";
  exec ($cmd);

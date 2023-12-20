@@ -6,56 +6,76 @@ echo date("Y-m-d H:i:s",strtotime("-20 seconds"));
 
 
 
-$records = [["rzt" => "庄","id"=>11], ["rzt" => "庄","id"=>22],
-  ["rzt" => "和"], ["rzt" => "闲"]];
+$records = [["idclr" => "red","id"=>11], ["idclr" => "red","id"=>22],
+  ["idclr" => "green"], ["idclr" => "blue"]];
 echo json_encode(spltToCols_dalu($records), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 function spltToCols_dalu(array $records) {
+
+//  $dsnGrid=getgrid();
+//  $curPntGridRowid=1;
+//  $curPntGridColid=1;
+  $lastball=[];
+  $lastball['rowid']=0;
+  $lastball['colid']=0;
+  $lastball['idclr']=0;
   $colss = [];
-  $colss[] = [];// last ===colss[last][lst]
+
 
   foreach ($records as $rec) {
 
     $rec['aftHe']=0;
-    $lastCol = &$colss[count($colss) - 1];
-    if( count($lastCol)==0)
-    {
-      //fisrt
-      array_push($lastCol, $rec);
-
-      continue;
-    }
-    $lastBall = &$lastCol[count($lastCol) - 1];
-    if($lastBall==null)
-      echo 1;
-
-
-    //  $curCol = [];
     $rec = cvt_hz_rzt($rec);
-    if ($rec['rzt'] == "和") {
 
-      $lastBall['aftHe'] = $lastBall['aftHe'] + 1;
+
+
+    if ($rec['idclr'] == "green") {
+
+      $lastball['aftHe'] = $lastball['aftHe'] + 1;
 
       continue;
     }
 
-
-    if ($rec['rzt'] == $lastBall['rzt']) {
-      array_push($lastCol, $rec);
-
-    } else if ($rec['rzt'] != $lastBall['rzt']) {
-      //now col add to  cols arr
-
-      array_push($colss, []);
-      $lastCol = &$colss[count($colss) - 1];
-      $lastCol[] = $rec;
+    if($rec['idclr']==$lastball['idclr'])
+    {
+      //move ball to undder lastball
+      $rec['rowid']= $lastball['rowid']+1;  //per time next row
+      $rec['colid']= $lastball['colid'] ;
 
     }
 
+    else
+    {
+      //another col new col
+      $rec['rowid']= 1;  //per time next row
+      $rec['colid']= $lastball['colid']+1 ;
+
+    }
+    $lastball=$rec;
+
+
+    array_push($colss,$rec);
 
   }
 
 
   return $colss;
+}
+
+function getgrid() {
+
+  $rowMax=6;$colMax=40;
+  $table=array();
+  for($i=1;$i<=$rowMax;$i++)
+  {
+    $row=["rowid"=>"r".$i,"cells"=>[]];
+    for($colIdx =1;$colIdx<=$colMax;$colIdx++){
+        $cell=["cellid"=>$colIdx,"rowidx"=>$i,"colidx"=>$colIdx];
+
+      array_push($row['cells'],$cell);
+    }
+    array_push($table,$row);
+  }
+  return $table;
 }
 
 
