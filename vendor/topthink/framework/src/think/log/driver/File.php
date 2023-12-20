@@ -134,7 +134,9 @@ class File implements LogHandlerInterface
     //file_put_contents($GLOBALS['$errdir'] . date('Y-m-d H') . "lg142_tpErrlgHdlr_.log",  json_encode($message) . PHP_EOL, FILE_APPEND);
     //    return true;
     try {
-      return error_log($message, 3, $destination);
+      $error_logRzt = error_log($message, 3, $destination);
+
+      return $error_logRzt;
     } catch (\Throwable $e) {
       // var_dump($e);
       try {

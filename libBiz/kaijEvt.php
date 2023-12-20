@@ -207,6 +207,17 @@ function getKaijRztBjl_retryX($qihao) {
   \think\facade\Log::info($log_txt);
   while (true) {
     try {
+      //if long time no kaij rzt ,exit loop
+
+    $shouldEndTimestmp=  strtotime("+480 seconds",strtotime($GLOBALS['addTime']));
+    $shdEndtime=date("Y-m-d H:i:s",$shouldEndTimestmp);
+    if( $shdEndtime<date("Y-m-d H:i:s"))
+      break;
+
+
+      //end
+
+
       require_once "startEvt.php";
       $kaipanInfo = getKaijRztBjl($qihao);
       if ($kaipanInfo)

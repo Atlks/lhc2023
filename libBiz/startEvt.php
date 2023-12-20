@@ -94,7 +94,8 @@ function kaipanInfo()  {
       $json=kaipanInfoCore();
       //if have rzt,already finish...next try
     //if  gameRecord is empty,,now new ju
-    // if gamerec hav val,,last ju..
+
+    // if gamerec hav val,,last ju.. old  ,no have new ju
       if($json['data'][0]['gameRecord'] && $json['data'][0]['gameRecord']!="")
       {
         //have val .last ju..
@@ -113,7 +114,9 @@ function kaipanInfo()  {
       }
 
       else
-      {//  no rezt,,new ju
+      {// gamerec no rezt,,new ju
+
+       $GLOBALS['addTime'] =$json['data'][0]['addTime'];
         return $json;
       }
 

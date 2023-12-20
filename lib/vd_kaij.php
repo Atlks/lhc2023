@@ -53,7 +53,7 @@ function kaijVd($startTime,$endTime,$vddir)
     if ($startTime <= $crtTime && $crtTime <= $endTime) {
       if($n%1000==0)
        var_dump($v);
-      rename($fullFil, $nowQihaoPicDr . $n . ".jpg");
+      copy($fullFil, $nowQihaoPicDr . $n . ".jpg");
       $n++;
     }
   }

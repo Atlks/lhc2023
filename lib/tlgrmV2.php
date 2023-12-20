@@ -16,7 +16,7 @@ function sendVideoV2 ($chatId,$outf){
       break;
     }catch (Throwable $e)
     {
-
+       var_dump($e);
     }
   }
 
