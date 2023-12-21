@@ -59,12 +59,12 @@ function main_kaij_draw_evt_bjl() {
   }
 
   //-------send kaij video
-  sendKaijVideo();
+  kaijRzt_sendKaijVideo();
 
 
 //------------------ gene pic rzt
   //  开奖结果图  zhuangyin syeyin
-  SendPicRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
+  kaijRzt_SendPic_kaijRztV2($GLOBALS['qihao'], $GLOBALS['kaij_rzt']);
 
   // 与走势图
   try {
@@ -99,7 +99,7 @@ function main_kaij_draw_evt_bjl() {
 /**
  * @return array
  */
-function sendKaijVideo() {
+function kaijRzt_sendKaijVideo() {
   try {
     $startTime = date("Y-m-d H:i:s", strtotime("-20 seconds"));
     //$GLOBALS['addTime'];
@@ -135,7 +135,7 @@ function sendKaijVideo() {
  * @throws \TelegramBot\Api\Exception
  * @throws \TelegramBot\Api\InvalidArgumentException
  */
-function SendPicRztV2($qihao, $rzt): void {
+function kaijRzt_SendPic_kaijRztV2($qihao, $rzt): void {
 
 
   require_once __DIR__ . "/../libBiz/bjl.php";
@@ -851,7 +851,7 @@ function jupelu_getRow(int $rowIdx, array $colss, $elmtWd): array {
 
 
 // show jonjyo list 中奖名单  gene zhongj lst pic
-function jonjyo_calcIncomeGrpby($lotteryno) {
+function jonjyo_bingoList_calcIncomeGrpby($lotteryno) {
   require_once __DIR__ . "/../lib/painLib.php";
   $outFile = __DIR__ . "/../public/betRztlist.jpg";
   delFile($outFile);

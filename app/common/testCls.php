@@ -30,7 +30,7 @@ class testCls extends Command {
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
 
 
-    sendKaijVideo();die();
+    kaijRzt_sendKaijVideo();die();
     trendPic_sendTrendPic();
     die();
 
@@ -101,7 +101,7 @@ class testCls extends Command {
 
 
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    \SendPicRztV2(232904, "闲赢");
+    \kaijRzt_SendPic_kaijRztV2(232904, "闲赢");
     die();
 
 
