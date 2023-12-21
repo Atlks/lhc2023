@@ -82,6 +82,7 @@ function mkdirv2(string $d) {
 
   try{
     mkdir($d);
+    error_clear_last();
   }catch (\Throwable $e){
   //  echo "----warning..";
    // var_dump($e);

@@ -371,6 +371,7 @@ function trendpic_createTrendImageV2($records) {
 
 
 //-------//meige paisywe zuida 60ge road map
+  require_once __DIR__."/../lib/bjl_dalu_paint.php";
   $records = $records['data'];
   $records = array_reverse($records);
   if (noKaijRztInLastRec($records))
