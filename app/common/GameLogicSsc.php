@@ -1162,9 +1162,9 @@ class GameLogicSsc {
     require_once __DIR__ . "/lotrySscV2.php";
 
 
-    require_once __DIR__ . "/../../libBiz/bjl.php";
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    $result_text = \getKaijRztBjl_retryX($gameNo);
+    require_once __DIR__ . "/../../libBiz/z_bjl.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
+    $result_text = \getKaijRztBjl_blkMode($gameNo);
     $GLOBALS['kaij_rzt']=$result_text;
     \think\facade\Log::debug("aft getKaijNumFromBlkhash:" . $gameNo);
 

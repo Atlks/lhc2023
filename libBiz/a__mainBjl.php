@@ -14,10 +14,10 @@ function main_processBjl() {
 
  // throw  new \think\Exception("eee");
 
-  require_once "startEvt.php";
-  require_once "betEvt.php";
-  require_once "fenpanEvt.php";
-  require_once "kaijEvt.php";
+  require_once "a_startEvt.php";
+  require_once "bet_Evt.php";
+  require_once "bet_stop_fenpanEvt.php";
+  require_once "kaij_Evt.php";
   global $lottery_no;
   $lottery_no = 111;
   // var_dump(  $lottery_no);die();
@@ -42,7 +42,7 @@ function main_processBjl() {
   global $lottery_no;
   // $lottery_no = 1133;
   echo "-------------------------开始投注----60s" . PHP_EOL;
-  require_once __DIR__."/../libBiz/startEvt.php";
+  require_once __DIR__ . "/../libBiz/a_startEvt.php";
   startBetEvtBjl();
   // $GLOBALS['kaijtime']
   // touzhu ,60then  warning  ,30 then stop  ,,30then kaij
@@ -64,6 +64,6 @@ function main_processBjl() {
   // $delay_to_statrt_Kaijyo_sec=chkRemainTime($delay_to_statrt_Kaijyo_sec);
   sleep($delay_to_statrt_Kaijyo_sec);
   //---------------------开奖流程
-  require_once __DIR__."/../libBiz/kaijEvt.php";
+  require_once __DIR__ . "/../libBiz/kaij_Evt.php";
   _main_kaij_draw_evt_bjl();
 }

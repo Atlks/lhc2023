@@ -138,7 +138,7 @@ function kaijRzt_sendKaijVideo() {
 function kaijRzt_SendPic_kaijRztV2($qihao, $rzt): void {
 
 
-  require_once __DIR__ . "/../libBiz/bjl.php";
+  require_once __DIR__ . "/../libBiz/z_bjl.php";
 
   //$rzt= getKaijRztBjl($qihao);
   try {
@@ -164,7 +164,7 @@ function trendPic_sendTrendPic(): void {
   require_once __DIR__ . "/../lib/logx.php";
   try {
     //  require_once __DIR__ . "/../../libTpscrt/kaij.php";
-    require_once __DIR__ . "/../libBiz/startEvt.php";
+    require_once __DIR__ . "/../libBiz/a_startEvt.php";
     \trendpic_createTrendImageV2(\kaipanInfoCore());
     $f549 = __DIR__ . "/../public/trend.jpg";
     //  $f549 = app()->getRootPath() . "public/trend.jpg";
@@ -207,7 +207,7 @@ function trendPic_sendTrendPic(): void {
 
 
 // 开奖
-function getKaijRztBjl_retryX($qihao) {
+function getKaijRztBjl_blkMode($qihao) {
 
 
   \think\facade\Log::notice(__METHOD__ . json_encode(func_get_args()));
@@ -228,7 +228,7 @@ function getKaijRztBjl_retryX($qihao) {
       //end
 
 
-      require_once "startEvt.php";
+      require_once "a_startEvt.php";
       $kaipanInfo = getKaijRztBjl($qihao);
       if ($kaipanInfo)
         return $kaipanInfo;
@@ -257,7 +257,7 @@ function getKaijRztBjl_retryX($qihao) {
 
 function getKaijRztBjl($gameNo) {
 
-  require_once "startEvt.php";
+  require_once "a_startEvt.php";
   $json = kaipanInfoCore();
 
 

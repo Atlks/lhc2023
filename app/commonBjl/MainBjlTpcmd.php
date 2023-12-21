@@ -12,8 +12,7 @@ use app\model\Setting;
 use think\view\driver\Php;
 use function libspc\log_err;
 
-//   C:\phpstudy_pro\Extensions\php\php8.0.2nts\php.exe C:\modyfing\jbbot\think swoole2
-global $BOT_TOKEN;
+ global $BOT_TOKEN;
 
 global $chat_id;
 //$bot_token = "6426986117:AAFb3woph_1zOWFS5cO98XIFUPcj6GqvmXc";  //sscNohk
@@ -52,7 +51,7 @@ class MainBjlTpcmd extends Command {
       \think\facade\Log::noticexx('这是一个自定义日志类型');
 
       // echo   iconv("gbk","utf-8","php中文待转字符");//把中文gbk编码转为utf8
-      require_once __DIR__ . "/../../libBiz/mainBjl.php";
+      require_once __DIR__ . "/../../libBiz/a__mainBjl.php";
       main_processBjl();
     } catch (\Throwable $exception) {
       $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";

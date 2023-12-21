@@ -84,7 +84,7 @@
 //function SendPicRztV2($qihao, $rzt): void {
 //
 //
-//  require_once __DIR__ . "/../libBiz/bjl.php";
+//  require_once __DIR__ . "/../libBiz/z_bjl.php";
 //
 //  //$rzt= getKaijRztBjl($qihao);
 //  try {
@@ -116,7 +116,7 @@
 // */
 //function sendTrendPic(): void {
 ////  require_once __DIR__ . "/../../libTpscrt/kaij.php";
-//  require_once __DIR__ . "/../libBiz/startEvt.php";
+//  require_once __DIR__ . "/../libBiz/a_startEvt.php";
 //  \createTrendImageV2(\kaipanInfoCore());
 //  $f549 = __DIR__ . "/../public/trend.jpg";
 //  //  $f549 = app()->getRootPath() . "public/trend.jpg";
@@ -138,7 +138,7 @@
 //  \think\facade\Log::info($log_txt);
 //  while (true) {
 //    try {
-//      require_once "startEvt.php";
+//      require_once "a_startEvt.php";
 //      $kaipanInfo = getKaijRztBjl($qihao);
 //
 //      return $kaipanInfo;
@@ -161,7 +161,7 @@
 //
 //function getKaijRztBjl($gameNo) {
 //
-//  require_once "startEvt.php";
+//  require_once "a_startEvt.php";
 //  $json = kaipanInfoCore();
 //
 //

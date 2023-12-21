@@ -1,6 +1,6 @@
 <?php
 
-//php dbKaijSrc/kaijsrc.php
+//php dbKaijSrc/zkaijsrc.php
 $seconds = 45;
 /**
  * @param int $seconds

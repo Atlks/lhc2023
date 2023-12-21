@@ -6,7 +6,7 @@
 //DaluPicV2Test();
 function DaluPicV2Test(){
 
-  require_once __DIR__ . "/../libBiz/startEvt.php";
+  require_once __DIR__ . "/../libBiz/a_startEvt.php";
   $records= \kaipanInfoCore();
   $records = $records['data'];
 

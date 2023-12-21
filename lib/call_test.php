@@ -7,7 +7,7 @@ $cmdArr=explode(" ",$cmd);
 
 require_once __DIR__ . "/../lib/vd_kaij.php";
 // $outf = (kaijVd($startTime, $endTime, $vddir));
-$outf= __DIR__ . "/../down/".date("Ymd_His")."_".rand().".mp4";
+$outf= __DIR__ . "/../down/" .date("Ymd_His")."_".rand().".mp4";
 $url="http://46.137.239.204/api.php?call=kaijVd_outputFile 20,$endTime";
 
 var_dump($outf);

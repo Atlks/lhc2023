@@ -24,10 +24,10 @@ class testCls extends Command {
 
     $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
     $GLOBALS['chat_id'] = -4038077884;
-    require_once __DIR__ . "/../../libBiz/startEvt.php";
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/a_startEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
 
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
 
 
     kaijRzt_sendKaijVideo();die();
@@ -53,11 +53,11 @@ class testCls extends Command {
 
 
 
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
     _main_kaij_draw_evt_bjl();
     die();
 
-    \getKaijRztBjl_retryX(158290);
+    \getKaijRztBjl_blkMode(158290);
     die();
 
 
@@ -67,18 +67,18 @@ class testCls extends Command {
 
 
 
-    \getKaijRztBjl_retryX(158289);
+    \getKaijRztBjl_blkMode(158289);
 
 
 
     $GLOBALS['qihao'] = 141919;
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
     trendPic_sendTrendPic();
     die();
 
     //---stgartg
 
-    require_once __DIR__ . "/../../libBiz/startEvt.php";
+    require_once __DIR__ . "/../../libBiz/a_startEvt.php";
     startBetEvtBjl();
     die();
 
@@ -87,7 +87,7 @@ class testCls extends Command {
     $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
     $GLOBALS['chat_id'] = 4038077884;
     $GLOBALS['qihao'] = 141919;
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
     trendPic_sendTrendPic();
     die();
 
@@ -95,12 +95,12 @@ class testCls extends Command {
     $GLOBALS['BOT_TOKEN'] = '6959066432:AAH9OgIspApiYStnaNyznl7mcJ_qPjBA7Fg';
     $GLOBALS['chat_id'] = 4038077884;
     $GLOBALS['qihao'] = 163645;
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
     _main_kaij_draw_evt_bjl();
     die();
 
 
-    require_once __DIR__ . "/../../libBiz/kaijEvt.php";
+    require_once __DIR__ . "/../../libBiz/kaij_Evt.php";
     \kaijRzt_SendPic_kaijRztV2(232904, "闲赢");
     die();
 
@@ -117,7 +117,7 @@ class testCls extends Command {
 
     //---stgartg
 
-    require_once __DIR__ . "/../../libBiz/startEvt.php";
+    require_once __DIR__ . "/../../libBiz/a_startEvt.php";
     startBetEvtBjl();
     die();
 

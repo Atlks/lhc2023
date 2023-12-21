@@ -531,7 +531,7 @@ function imagefilledellipseX($img, $center_x, $center_y, int $width, $height, $c
 //-----------------
   // $imageOut = imagecreatetruecolor($width, $width);
   imagecopyresampled($img, $imageX2, $center_x - ($width / 2), $center_y - ($width / 2), 0, 0, $width, $width, $bigPicWd, $bigPicWd);
-
+  error_clear_last();
 }
 
 function getColorV2($clrname, $img, $dfClr) {
