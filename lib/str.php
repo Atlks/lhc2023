@@ -10,6 +10,10 @@ function str_parseToFunExprs(mixed $funx): array {
 }
 
 
+function endsWith339($str, $needle) {
+  return $needle === '' || substr_compare($str, $needle, -strlen($needle)) === 0;
+}
+
 function cvt155($r)   {
   return iconv("ucs-2be", 'utf-8', pack('h4', $r[1]));
 }

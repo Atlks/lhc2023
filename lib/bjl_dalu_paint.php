@@ -3,7 +3,7 @@
 
 
 
-DaluPicV2Test();
+//DaluPicV2Test();
 function DaluPicV2Test(){
 
   require_once __DIR__ . "/../libBiz/startEvt.php";
@@ -179,6 +179,7 @@ function dalu_setXY_dalu(array $records) {
 
       $lastball['aftHe'] = $lastball['aftHe'] + 1;
       //replace
+      require_once "arr.php";
       array_replace_lastone($arr911,$lastball);
 
       continue;
@@ -240,3 +241,92 @@ function dalu_setXY_dalu(array $records) {
 
 
 }
+
+
+function noKaijRztInLastRec($records) {
+
+  $last=end($records);
+  if($last['gameRecord']=="")
+    return true;
+  else
+    return  false;
+}
+
+
+
+//  lewis, [08/12/2023 2:27 pm]
+//A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+// B:0无对 1 庄对 2 闲对 3 庄闲对
+
+//比如这个3$0 就是 闲，0表示无对子
+function cvt_hz_rzt($rec) {
+  $rzt_Int = explode("$", $rec['gameRecord'])[0];
+  $arr = [1 => "庄", 2 => "和", 3 => "闲"];
+  $arr_idclr = [1 => "red", 2 => "green", 3 => "blue"];
+  if(array_key_exists($rzt_Int,$arr))
+  {
+    $rec['rzt']=$arr[$rzt_Int];
+    $rec['idclr']=$arr_idclr[$rzt_Int];
+    return $rec;
+  }
+
+  else
+  {
+    $rec['rzt']="";
+    $rec['idclr']="";
+    return $rec;
+  }
+
+}
+
+
+/**
+ * //A$B 表示一个露珠，A:1 庄 2和 3闲 4 龙 5 龙虎的和 6 虎
+ * //  B:0无对 1 庄对 2 闲对 3 庄闲对
+ */
+function calcTxtNclr($rzt) {
+
+
+  $a = explode("$", $rzt);
+
+  $win = "";
+  $curClrTxtBkgrd = "";
+  $duiz = "无对";
+
+  $a = explode("$", $rzt);
+  if ($rzt == "")
+    return array($win, $curClrTxtBkgrd, $duiz);
+
+  if ($a[0] == 1) {
+    $win = "庄";
+
+    $curClrTxtBkgrd = "red";
+  }
+
+
+  if ($a[0] == 2) {
+    $win = "和";
+
+    $curClrTxtBkgrd = "green";
+  }
+
+  if ($a[0] == 3) {
+
+    $win = "闲";
+
+    $curClrTxtBkgrd = "blue";
+  }
+
+  if ($a[1] == 1) {
+    $duiz = "庄对";
+  }
+  if ($a[1] == 2) {
+    $duiz = "闲对";
+  }
+  if ($a[1] == 3) {
+    $duiz = "庄闲对";
+  }
+
+  return array($win, $curClrTxtBkgrd, $duiz);
+}
+

@@ -1,5 +1,8 @@
 <?php
-
+function array_replace_lastone(&$arr911, $lastball) {
+  array_pop($arr911);
+  array_push($arr911,$lastball);
+}
 function getRowCells(int $rowIdx, array $colss, $f ): array {
   $a = [];
 
@@ -41,7 +44,7 @@ function getRowCells(int $rowIdx, array $colss, $f ): array {
  * @param $records
  * @return array
  */
-function spltToCols($records,$perColRowsCnt): array {
+function spltToCols($records, $perColRowsCnt): array {
 
 
   $colss = [];

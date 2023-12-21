@@ -31,7 +31,7 @@ class testCls extends Command {
 
 
     sendKaijVideo();die();
-    sendTrendPic();
+    trendPic_sendTrendPic();
     die();
 
 
@@ -54,7 +54,7 @@ class testCls extends Command {
 
 
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    kaij_draw_evt_bjl();
+    main_kaij_draw_evt_bjl();
     die();
 
     \getKaijRztBjl_retryX(158290);
@@ -73,7 +73,7 @@ class testCls extends Command {
 
     $GLOBALS['qihao'] = 141919;
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    sendTrendPic();
+    trendPic_sendTrendPic();
     die();
 
     //---stgartg
@@ -88,7 +88,7 @@ class testCls extends Command {
     $GLOBALS['chat_id'] = 4038077884;
     $GLOBALS['qihao'] = 141919;
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    sendTrendPic();
+    trendPic_sendTrendPic();
     die();
 
     //---------------------开奖流程
@@ -96,7 +96,7 @@ class testCls extends Command {
     $GLOBALS['chat_id'] = 4038077884;
     $GLOBALS['qihao'] = 163645;
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    kaij_draw_evt_bjl();
+    main_kaij_draw_evt_bjl();
     die();
 
 

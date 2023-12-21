@@ -1279,7 +1279,7 @@ class GameLogicSsc {
       . "=====本期中奖名单======" . "\r\n";
 
     //----------show jonjyo list 中奖名单 pic gene
-    $text = $text . calcIncomeGrpby($gameNo);
+    $text = $text . jonjyo_calcIncomeGrpby($gameNo);
 
     var_dump($text);
     $lineNumStr = __FILE__ . ":" . __LINE__ . " f:" . __FUNCTION__ . " m:" . __METHOD__ . "  ";
