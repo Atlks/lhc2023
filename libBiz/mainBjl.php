@@ -65,5 +65,5 @@ function main_processBjl() {
   sleep($delay_to_statrt_Kaijyo_sec);
   //---------------------开奖流程
   require_once __DIR__."/../libBiz/kaijEvt.php";
-  main_kaij_draw_evt_bjl();
+  _main_kaij_draw_evt_bjl();
 }

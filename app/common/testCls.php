@@ -54,7 +54,7 @@ class testCls extends Command {
 
 
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    main_kaij_draw_evt_bjl();
+    _main_kaij_draw_evt_bjl();
     die();
 
     \getKaijRztBjl_retryX(158290);
@@ -96,7 +96,7 @@ class testCls extends Command {
     $GLOBALS['chat_id'] = 4038077884;
     $GLOBALS['qihao'] = 163645;
     require_once __DIR__ . "/../../libBiz/kaijEvt.php";
-    main_kaij_draw_evt_bjl();
+    _main_kaij_draw_evt_bjl();
     die();
 
 

@@ -6,7 +6,7 @@
 use function app\commonBjl\SendPicRzt;
 use function libspc\log_err;
 
-function main_kaij_draw_evt_bjl() {
+function _main_kaij_draw_evt_bjl() {
   $GLOBALS['kaij_rzt'] = "";
   $draw_str = "console:" . $GLOBALS['qihao'] . "期开奖中..console";
   //  sendmessage841($draw_str);
@@ -622,6 +622,7 @@ function jupelu_getRow(int $rowIdx, array $colss, $elmtWd): array {
     if ($rowIdx == 4 && $colIdx == 5)
       echo 3;
     //  echo "rowIdx" . $rowIdx . " colIdx" . $colIdx . "\r\n";
+  // last ball maybe not full row
     if ($rowIdx >= count($col))
       break;
     $cell = $col[$rowIdx];
