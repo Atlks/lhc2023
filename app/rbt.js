@@ -16,3 +16,15 @@ robot.moveMouse(centerX, centerY);
 
 // 点击鼠标左键
 robot.mouseClick();
+
+
+
+// Type "Hello World".
+robot.typeString("功He成功了");
+
+// Press enter.
+robot.keyTap("enter");
+
+
+C:\0prj\Tesseract\tesseract.exe C:\0prj\ocrtest.jpg   C:\0prj\ocrout\ocrtest -l chi_sim
+C:\Tesseract-OCR\tesseract.exe C:\0prj\ocrtest.jpg   C:\0prj\ocrout\ocrtest -l chi_sim
