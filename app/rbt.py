@@ -15,7 +15,7 @@ pyautogui.scroll(-10000*9999)
 count = 0
 while (count < 9):
    pyautogui.scroll(-999) 
-   time.sleep(0.5)
+   time.sleep(0.1)
    
  
 

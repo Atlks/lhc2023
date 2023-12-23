@@ -55,6 +55,9 @@ function saveScrDsktp(dir) {
 
             console.log(t)
 
+            if(t.conta)
+                //开始下汪
+
 
         }
 
