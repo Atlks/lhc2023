@@ -39,6 +39,7 @@
     "node-xlsx": "^0.23.0",
     "pouchdb": "^8.0.1",
     "puppeteer": "^21.6.0",
+    "querystring": "^0.2.1",
     "request": "^2.88.2",
     "robotjs": "^0.6.0",
     "silly-datetime": "^0.1.2",

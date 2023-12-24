@@ -6,6 +6,8 @@ import numpy as np
 
 import sys
 
+
+# --------------- invk in js------
 sys.path.append('D:\\python_module')
 sys.path.append('C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages')
 sys.path.append('C:\\0prj\\lhc2023\\venv\\Lib\\site-packages')
