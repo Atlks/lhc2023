@@ -1,43 +1,61 @@
 setInterval(() => {
 
     main()
-}, 1000*999)
-  main()
+}, 1000 * 999)
+main()
 
 
 function main() {
-    const {exec, execSync} = require('child_process');
-
-    python = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
- // python="python"
-
-   //jpg =C:/0prj/lhc2023/startPic.jpg
-    prm="img=C:/0prj/lhc2023/startPic.jpg&confidence=0.95&region=0,0,900,1111&grayscale=true";
-    const prmstr_encode = escapeshellarg(prm);
-    cmd = `${python} locateOnScreen.py ${prmstr_encode}`
-    console.log(cmd)
 
 
-    //escapeshellarg
-    // cmd=`${python} t.py`
-    try{
-          $rzt = execSync(cmd, {  cwd: process.cwd()  })
+    // python="python"
 
-            let message = $rzt.toString();
-            message = message.trim()
+    //jpg =C:/0prj/lhc2023/startPic.jpg
 
-            console.log(message)
+    // pythofil = "locateOnScreen.py"
+    // prm = "img=C:/0prj/lhc2023/startPic.jpg&confidence=0.95&region=0,0,900,1111&grayscale=true";
 
-            if (message.includes("Box(left="))
-                console.log("!!!!!!!! rzt true")
-    }catch (e){
+
+    let args = [
+        "locateOnScreen.py",
+        "img=C:/0prj/lhc2023/startPic.jpg&confidence=0.95&region=0,0,900,1111&grayscale=true"
+
+    ]
+
+
+    let python = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+
+    try {
+        let message = execFil(python, args);
+
+        if (message.includes("Box(left="))
+            console.log("!!!!!!!! rzt true")
+    } catch (e) {
         console.log(e.message)
     }
 
 }
 
 
+function execFil(execFile, args) {
 
+    const {execFileSync, exec, execSync} = require('child_process');
+
+    $rzt = execFileSync(execFile, args, {
+        encoding: "utf-8",
+        windowsHide: true,
+        cwd: process.cwd(),
+        timeout: 5000,
+        maxBuffer: 10 * 1024 * 1024,
+        shell:false
+    })
+
+    let message = $rzt.toString();
+    message = message.trim()
+
+    console.log(message)
+    return message;
+}
 
 function qryStr2obj(prm) {
     // prmOBJ=  new URLSearchParams(prm).get("grayscale") not work
@@ -48,14 +66,13 @@ function qryStr2obj(prm) {
 }
 
 
-
 function escapeshellarg(prm) {
-return  '"'+prm+'"';
-   // return encodeURIComponent(prm)
+    return '"' + prm + '"';
+    // return encodeURIComponent(prm)
 }
 
 function escapeshellarg342() {
     var prmOBJ = qryStr2obj(prm);
-  let   prmstr = JSON.stringify(prmOBJ)
+    let prmstr = JSON.stringify(prmOBJ)
     return encodeURIComponent(prmstr)
 }
