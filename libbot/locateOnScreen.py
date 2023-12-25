@@ -58,7 +58,12 @@ if(grayscale=="true"):
 else:
     grayscale= False
 img=querys['img'][0]
-loc = pyautogui.locateOnScreen(img, confidence=confidence, region=region, grayscale=grayscale)
 
-#3 print(os.getcwd())
-print(loc)
+try:
+    loc = pyautogui.locateOnScreen(img, confidence=confidence, region=region, grayscale=grayscale)
+
+    #3 print(os.getcwd())
+    print(loc)
+
+except:
+    print("not_find_ex")

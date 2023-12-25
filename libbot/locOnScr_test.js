@@ -5,9 +5,7 @@ setInterval(() => {
 main()
 
 
-function main() {
-
-
+function isBetStat() {
     // python="python"
 
     //jpg =C:/0prj/lhc2023/startPic.jpg
@@ -29,10 +27,18 @@ function main() {
         let message = execFil(python, args);
 
         if (message.includes("Box(left="))
+        {
             console.log("!!!!!!!! rzt true")
+            return true
+        }
+
     } catch (e) {
         console.log(e.message)
     }
+}
+
+function main() {
+    isBetStat();
 
 }
 
