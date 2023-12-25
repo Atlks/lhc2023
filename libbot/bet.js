@@ -8,10 +8,19 @@ setTimeout(() => {
         main()
     }, 2000)
 
+
+    setInterval(() => {
+
+
+        scrool()
+    }, 1000)
+
+
 }, 5000)
 
 
 function main() {
+
 
     if (isBetStat()) {
         console.log("!!! now stat is start")
@@ -119,5 +128,32 @@ function typeStr(txt) {
         //console.log(message)
     } catch (e) {
         console.log(e.message)
+    }
+}
+
+
+function  scrool()
+{
+    require(__dirname + "/../lib/exec212.js")
+
+    let python = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+
+    let pos=-50*1000
+
+    let args = [
+        "mouseScrool.py",
+        pos
+
+    ]
+
+
+    try {
+        let message = execFileX(python, args);
+
+
+
+    } catch (e) {
+        console.log(e.message)
+
     }
 }
