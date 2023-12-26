@@ -51,9 +51,6 @@ function _main() {
 
     if (nowStat == "start") {
 
-
-
-
       //  while (alredyBetAmt<=betAmt)
 
         if(alredyBetAmt>betAmt)
@@ -67,7 +64,9 @@ function _main() {
 
         let  fnlMny=getRdmMny4bet()
 
-        typeStr(btstr+fnlMny+"{enter}")
+        let line = rdmBetLine();
+
+        typeStr(line+"{enter}")
 
 
 
@@ -91,7 +90,21 @@ function getRdmMny4bet() {
     return  fnlMny
 }
 
+function rdmBetLine() {
+    const fs = require('fs');
 
+
+    // read contents of the file
+    const data = fs.readFileSync(__dirname + '/../cfgBot/bets.txt', 'UTF-8');
+
+    // split the contents by new line
+    const lines = data.split(/\r?\n/);
+
+    rdm = Random(0, lines.length - 1)
+
+    let line = lines[rdm];
+    return line;
+}
 
 function Random(min, max) {
     return Math.round(Math.random() * (max - min)) + min;
