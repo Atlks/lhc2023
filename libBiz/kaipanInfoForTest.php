@@ -4,6 +4,8 @@ geneQihao(45);
 var_dump("LLLL4");
 
 function geneQihao($seconds): void {
+
+  $countdownSeconds = 30;
   $f = __DIR__ . "/../dbKaijSrc/kaijsrc.json";
   $json = file_get_contents_Asjson($f);
   array_removeElmt($json['data'], 59, 500);
@@ -13,7 +15,8 @@ function geneQihao($seconds): void {
   // $dataJsonCur=["data"=>[]];
   $dttm = date("Y-m-d H:i:s");
   $gameNo = date("His");
-  $newJu = ["addTime" => date("Y-m-d H:i:s"), "tableNo" => "南海", "shoeNo" => 1, "juNo" => 2, "gameRecord" => "", "addTime" => $dttm, "countdownSeconds" => 30, "gameNo" => $gameNo];
+
+  $newJu = ["addTime" => date("Y-m-d H:i:s"), "tableNo" => "南海", "shoeNo" => 1, "juNo" => 2, "gameRecord" => "", "addTime" => $dttm, "countdownSeconds" => $countdownSeconds, "gameNo" => $gameNo];
   array_insertHead($json['data'], $newJu);
   file_put_contents($f, json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 

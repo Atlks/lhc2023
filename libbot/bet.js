@@ -1,11 +1,19 @@
 var nowStat = "stop"
+
+const robot = require('robotjs');
+// 移动鼠标到中心位置
+robot.moveMouse(288, 1064);
+// 点击鼠标左键
+ robot.mouseClick();
+robot.moveMouse(288, 800);
+robot.scrollMouse(500, "down")
 setTimeout(() => {
 
     setInterval(() => {
 
 
         console.log("\r\n\n\n\n\n")
-        main()
+        _main()
     }, 2000)
 
 
@@ -19,7 +27,7 @@ setTimeout(() => {
 }, 5000)
 
 
-function main() {
+function _main() {
 
 
     if (isBetStat()) {

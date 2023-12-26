@@ -3,10 +3,29 @@
 
 use function libspc\log_err;
 
+function BotApi_sendVideo($chatId,$outf){
+
+  for($i=0;$i<5;$i++)
+  {
+    try{
+      $cfile = new \CURLFile($outf);
+      $bot = new \TelegramBot\Api\BotApi($GLOBALS['BOT_TOKEN']);
+
+      $rzt=  $bot->sendVideo($chatId, $cfile);
+      break;
+    }catch (Throwable $e)
+    {
+      var_dump($e);
+    }
+  }
+
+
+}
+
 
 function sendVideoV2 ($chatId,$outf){
 
-  for($i=0;$i<3;$i++)
+  for($i=0;$i<5;$i++)
   {
     try{
       $cfile = new \CURLFile($outf);
