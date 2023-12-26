@@ -8,7 +8,7 @@ robot.mouseClick();
 robot.moveMouse(288, 800);
 robot.scrollMouse(500, "down")
 
-var betAmt=5;
+var betAmt=3;
 var alredyBetAmt=0;
 setTimeout(() => {
 
@@ -19,7 +19,7 @@ setTimeout(() => {
         console.log("\r\n\n\n\n\n")
         _main()
 
-    }, 5000)
+    }, 3000)
 
 
     setInterval(() => {
@@ -36,11 +36,17 @@ setTimeout(() => {
 
 function _main() {
 
+    dbgObj={"betAmt":betAmt,"alredyBetAmt":alredyBetAmt}
+    console.log(dbgObj)
+
 
     if (isBetStat() && nowStat == "stop") {
         console.log("!!! now stat is start")
         nowStat = "start"
-        betAmt=Random(1,5)
+        let a=[2,2,2,1,1,1,3,4,5,6]
+        betAmt=a[Random(0,9)]
+            //Random(1,5)
+        alredyBetAmt=0
     }
 
 
@@ -53,7 +59,7 @@ function _main() {
 
       //  while (alredyBetAmt<=betAmt)
 
-        if(alredyBetAmt>betAmt)
+        if(alredyBetAmt>=betAmt)
             return
         alredyBetAmt++;
 
@@ -115,14 +121,16 @@ function isBetStat() {
     require(__dirname + "/../lib/exec212.js")
 
 
+    startfile=__dirname+"/../cfgBot/start.jpg"
+
     let args = [
         "locateOnScreen.py",
-        "img=C:/0prj/lhc2023/startPic.jpg&confidence=0.95&region=0,0,900,1111&grayscale=true"
+        `img=${startfile}&confidence=0.8&region=0,0,900,1111&grayscale=true`
 
     ]
 
 
-    let python = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+    let python =__dirname+"/../Python312/python.exe"
 
     try {
         let message = execFileX(python, args);
@@ -140,14 +148,17 @@ function isBetStat() {
 }
 
 function isStop() {
+
+
+    startfile=__dirname+"/../cfgBot/stop.jpg"
     let args = [
         "locateOnScreen.py",
-        "img=C:/0prj/lhc2023/stop.jpg&confidence=0.8&region=0,0,900,1111&grayscale=true"
+        `img=${startfile}&confidence=0.8&region=0,0,900,1111&grayscale=true`
 
     ]
 
 
-    let python = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+    let python =__dirname+"/../Python312/python.exe"
 
     try {
         let message = execFileX(python, args);
@@ -183,7 +194,7 @@ function typeStr(txt) {
 
     console.log(JSON.stringify(args))
 
-    let exeFile = "C:\\prgrm\\AutoIt3\\AutoIt3_x64.exe"
+    let exeFile = __dirname+"/../AutoIt3/AutoIt3_x64.exe"
 
     try {
         let message = execFileX(exeFile, args);
