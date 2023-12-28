@@ -2,13 +2,15 @@ var nowStat = "stop"
 
 
 const robot = require('robotjs');
-// 移动鼠标到中心位置
+//移动鼠标到中心位置
 robot.moveMouse(288, 1064);
 // 点击鼠标左键
 robot.mouseClick();
-robot.moveMouse(288, 800);
+robot.moveMouse(288, 700);
 robot.scrollMouse(500, "down")
-
+require(__dirname+"/../libbot/bot.js")
+let pos = -50 * 500
+scroolX(pos)
 
 setTimeout(() => {
 
@@ -24,9 +26,12 @@ setTimeout(() => {
 
     setInterval(() => {
 
-
-        scrool()
-    }, 1000)
+        robot.moveMouse(288, 700);
+        // # abt 50just one line
+          let pos = -50 * 500
+        require(__dirname+"/../libbot/bot.js")
+         scroolX(pos)
+    }, 3000)
 
 
 }, 2000)
@@ -62,34 +67,6 @@ function _main() {
 }
 
 
-function scrool() {
-
-
-
-
-    require(__dirname + "/../lib/exec212.js")
-
-    let python = __dirname+"/../Python312/python.exe"
-// # abt 50just one line
-    let pos = -50 * 50
-
-    let args = [
-        __dirname+"/../libbot/mouseScrool.py",
-        pos
-
-    ]
-
-
-    try {
-        let message = execFileX(python, args);
-
-
-    } catch (e) {
-        console.log(e.message)
-
-    }
-}
-
 function isBetStat() {
 
     require(__dirname + "/../lib/exec212.js")
@@ -99,7 +76,7 @@ function isBetStat() {
 
     let args = [
         "locateOnScreen.py",
-        `img=${startfile}&confidence=0.8&region=0,0,900,1111&grayscale=true`
+        `img=${startfile}&confidence=0.8&region=0,0,700,1111&grayscale=true`
 
     ]
 
@@ -127,7 +104,7 @@ function isStop() {
     startfile=__dirname+"/../cfgBot/stop.jpg"
     let args = [
         "locateOnScreen.py",
-        `img=${startfile}&confidence=0.8&region=0,0,900,1111&grayscale=true`
+        `img=${startfile}&confidence=0.8&region=0,0,700,1111&grayscale=true`
 
     ]
 
