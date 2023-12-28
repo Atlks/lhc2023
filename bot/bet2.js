@@ -1,24 +1,13 @@
+require("../lib/errHdlr")
 
-// node C:\0prj\lhc2023\bot\bet1.js 400
 var nowStat = "stop"
 
 const robot = require('robotjs');
 // 移动鼠标到中心位置
-const args = process.argv.slice(2)
-
-if(args.length==0)
-{
-    console.log("args.length==0")
-    process.exit(1)
-}
-global['x'] =args[0];
+const x = 800;
 // robot.moveMouse(x, 1064);
 // // 点击鼠标左键
 // robot.mouseClick();
-console.log("args::"+JSON.stringify(args))
-
-
-require("../lib/errHdlr")
 
 
 var betAmt = 3;
@@ -31,7 +20,7 @@ setTimeout(() => {
 
     setInterval(async () => {
 
-
+        console.log("\r\n\n\n\n\n")
         await _main()
 
     }, 3000)
@@ -39,14 +28,8 @@ setTimeout(() => {
 
 }, 2000)
 
-setTimeout(()=>{
-    process.exit(1)
-},20000)
-
 
 async function _main() {
-    console.log("\n-----------------------------\r\n\n\n\n\n")
-    console.log("!!! FUN main()")
 
   //  throw 999
 
@@ -74,8 +57,8 @@ async function _main() {
 
         //  while (alredyBetAmt<=betAmt)
 
-        // if (alredyBetAmt >= betAmt)
-        //     return
+        if (alredyBetAmt >= betAmt)
+            return
         alredyBetAmt++;
 
         // let betstr_a = ['闲', '庄']
@@ -90,7 +73,7 @@ async function _main() {
 
         const robot = require('robotjs');
 // 移动鼠标到中心位置
-        robot.moveMouse(global['x'] , 1064);
+        robot.moveMouse(x, 1064);
 // 点击鼠标左键
         robot.mouseClick();
         typeStr(line + "{enter}")
@@ -98,16 +81,10 @@ async function _main() {
 
     }
 
-    console.log("!!! endfun main() ret ...")
-
 }
 
 
-
 async function isBetStat() {
-
-    console.log("\n\n")
-    console.log("!!! FUN isBetStat()")
     require(__dirname + "/../lib/http2023.js")
     require(__dirname + "/../lib/log.js")
     require(__dirname + "/../lib/logger.js")
@@ -118,19 +95,13 @@ async function isBetStat() {
     url = "http://46.137.239.204/stat.txt"
 
     stt = await http_get(url)
-
     if (stt == "start")
-    {
-        console.log(">>> endfun isBetStat() RET TRUE")
         return true
-    }
-    console.log(">>> endfun isBetStat() RET FALSE")
 
 }
 
 async function isStop() {
-    console.log("\n\n")
-    console.log("!!! FUN isStop()")
+
     require(__dirname + "/../lib/http2023.js")
     require(__dirname + "/../lib/log.js")
     require(__dirname + "/../lib/logger.js")
@@ -143,18 +114,9 @@ async function isStop() {
 
     let stt = await http_get(url)
     if (stt == "stop")
-    {
-        console.log(">>> endfun isStop() RET TRUE")
         return true
-
-    }
-
     else
-    { console.log(">>> endfun isStop() RET FALSE")
         return false;
-
-    }
-
 
 }
 

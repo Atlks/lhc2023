@@ -1,4 +1,10 @@
 function typeStr(txt) {
+    console.log("\n\n")
+
+    var funname = arguments.callee.name;
+    let  arg = JSON.stringify(arguments);
+    console.log("!!! FUN "+funname+arg)
+
     require(__dirname + "/../lib/exec212.js")
 
     // exeFile="exeFile"
@@ -15,18 +21,21 @@ function typeStr(txt) {
     ]
 
 
-    console.log(JSON.stringify(args))
+    console.log("execFileX_args=>" +JSON.stringify(args))
 
     let exeFile = __dirname+"/../AutoIt3/AutoIt3_x64.exe"
 
     try {
         let message = execFileX(exeFile, args);
+        console.log(">>> endfun  typeStr()")
         return message
 
         //console.log(message)
     } catch (e) {
         console.log(e.message)
     }
+
+
 }
 
 global['typeStr']=typeStr

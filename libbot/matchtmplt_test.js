@@ -6,7 +6,7 @@ setInterval(() => {
 function main() {
     const {exec, execSync} = require('child_process');
 
-    python = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+    exeFil811 = "C:\\Users\\attil\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
 // python="python"
     cmd = `${python} matchTmplt.py`
 
