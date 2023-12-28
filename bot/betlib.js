@@ -1,6 +1,6 @@
 
 
-
+global['getRdmMny4bet']=getRdmMny4bet
 function getRdmMny4bet() {
 
     let  mny0_a=[100,1000]
@@ -13,7 +13,7 @@ function getRdmMny4bet() {
     let fnlMny=mny*nmy0;
     return  fnlMny
 }
-
+global['rdmBetLine']=rdmBetLine
 function rdmBetLine() {
     const fs = require('fs');
 
@@ -29,7 +29,7 @@ function rdmBetLine() {
     let line = lines[rdm];
     return line;
 }
-
+global['Random']=Random
 function Random(min, max) {
     return Math.round(Math.random() * (max - min)) + min;
 }
