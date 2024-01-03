@@ -97,6 +97,7 @@ function startBetEvtBjl() {
 
 require_once  __DIR__."/../lib/http.php";
 kaipanInfo() ;
+ logV3();
 function kaipanInfo()  {
 
   while(true)

@@ -91,8 +91,8 @@ function isBetStat() {
     startfile=__dirname+"/../cfgBot/start.jpg"
 
     let args = [
-        "locateOnScreen.py",
-        `img=${startfile}&confidence=0.8&region=0,0,700,1111&grayscale=true`
+        __dirname+"/../libbot/locateOnScreen.py",
+        `img=${startfile}&confidence=0.6&region=0,0,500,1111&grayscale=true`
 
     ]
 
@@ -128,8 +128,8 @@ function isStop() {
     console.log("!!! FUN isStop()")
     startfile=__dirname+"/../cfgBot/stop.jpg"
     let args = [
-        "locateOnScreen.py",
-        `img=${startfile}&confidence=0.6&region=0,0,700,1111&grayscale=true`
+        __dirname+"/../libbot/locateOnScreen.py",
+        `img=${startfile}&confidence=0.6&region=0,0,500,1111&grayscale=true`
 
     ]
 
