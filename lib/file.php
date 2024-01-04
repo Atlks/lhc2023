@@ -50,6 +50,11 @@ function deldir($dir) {
   }
 }
 
+function file_get_contents_Arr(string $f) {
+
+  return file($f);
+}
+
 function file_get_contents_Asjson($f) {
   $t=file_get_contents($f);
   $json = json_decode($t, true);
