@@ -39,9 +39,9 @@ function dwn($f77): void {
 
   $path_parts = pathinfo($f77, PATHINFO_BASENAME);
 
-  if(!file_exists("pic/" . $path_parts))
+  if(!file_exists("pic_aft85/" . $path_parts))
   {
-    file_put_contents("pic/" . $path_parts, file_get_contents($absurl));
+    file_put_contents("pic_aft85/" . $path_parts, file_get_contents($absurl));
 
   }
   var_dump($path_parts);
