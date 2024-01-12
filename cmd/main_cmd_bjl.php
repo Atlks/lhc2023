@@ -15,13 +15,14 @@ require_once __DIR__ . "/../lib/ex.php";
 require_once __DIR__ . "/../lib/iniAutoload.php";
 
 while (true) {
+
     try {
 
         $phpexe = "php";
         // $tlghr_msg_hdl = " C:\\w\\jbbot\\tlgrmHdl_temacyo.php ";
-        $filename = __DIR__ . "/../think";
+        $filename = __DIR__ . "/../libBiz/a__mainBjl.php";
         //$filename = __DIR__ . "/ech.php";
-        $cmd = $phpexe . " " . $filename . " MainBjlTpcmd";  //$prm
+        $cmd = $phpexe . " " . $filename . " ";  //$prm
         var_dump($cmd);
       //  exec($cmd);
         log23::zdbg11(__METHOD__,"cmd",$cmd);

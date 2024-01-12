@@ -14,6 +14,7 @@ return [
 
 
       'testx' => 'app\common\testCls',
+      'imptTP'=> '\calltpx',
         
     ],
 ];

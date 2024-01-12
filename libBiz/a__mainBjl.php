@@ -8,7 +8,21 @@ use function app\commonBjl\getBettimeRemain;
 use function app\commonBjl\getStopRemaintime;
 use function app\commonBjl\getWarningBetTimeRemain;
 
-function main_processBjl() {
+
+require_once __DIR__ . "/../libBiz/zautoload.php";
+require_once __DIR__ . "/../lib/tlgrmV2.php";
+require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . "/../lib/calltpx.php";
+// require_once __DIR__ . "/fenpan.php";
+
+
+// 应用初始化
+$console = (new \think\App())->console;
+//$console->$catchExceptions=false;
+$console->call("imptTP");
+
+_main_processBjl();
+function _main_processBjl() {
 
   $GLOBALS['qihao']="";
 
