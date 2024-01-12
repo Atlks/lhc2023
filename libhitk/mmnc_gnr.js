@@ -1,10 +1,12 @@
 require("./enc")
 require("./mmnc")
-
-basewd="fff"  // f
+var ini = require('ini');
+const {readFileSync,writeFileSync,appendFileSync} = require("fs");
+var config = ini.parse(readFileSync('c:/aa/cfg.json', 'utf-8'));
+basewd=config.bswd // f
 offst=1;
-slt=""
-let i=10;
+slt=config.st
+let i=1;
 // for(let i=1;i<10;i++)
 // {
 //     console.log("\r\n\r\n\r\n---------------\r\n")
@@ -32,7 +34,7 @@ setInterval(()=>{
     console.log(mmnc)
 
     i++
-},500)
+},100)
 
 // setTimeout(()=>{
 //
